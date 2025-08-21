@@ -13,7 +13,7 @@ plugins:
 
 # Author info
 author:
-  name: "Sébastien SIME"
+  name: "Sébastien Sime"
   email: "sebastien.s@datascientest.com"
 
 # Blog settings
@@ -29,6 +29,9 @@ header_pages:
 github_username: ssime-git
 # twitter_username: your_twitter
 # linkedin_username: your_linkedin
+
+# Hide GitHub repository link
+show_downloads: false
 
 # Google Analytics (optional - add your tracking ID)
 # google_analytics: UA-XXXXXXXX-X

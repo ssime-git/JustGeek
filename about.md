@@ -32,8 +32,9 @@ Because sometimes the best way to explain complex technology is to embrace our i
 
 ## Get In Touch
 
-- **GitHub**: [ssime-git](https://github.com/ssime-git)
+- **Email**: [Drop me a line](mailto:sebastien.s@datascientest.com)
+- **Contact**: Feel free to reach out for collaboration or questions
 
 ---
 
-*"The best way to learn is to teach, and the best way to teach is to share."* Someone.
+*"The best way to learn is to teach, and the best way to teach is to share."* Someone
