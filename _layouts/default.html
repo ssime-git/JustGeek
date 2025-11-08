@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% include head.html %}
+<body>
+  {% include nav.html %}
+
+  <main class="main-content">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  {% include footer.html %}
+
+  <script>
+    // Dark mode toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+      body.classList.add('dark-mode');
+      if (themeToggle) themeToggle.textContent = '☀️ Light';
+    }
+
+    // Theme toggle click handler
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+
+        let theme = 'light';
+        if (body.classList.contains('dark-mode')) {
+          theme = 'dark';
+          themeToggle.textContent = '☀️ Light';
+        } else {
+          themeToggle.textContent = '🌙 Dark';
+        }
+        localStorage.setItem('theme', theme);
+      });
+    }
+  </script>
+</body>
+</html>

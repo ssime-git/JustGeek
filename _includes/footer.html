@@ -1,0 +1,38 @@
+<footer class="footer">
+  <div class="footer-content">
+    <ul class="footer-links">
+      {% if site.github_username %}
+      <li>
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" aria-label="GitHub">
+          GitHub
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site.twitter_username %}
+      <li>
+        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" aria-label="Twitter">
+          Twitter
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site.linkedin_username %}
+      <li>
+        <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+          LinkedIn
+        </a>
+      </li>
+      {% endif %}
+
+      <li>
+        <a href="{{ site.baseurl }}/feed.xml" target="_blank" rel="noopener" aria-label="RSS Feed">
+          RSS
+        </a>
+      </li>
+    </ul>
+
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+    <p class="text-muted">{{ site.description }}</p>
+  </div>
+</footer>

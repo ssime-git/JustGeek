@@ -6,38 +6,16 @@ permalink: /archive/
 
 # All Posts
 
-<div class="posts-archive">
+<div class="post-list">
   {% for post in site.posts %}
-    <div class="post-item">
-      <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-      <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
-    </div>
+    <article class="post-item">
+      <div class="post-meta">{{ post.date | date: "%B %d, %Y" }}</div>
+      <h3 class="post-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h3>
+      {% if post.excerpt %}
+        <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+      {% endif %}
+    </article>
   {% endfor %}
 </div>
-
-<style>
-.posts-archive {
-  margin-top: 2rem;
-}
-
-.post-item {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #333;
-}
-
-.post-date {
-  color: #666;
-  font-family: monospace;
-  margin-right: 1rem;
-}
-
-.post-link {
-  color: #00ff00;
-  text-decoration: none;
-}
-
-.post-link:hover {
-  text-decoration: underline;
-}
-</style>
