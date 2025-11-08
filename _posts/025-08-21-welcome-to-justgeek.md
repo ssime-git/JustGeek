@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Welcome to JustGeek - Let's Get Technical!"
 date: 2025-08-21 10:00:00 +0000
 categories: [blog, introduction]

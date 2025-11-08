@@ -4,17 +4,18 @@ description: "A tech blog for geeks, by geeks"
 baseurl: "/JustGeek" # the subpath of your site, e.g. /blog
 url: "https://ssime-git.github.io" # your GitHub Pages URL
 
-# Theme
-remote_theme: pages-themes/hacker@v0.2.0
+# Theme - Using custom theme inspired by cesarsotovalero.net
+# remote_theme: pages-themes/hacker@v0.2.0
 
-# Plugins  
+# Plugins
 plugins:
-  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Author info
-author:
-  name: "Sébastien Sime"
-  email: "sebastien.s@datascientest.com"
+author: "Sébastien Sime"
+email: "sebastien.s@datascientest.com"
 
 # Blog settings
 show_excerpts: true

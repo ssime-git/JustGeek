@@ -9,12 +9,13 @@ title: Welcome to JustGeek
 
 ## Latest Posts
 
-<div class="posts">
+<div class="post-list">
   {% for post in site.posts limit:5 %}
-    <article class="post">
-      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-      <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
-      <div class="excerpt">{{ post.excerpt }}</div>
+    <article class="post-item">
+      <div class="post-meta">{{ post.date | date: "%B %d, %Y" }}</div>
+      <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <div class="post-excerpt">{{ post.excerpt }}</div>
+      <a href="{{ post.url | relative_url }}" class="read-more">Lire la suite →</a>
     </article>
   {% endfor %}
 </div>
