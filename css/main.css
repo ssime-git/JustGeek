@@ -13,8 +13,8 @@
   --link-color-light: #8F96CE;
   --link-hover-color-light: #7080B8;
   --link-decoration-color-light: #8F96CE80;
-  --blockquote-bg-light: #faf0e6;
-  --blockquote-border-light: #8884c9;
+  --blockquote-bg-light: #f7f1e6;
+  --blockquote-border-light: #9a92d7;
   --code-bg-light: #f8f8f0;
   --border-color-light: #e1e1e1;
 
@@ -24,8 +24,8 @@
   --link-color-dark: #82aaff;
   --link-hover-color-dark: #c792ea;
   --link-decoration-color-dark: #82aaff80;
-  --blockquote-bg-dark: #2d3038;
-  --blockquote-border-dark: #6c7bd2;
+  --blockquote-bg-dark: #2a2d36;
+  --blockquote-border-dark: #7f8bff;
   --code-bg-dark: #282a36;
   --border-color-dark: #3a3a3a;
 
@@ -340,7 +340,7 @@ p a {
    Code Blocks & Syntax Highlighting
    ======================================== */
 code {
-  font-family: inherit;
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
   font-size: 0.85em;
   background-color: var(--code-bg);
   padding: 0.2em 0.4em;
@@ -357,6 +357,7 @@ pre {
   margin: 1.5rem 0;
   border: 1px solid var(--border-color);
   position: relative;
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
 }
 
 pre code {
@@ -415,7 +416,7 @@ pre code {
 .highlight .rouge-code pre,
 .highlight .rouge-code code,
 .highlight .lineno {
-  font-family: inherit !important;
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
 }
 
 .highlight .lineno {
