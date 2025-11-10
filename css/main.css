@@ -11,6 +11,8 @@
   --bg-color-light: #FFFFF6;
   --text-color-light: hsl(0, 0%, 10%);
   --link-color-light: #8F96CE;
+  --link-hover-color-light: #7080B8;
+  --link-decoration-color-light: #8F96CE80;
   --blockquote-bg-light: #FFEDDE;
   --code-bg-light: #f5f5f5;
   --border-color-light: #e1e1e1;
@@ -18,7 +20,9 @@
   /* Dark Mode Colors */
   --bg-color-dark: #202227;
   --text-color-dark: #d6d6d6;
-  --link-color-dark: #8F96CE;
+  --link-color-dark: #82aaff;
+  --link-hover-color-dark: #c792ea;
+  --link-decoration-color-dark: #82aaff80;
   --blockquote-bg-dark: #272a2f;
   --code-bg-dark: #282a36;
   --border-color-dark: #3a3a3a;
@@ -35,6 +39,8 @@
   --bg-color: var(--bg-color-light);
   --text-color: var(--text-color-light);
   --link-color: var(--link-color-light);
+  --link-hover-color: var(--link-hover-color-light);
+  --link-decoration-color: var(--link-decoration-color-light);
   --blockquote-bg: var(--blockquote-bg-light);
   --code-bg: var(--code-bg-light);
   --border-color: var(--border-color-light);
@@ -46,6 +52,8 @@
     --bg-color: var(--bg-color-dark);
     --text-color: var(--text-color-dark);
     --link-color: var(--link-color-dark);
+    --link-hover-color: var(--link-hover-color-dark);
+    --link-decoration-color: var(--link-decoration-color-dark);
     --blockquote-bg: var(--blockquote-bg-dark);
     --code-bg: var(--code-bg-dark);
     --border-color: var(--border-color-dark);
@@ -56,6 +64,8 @@ body.dark-mode {
   --bg-color: var(--bg-color-dark);
   --text-color: var(--text-color-dark);
   --link-color: var(--link-color-dark);
+  --link-hover-color: var(--link-hover-color-dark);
+  --link-decoration-color: var(--link-decoration-color-dark);
   --blockquote-bg: var(--blockquote-bg-dark);
   --code-bg: var(--code-bg-dark);
   --border-color: var(--border-color-dark);
@@ -138,14 +148,16 @@ article.blog-post p:first-of-type::first-letter {
    ======================================== */
 a {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: var(--link-decoration-color);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
   transition: all 0.2s ease;
-  border-bottom: 1px solid transparent;
 }
 
 a:hover {
-  border-bottom-color: var(--link-color);
-  opacity: 0.8;
+  color: var(--link-hover-color);
+  text-decoration-color: var(--link-hover-color);
 }
 
 a:visited {

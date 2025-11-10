@@ -30,18 +30,8 @@ p, li, span, div {
   color: #e8e6e3;
 }
 
-/* Links with visible underlines */
-a {
-  color: #63c0f5 !important;
-  text-decoration: underline !important;
-  text-decoration-thickness: 1px !important;
-  text-underline-offset: 2px;
-}
-
-a:hover {
-  color: #82d4ff !important;
-  text-decoration: underline !important;
-}
+/* Links inherit from main.css CSS variables */
+/* Removed !important to allow main.css variables to work properly */
 
 /* Inline code styling */
 code {
@@ -70,7 +60,7 @@ pre code {
   line-height: 1.5;
 }
 
-/* Line numbers for code blocks */
+/* Code blocks - line numbers hidden */
 .highlight {
   background-color: #1e2327 !important;
   border-radius: 4px;
@@ -93,22 +83,20 @@ pre code {
   border: 0;
 }
 
-.highlight table td.gutter {
-  width: 40px;
-  padding-right: 10px;
-  text-align: right;
-  border-right: 1px solid #3d4449;
+/* Hide line number gutter */
+.highlight table td.gutter,
+.highlight table td.rouge-gutter {
+  display: none !important;
 }
 
 .highlight table td.gutter .lineno {
-  color: #5c6370;
-  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", monospace;
-  font-size: 0.85em;
-  user-select: none;
+  display: none !important;
 }
 
-.highlight table td.code {
+.highlight table td.code,
+.highlight table td.rouge-code {
   padding-left: 16px;
+  width: 100%;
 }
 
 /* Rouge syntax highlighting - Dark theme colors */
