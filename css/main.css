@@ -283,18 +283,29 @@ p a {
    Navigation
    ======================================== */
 .navbar {
-  background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease;
+}
+
+/* Light mode navbar */
+body:not(.dark-mode) .navbar {
   background-color: rgba(255, 255, 246, 0.95);
 }
 
+/* Dark mode navbar */
 body.dark-mode .navbar {
   background-color: rgba(32, 34, 39, 0.95);
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode) .navbar {
+    background-color: rgba(32, 34, 39, 0.95);
+  }
 }
 
 .navbar .container {
@@ -360,6 +371,7 @@ code {
   padding: 0.2em 0.4em;
   border-radius: 3px;
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 pre {
@@ -408,9 +420,9 @@ pre code {
 
 /* Line numbers styling */
 .highlight .rouge-gutter {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-right: 1px solid var(--border-color);
-  padding: 1rem 0.75rem;
+  background-color: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 1rem 1rem 1.5rem;
   text-align: right;
   min-width: 3.5em;
   vertical-align: top;
@@ -420,14 +432,14 @@ pre code {
 }
 
 .highlight .rouge-code {
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   vertical-align: top;
   width: 100%;
 }
 
 .highlight .lineno {
-  color: rgba(100, 100, 100, 0.5);
-  font-size: 0.85em;
+  color: rgba(150, 150, 150, 0.6);
+  font-size: 1em;
   line-height: 1.5;
   padding: 0;
   margin: 0;
@@ -447,11 +459,12 @@ pre code {
 
 /* Dark mode line numbers */
 body.dark-mode .highlight .rouge-gutter {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .highlight .lineno {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(150, 150, 150, 0.6);
 }
 
 /* Syntax highlighting for dark mode */
@@ -461,17 +474,18 @@ body.dark-mode .highlight {
 }
 
 @media (prefers-color-scheme: dark) {
-  pre,
-  .highlight {
+  body:not(.dark-mode) pre,
+  body:not(.dark-mode) .highlight {
     background-color: #282a36;
   }
   
-  .highlight .rouge-gutter {
-    background-color: rgba(0, 0, 0, 0.2);
+  body:not(.dark-mode) .highlight .rouge-gutter {
+    background-color: transparent;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .highlight .lineno {
-    color: rgba(255, 255, 255, 0.3);
+  body:not(.dark-mode) .highlight .lineno {
+    color: rgba(150, 150, 150, 0.6);
   }
 }
 
@@ -505,6 +519,14 @@ body.dark-mode .highlight {
 .highlight .err { color: #f8f8f2; background: none; } /* Errors */
 
 /* Light mode adjustments */
+body:not(.dark-mode) .highlight .rouge-gutter {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-mode) .highlight .lineno {
+  color: rgba(100, 100, 100, 0.6);
+}
+
 body:not(.dark-mode) .highlight .k,
 body:not(.dark-mode) .highlight .kd { color: #0000ff; }
 body:not(.dark-mode) .highlight .s,
