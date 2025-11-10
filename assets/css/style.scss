@@ -30,18 +30,8 @@ p, li, span, div {
   color: #e8e6e3;
 }
 
-/* Links with visible underlines */
-a {
-  color: #63c0f5 !important;
-  text-decoration: underline !important;
-  text-decoration-thickness: 1px !important;
-  text-underline-offset: 2px;
-}
-
-a:hover {
-  color: #82d4ff !important;
-  text-decoration: underline !important;
-}
+/* Links inherit from main.css CSS variables */
+/* Removed !important to allow main.css variables to work properly */
 
 /* Inline code styling */
 code {
@@ -70,7 +60,7 @@ pre code {
   line-height: 1.5;
 }
 
-/* Line numbers for code blocks */
+/* Code blocks - line numbers hidden */
 .highlight {
   background-color: #1e2327 !important;
   border-radius: 4px;
