@@ -4,6 +4,9 @@ description: "A tech blog for geeks, by geeks"
 baseurl: "/JustGeek" # the subpath of your site, e.g. /blog
 url: "https://ssime-git.github.io" # your GitHub Pages URL
 
+# Permalink structure for GitHub Pages compatibility
+permalink: pretty
+
 # Theme - Using custom theme inspired by cesarsotovalero.net
 # remote_theme: pages-themes/hacker@v0.2.0
 

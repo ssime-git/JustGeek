@@ -23,6 +23,6 @@ Félicitations, vous êtes arrivé à la dernière partie ! Cette section conc
 
 ---
 <div class="multi-post-nav">
-  <a class="prev" href="{{ '/2025/11/11/jekyll-tutorial-part-2.html' | relative_url }}">← Partie précédente</a>
+  <a class="prev" href="{{ site.baseurl }}/2025/11/11/jekyll-tutorial-part-2/">← Partie précédente</a>
   <span class="disabled">Partie suivante →</span>
 </div>

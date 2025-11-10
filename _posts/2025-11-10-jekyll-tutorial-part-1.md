@@ -28,5 +28,5 @@ En bas de chaque fichier, ajoutez des boutons de navigation pour guider vos lect
 ---
 <div class="multi-post-nav">
   <span class="disabled">← Partie précédente</span>
-  <a class="next" href="{{ '/2025/11/11/jekyll-tutorial-part-2.html' | relative_url }}">Partie suivante →</a>
+  <a class="next" href="{{ site.baseurl }}/2025/11/11/jekyll-tutorial-part-2/">Partie suivante →</a>
 </div>

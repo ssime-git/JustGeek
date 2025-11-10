@@ -23,6 +23,6 @@ Dans cette deuxième partie, nous allons approfondir le contenu du tutoriel.
 
 ---
 <div class="multi-post-nav">
-  <a class="prev" href="{{ '/2025/11/10/jekyll-tutorial-part-1.html' | relative_url }}">← Partie précédente</a>
-  <a class="next" href="{{ '/2025/11/12/jekyll-tutorial-part-3.html' | relative_url }}">Partie suivante →</a>
+  <a class="prev" href="{{ site.baseurl }}/2025/11/10/jekyll-tutorial-part-1/">← Partie précédente</a>
+  <a class="next" href="{{ site.baseurl }}/2025/11/12/jekyll-tutorial-part-3/">Partie suivante →</a>
 </div>
