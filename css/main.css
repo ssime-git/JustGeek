@@ -13,8 +13,8 @@
   --link-color-light: #8F96CE;
   --link-hover-color-light: #7080B8;
   --link-decoration-color-light: #8F96CE80;
-  --blockquote-bg-light: #f4f1e8;
-  --blockquote-border-light: #d4d0c4;
+  --blockquote-bg-light: #faf0e6;
+  --blockquote-border-light: #8884c9;
   --code-bg-light: #f8f8f0;
   --border-color-light: #e1e1e1;
 
@@ -24,8 +24,8 @@
   --link-color-dark: #82aaff;
   --link-hover-color-dark: #c792ea;
   --link-decoration-color-dark: #82aaff80;
-  --blockquote-bg-dark: #2b2d33;
-  --blockquote-border-dark: #3d4149;
+  --blockquote-bg-dark: #2d3038;
+  --blockquote-border-dark: #6c7bd2;
   --code-bg-dark: #282a36;
   --border-color-dark: #3a3a3a;
 
@@ -396,7 +396,7 @@ pre code {
 /* Line numbers styling */
 .highlight .rouge-gutter {
   background-color: transparent;
-  border-right: 2px solid rgba(0, 0, 0, 0.08);
+  border-right: 2px solid rgba(140, 140, 160, 0.35);
   padding: 1rem 1rem 1rem 1.5rem;
   text-align: right;
   min-width: 3.5em;
@@ -432,7 +432,7 @@ pre code {
 
 /* Dark mode line numbers */
 body.dark-mode .highlight .rouge-gutter {
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  border-right: 2px solid rgba(140, 160, 255, 0.25);
 }
 
 body.dark-mode .highlight .lineno {
