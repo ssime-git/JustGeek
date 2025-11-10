@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Jekyll Tutorial – Partie 1 : Introduction"
-date: 2025-11-10 09:00:00 +0000
+date: 2024-11-10 09:00:00 +0000
 categories: [guide, jekyll]
 tags: [jekyll, pagination, tutoriel]
 ---
@@ -28,5 +28,5 @@ En bas de chaque fichier, ajoutez des boutons de navigation pour guider vos lect
 ---
 <div class="multi-post-nav">
   <span class="disabled">← Partie précédente</span>
-  <a class="next" href="{{ site.baseurl }}/2025/11/11/jekyll-tutorial-part-2/">Partie suivante →</a>
+  <a class="next" href="{{ site.baseurl }}/guide/jekyll/2024/11/11/jekyll-tutorial-part-2/">Partie suivante →</a>
 </div>

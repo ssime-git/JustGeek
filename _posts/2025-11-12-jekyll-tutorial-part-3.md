@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Jekyll Tutorial – Partie 3 : Conclusion"
-date: 2025-11-12 09:00:00 +0000
+date: 2024-11-12 09:00:00 +0000
 categories: [guide, jekyll]
 tags: [jekyll, pagination, tutoriel]
 ---
@@ -23,6 +23,6 @@ Félicitations, vous êtes arrivé à la dernière partie ! Cette section conc
 
 ---
 <div class="multi-post-nav">
-  <a class="prev" href="{{ site.baseurl }}/2025/11/11/jekyll-tutorial-part-2/">← Partie précédente</a>
+  <a class="prev" href="{{ site.baseurl }}/guide/jekyll/2024/11/11/jekyll-tutorial-part-2/">← Partie précédente</a>
   <span class="disabled">Partie suivante →</span>
 </div>

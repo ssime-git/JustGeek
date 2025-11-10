@@ -11,7 +11,7 @@ Welcome to the complete archive. Browse the latest stories below or jump to a ca
 ## Latest Articles
 
 <div class="post-list">
-  {% for post in paginator.posts %}
+  {% for post in site.posts %}
     <article class="post-item">
       <div class="post-meta">{{ post.date | date: "%B %d, %Y" }}</div>
       <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
@@ -20,22 +20,6 @@ Welcome to the complete archive. Browse the latest stories below or jump to a ca
     </article>
   {% endfor %}
 </div>
-
-<nav class="pagination" role="navigation" aria-label="Pagination">
-  {% if paginator.previous_page %}
-    <a class="newer" href="{{ paginator.previous_page_path | relative_url }}">← Newer Posts</a>
-  {% else %}
-    <span class="disabled">← Newer Posts</span>
-  {% endif %}
-
-  <span class="page-count">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-
-  {% if paginator.next_page %}
-    <a class="older" href="{{ paginator.next_page_path | relative_url }}">Older Posts →</a>
-  {% else %}
-    <span class="disabled">Older Posts →</span>
-  {% endif %}
-</nav>
 
 ## Browse by Category
 
