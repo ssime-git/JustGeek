@@ -72,7 +72,7 @@ html {
 }
 
 body {
-  font-family: 'PT Serif', 'Lora', Georgia, serif;
+  font-family: 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 22px;
   line-height: 1.7;
   color: var(--text-color);
@@ -280,7 +280,7 @@ p a {
 
 /* Light mode navbar */
 body:not(.dark-mode) .navbar {
-  background-color: rgba(255, 255, 246, 0.95);
+  background-color: rgba(var(--bg-color-light-rgb, 255, 255, 246), 0.95);
 }
 
 /* Dark mode navbar */
@@ -351,7 +351,7 @@ body.dark-mode .navbar {
    Code Blocks & Syntax Highlighting
    ======================================== */
 code {
-  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-family: inherit;
   font-size: 0.85em;
   background-color: var(--code-bg);
   padding: 0.2em 0.4em;
@@ -426,11 +426,11 @@ pre code {
 .highlight .rouge-code pre,
 .highlight .rouge-code code,
 .highlight .lineno {
-  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+  font-family: inherit !important;
 }
 
 .highlight .lineno {
-  color: rgba(0, 0, 0, 0.35);
+  color: rgba(0, 0, 0, 0.45);
   font-size: 1em;
   line-height: 1.5;
   padding: 0;
@@ -443,11 +443,11 @@ pre code {
 
 /* Dark mode line numbers */
 body.dark-mode .highlight .rouge-gutter {
-  border-right: 2px solid rgba(255, 255, 255, 0.18);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 body.dark-mode .highlight .lineno {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Syntax highlighting for dark mode */
@@ -500,6 +500,7 @@ pre {
 
 pre {
   padding: 0;
+  font-family: inherit;
 }
 
 body:not(.dark-mode) .highlight .k,
