@@ -13,8 +13,8 @@
   --link-color-light: #8F96CE;
   --link-hover-color-light: #7080B8;
   --link-decoration-color-light: #8F96CE80;
-  --blockquote-bg-light: #f7f1e6;
-  --blockquote-border-light: #9a92d7;
+  --blockquote-bg-light: #f3f0e6;
+  --blockquote-border-light: #d0c8b8;
   --code-bg-light: #f8f8f0;
   --border-color-light: #e1e1e1;
 
@@ -24,8 +24,8 @@
   --link-color-dark: #82aaff;
   --link-hover-color-dark: #c792ea;
   --link-decoration-color-dark: #82aaff80;
-  --blockquote-bg-dark: #2a2d36;
-  --blockquote-border-dark: #7f8bff;
+  --blockquote-bg-dark: #2a2d34;
+  --blockquote-border-dark: #4c5360;
   --code-bg-dark: #282a36;
   --border-color-dark: #3a3a3a;
 
@@ -340,7 +340,7 @@ p a {
    Code Blocks & Syntax Highlighting
    ======================================== */
 code {
-  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-family: inherit;
   font-size: 0.85em;
   background-color: var(--code-bg);
   padding: 0.2em 0.4em;
@@ -357,7 +357,7 @@ pre {
   margin: 1.5rem 0;
   border: 1px solid var(--border-color);
   position: relative;
-  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-family: inherit;
 }
 
 pre code {
@@ -397,7 +397,7 @@ pre code {
 /* Line numbers styling */
 .highlight .rouge-gutter {
   background-color: transparent;
-  border-right: 2px solid rgba(140, 140, 160, 0.35);
+  border-right: 2px solid rgba(120, 120, 140, 0.28);
   padding: 1rem 1rem 1rem 1.5rem;
   text-align: right;
   min-width: 3.5em;
@@ -416,7 +416,7 @@ pre code {
 .highlight .rouge-code pre,
 .highlight .rouge-code code,
 .highlight .lineno {
-  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+  font-family: inherit !important;
 }
 
 .highlight .lineno {
@@ -433,7 +433,7 @@ pre code {
 
 /* Dark mode line numbers */
 body.dark-mode .highlight .rouge-gutter {
-  border-right: 2px solid rgba(140, 160, 255, 0.25);
+  border-right: 2px solid rgba(170, 180, 255, 0.18);
 }
 
 body.dark-mode .highlight .lineno {
