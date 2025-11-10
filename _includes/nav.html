@@ -6,20 +6,15 @@
 
     <ul class="navbar-nav">
       {% for item in site.header_pages %}
-        {% assign page_name = item | remove: '.md' | capitalize %}
+        {% assign nav_page = site.pages | where: "path", item | first %}
+        {% if nav_page %}
         <li>
-          <a class="nav-link" href="{{ site.baseurl }}/{{ item | remove: '.md' }}.html">
-            {{ page_name }}
+          <a class="nav-link" href="{{ nav_page.url | relative_url }}">
+            {{ nav_page.title | default: nav_page.name | replace: '.md', '' | replace: '-', ' ' | capitalize }}
           </a>
         </li>
+        {% endif %}
       {% endfor %}
-
-      <li>
-        <a class="nav-link" href="{{ site.baseurl }}/about.html">About</a>
-      </li>
-      <li>
-        <a class="nav-link" href="{{ site.baseurl }}/archive.html">Archive</a>
-      </li>
       {% if site.github_username %}
       <li>
         <a class="nav-link" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
