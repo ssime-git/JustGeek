@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Blog
-permalink: /blog/
+description: Deep dives, tutorials, and updates from JustGeek.
 ---
 
 # Blog
 
-Catch up on every article published on JustGeek.
+Welcome to the complete archive. Browse the latest stories below or jump to a category.
+
+## Latest Articles
 
 <div class="post-list">
   {% for post in paginator.posts %}
@@ -34,3 +36,14 @@ Catch up on every article published on JustGeek.
     <span class="disabled">Older Posts →</span>
   {% endif %}
 </nav>
+
+## Browse by Category
+
+<ul class="category-list">
+  {% assign sorted_cats = site.categories | sort %}
+  {% for category in sorted_cats %}
+    <li>
+      <a href="{{ '/categories/' | append: category[0] | slugify | append: '/' | relative_url }}">{{ category[0] }} ({{ category[1].size }})</a>
+    </li>
+  {% endfor %}
+</ul>
