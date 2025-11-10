@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Jekyll Tutorial – Partie 2 : Contenu principal"
+permalink: /blog/jekyll-tutorial/part-2/
 date: 2025-11-11 09:00:00 +0000
 categories: [guide, jekyll]
 tags: [jekyll, pagination, tutoriel]
@@ -23,6 +24,6 @@ Dans cette deuxième partie, nous allons approfondir le contenu du tutoriel.
 
 ---
 <div class="multi-post-nav">
-  <a class="prev" href="{{ "/jekyll-tutorial-part-1/" | relative_url }}">← Partie précédente</a>
-  <a class="next" href="{{ "/jekyll-tutorial-part-3/" | relative_url }}">Partie suivante →</a>
+  <a class="prev" href="{{ '/blog/jekyll-tutorial/part-1/' | relative_url }}">← Partie précédente</a>
+  <a class="next" href="{{ '/blog/jekyll-tutorial/part-3/' | relative_url }}">Partie suivante →</a>
 </div>

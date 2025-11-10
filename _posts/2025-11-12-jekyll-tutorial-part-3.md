@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Jekyll Tutorial – Partie 3 : Conclusion"
+permalink: /blog/jekyll-tutorial/part-3/
 date: 2025-11-12 09:00:00 +0000
 categories: [guide, jekyll]
 tags: [jekyll, pagination, tutoriel]
@@ -23,6 +24,6 @@ Félicitations, vous êtes arrivé à la dernière partie ! Cette section conc
 
 ---
 <div class="multi-post-nav">
-  <a class="prev" href="{{ "/jekyll-tutorial-part-2/" | relative_url }}">← Partie précédente</a>
+  <a class="prev" href="{{ '/blog/jekyll-tutorial/part-2/' | relative_url }}">← Partie précédente</a>
   <span class="disabled">Partie suivante →</span>
 </div>

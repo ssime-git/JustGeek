@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Jekyll Tutorial – Partie 1 : Introduction"
+permalink: /blog/jekyll-tutorial/part-1/
 date: 2025-11-10 09:00:00 +0000
 categories: [guide, jekyll]
 tags: [jekyll, pagination, tutoriel]
@@ -28,5 +29,5 @@ En bas de chaque fichier, ajoutez des boutons de navigation pour guider vos lect
 ---
 <div class="multi-post-nav">
   <span class="disabled">← Partie précédente</span>
-  <a class="next" href="{{ "/jekyll-tutorial-part-2/" | relative_url }}">Partie suivante →</a>
+  <a class="next" href="{{ '/blog/jekyll-tutorial/part-2/' | relative_url }}">Partie suivante →</a>
 </div>
