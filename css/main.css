@@ -13,7 +13,8 @@
   --link-color-light: #8F96CE;
   --link-hover-color-light: #7080B8;
   --link-decoration-color-light: #8F96CE80;
-  --blockquote-bg-light: #FFEDDE;
+  --blockquote-bg-light: #f4f1e8;
+  --blockquote-border-light: #d4d0c4;
   --code-bg-light: #f8f8f0;
   --border-color-light: #e1e1e1;
 
@@ -23,7 +24,8 @@
   --link-color-dark: #82aaff;
   --link-hover-color-dark: #c792ea;
   --link-decoration-color-dark: #82aaff80;
-  --blockquote-bg-dark: #272a2f;
+  --blockquote-bg-dark: #2b2d33;
+  --blockquote-border-dark: #3d4149;
   --code-bg-dark: #282a36;
   --border-color-dark: #3a3a3a;
 
@@ -42,6 +44,7 @@
   --link-hover-color: var(--link-hover-color-light);
   --link-decoration-color: var(--link-decoration-color-light);
   --blockquote-bg: var(--blockquote-bg-light);
+  --blockquote-border: var(--blockquote-border-light);
   --code-bg: var(--code-bg-light);
   --border-color: var(--border-color-light);
 }
@@ -53,6 +56,7 @@ body.dark-mode {
   --link-hover-color: var(--link-hover-color-dark);
   --link-decoration-color: var(--link-decoration-color-dark);
   --blockquote-bg: var(--blockquote-bg-dark);
+  --blockquote-border: var(--blockquote-border-dark);
   --code-bg: var(--code-bg-dark);
   --border-color: var(--border-color-dark);
 }
@@ -534,7 +538,7 @@ a.underlined:hover,
    ======================================== */
 blockquote {
   background-color: var(--blockquote-bg);
-  border-left: 4px solid var(--link-color);
+  border-left: 4px solid var(--blockquote-border);
   margin: 1.5rem 0;
   padding: 1rem 1.5rem;
   font-style: italic;
