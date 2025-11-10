@@ -83,20 +83,22 @@ pre code {
   border: 0;
 }
 
-/* Hide line number gutter */
-.highlight table td.gutter,
-.highlight table td.rouge-gutter {
-  display: none !important;
+.highlight table td.gutter {
+  width: 40px;
+  padding-right: 10px;
+  text-align: right;
+  border-right: 1px solid #3d4449;
 }
 
 .highlight table td.gutter .lineno {
-  display: none !important;
+  color: #5c6370;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", monospace;
+  font-size: 0.85em;
+  user-select: none;
 }
 
-.highlight table td.code,
-.highlight table td.rouge-code {
+.highlight table td.code {
   padding-left: 16px;
-  width: 100%;
 }
 
 /* Rouge syntax highlighting - Dark theme colors */
