@@ -22,7 +22,6 @@ JustGeek is my space to publish deep dives, battle-tested retros, and hands-on w
 
 ## Stay in touch
 
-- Say hi at [sebastien.s@datascientest.com](mailto:sebastien.s@datascientest.com)
 - Ping me for collaborations, audits, or simply to nerd out about MLOps
 
 Thanks for reading — now let's keep shipping systems that behave.
