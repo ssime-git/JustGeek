@@ -10,7 +10,7 @@ permalink: /about/
 
 I bring an engineering attitude to machine learning: rigor, pragmatism, and a soft spot for systems that last. 
 
-```sh
+<pre class="ascii-art"><code>
      ___       ___       ___       ___   
     /\  \     /\__\     /\__\     /\  \  
    /::\  \   /:/ _/_   /:/ _/_   /::\  \ 
@@ -32,7 +32,7 @@ I bring an engineering attitude to machine learning: rigor, pragmatism, and a so
     │  🛠️  Pragmatic 📊 Measure       │
     │  ⚡ Automate  🔐 Secure        │
     └─────────────────────────────────┘
-```
+</code></pre>
 
 I went from mechanical simulation to orchestrating models in production, but the red thread never changed—reduce surprises, log what matters, automate the rest. If reliability is your love language, we're on the same wavelength.
 
