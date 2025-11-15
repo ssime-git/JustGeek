@@ -9,11 +9,18 @@ title: Welcome to JustGeek
 
 I'm the engineer who swapped finite-element meshes for neural networks — same fight, different toolchain: decompose, understand, optimize. Around here we dig into MLOps, Data Engineering, and pragmatic AI with one obsession: reliable systems that can take a beating, just like the turbines I used to watch.
 
+```sh
+    ███╗   ███╗██╗      ██████╗ ██████╗ ███████╗
+    ████╗ ████║██║     ██╔═══██╗██╔══██╗██╔════╝
+    ██╔████╔██║██║     ██║   ██║██████╔╝███████╗
+    ██║╚██╔╝██║██║     ██║   ██║██╔═══╝ ╚════██║
+    ██║ ╚═╝ ██║███████╗╚██████╔╝██║     ███████║
+    ╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝
+```
+
 I care about pipelines that roll, releases that stay clean, and monitoring that never gaslights you. If tech is your playground, pour a ☕ and dive in — we're going to build, explain, and push models to production without the drama (okay, maybe a pinch of drama for fun).
 
 So let's roll! 😜
-
----
 
 ## What you'll find here
 
