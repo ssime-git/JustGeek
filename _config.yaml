@@ -1,6 +1,6 @@
 # Site settings
 title: "JustGeek"
-description: "A tech blog for geeks, by geeks"
+description: "A tech blog for geeks"
 baseurl: "/JustGeek" # the subpath of your site, e.g. /blog
 url: "https://ssime-git.github.io" # your GitHub Pages URL
 
@@ -29,7 +29,7 @@ header_pages:
 # Social links (optional)
 github_username: ssime-git
 # twitter_username: your_twitter
-# linkedin_username: your_linkedin
+linkedin_username: sebastiensime
 
 # Hide GitHub repository link
 show_downloads: false

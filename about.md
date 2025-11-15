@@ -6,35 +6,23 @@ permalink: /about/
 
 # About JustGeek
 
-Welcome to **JustGeek** - where technology meets passion!
+## Engineering mindset, applied to AI
 
-## What You'll Find Here
+I bring an engineering attitude to machine learning: rigor, pragmatism, and a soft spot for systems that last. I went from mechanical simulation to orchestrating models in production, but the red thread never changed—reduce surprises, log what matters, automate the rest. If reliability is your love language, we're on the same wavelength.
 
-This blog is dedicated to sharing:
+## What drives the blog
 
-- **Deep dives** into machine learning and AI
-- **Practical tutorials** for developers
-- **Reviews** of the latest tech tools
-- **Open source** project showcases
-- **Industry insights** and analysis
+- **Reliability over hype** – architecture choices that stand up in real environments.
+- **Traceability by design** – observability patterns, data contracts, and practical governance.
+- **Automation with taste** – CI/CD for ML, feature pipelines, and guardrails that scale.
 
-## The Author
+## Why write here
 
-I'm a machine learning engineer with a passion for:
-- Building intelligent systems
-- Exploring cutting-edge technologies
-- Sharing knowledge with the community
-- Writing clean, efficient code
+JustGeek is my space to publish deep dives, battle-tested retros, and hands-on walkthroughs that turn ML ideas into concrete impact. The posts favor clarity over fluff, code over slides, and learning by building.
 
-## Why "JustGeek"?
+## Stay in touch
 
-Because sometimes the best way to explain complex technology is to embrace our inner geek. Here, we don't shy away from technical details - we celebrate them!
+- Say hi at [sebastien.s@datascientest.com](mailto:sebastien.s@datascientest.com)
+- Ping me for collaborations, audits, or simply to nerd out about MLOps
 
-## Get In Touch
-
-- **Email**: [Drop me a line](mailto:sebastien.s@datascientest.com)
-- **Contact**: Feel free to reach out for collaboration or questions
-
----
-
-*"The best way to learn is to teach, and the best way to teach is to share."* Someone
+Thanks for reading — now let's keep shipping systems that behave.

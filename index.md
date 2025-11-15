@@ -5,7 +5,7 @@ title: Welcome to JustGeek
 
 # Welcome to JustGeek
 
-> A tech blog for geeks, by geeks
+> A tech blog for geeks
 
 ## Latest Posts
 
