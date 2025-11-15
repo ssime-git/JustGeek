@@ -8,7 +8,33 @@ permalink: /about/
 
 ## Engineering mindset, applied to AI
 
-I bring an engineering attitude to machine learning: rigor, pragmatism, and a soft spot for systems that last. I went from mechanical simulation to orchestrating models in production, but the red thread never changed—reduce surprises, log what matters, automate the rest. If reliability is your love language, we're on the same wavelength.
+I bring an engineering attitude to machine learning: rigor, pragmatism, and a soft spot for systems that last. 
+
+```sh
+     ___       ___       ___       ___   
+    /\  \     /\__\     /\__\     /\  \  
+   /::\  \   /:/ _/_   /:/ _/_   /::\  \ 
+  /:/\:\  \ /:/ /\__\ /:/ /\  \ /:/\:\  \
+ /:/ /::\  \/:/ /:/  //:/ /::\  \/:/ /::\  \
+/:/_/:/\:\__\/:/_/:/  //:/_/:/\:\__\/:/_/:/\:\__\
+\:\/:/ /:/  /\:\/:/  / \:\/:/ /:/  /\:\/:/  /:/  /
+ \::/ /:/  /  \::/  /   \::/ /:/  /  \::/  /:/  / 
+  \/_/:/  /    \/__/     \/_/:/  /    \/__/:/  /  
+    /:/  /               /:/  /         /:/  /   
+    \/__/                \/__/          \/__/    
+
+         🔧 ENGINEERING MINDSET 🔧
+    
+    ┌─────────────────────────────────┐
+    │  DESIGN → BUILD → TEST → SHIP  │
+    │                                  │
+    │  ⚙️  Rigor    🔍 Observe        │
+    │  🛠️  Pragmatic 📊 Measure       │
+    │  ⚡ Automate  🔐 Secure        │
+    └─────────────────────────────────┘
+```
+
+I went from mechanical simulation to orchestrating models in production, but the red thread never changed—reduce surprises, log what matters, automate the rest. If reliability is your love language, we're on the same wavelength.
 
 ## What drives the blog
 
