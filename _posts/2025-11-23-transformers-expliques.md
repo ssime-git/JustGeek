@@ -167,6 +167,31 @@ Similaire à l'encoder, mais avec une couche supplémentaire :
 5. **Feed-Forward Network**
 6. **Add & Norm**
 
+---
+
+<div class="demo-block-transformer" id="transformer-demo">
+  <h3>🎮 Démo Interactive : Processus Complet de Génération</h3>
+  <p>Visualisez toutes les étapes pour générer le prochain mot d'une phrase !</p>
+
+  <div class="transformer-status">⏳ Chargement de Pyodide...</div>
+
+  <input
+    type="text"
+    class="transformer-input"
+    placeholder="Entrez une phrase (ex: le chat mange)"
+    value="le chat mange"
+  />
+
+  <button class="transformer-run-btn" disabled>⏳ Chargement...</button>
+
+  <div class="transformer-result"></div>
+</div>
+
+<link rel="stylesheet" href="{{ '/assets/css/transformer-demo.css' | relative_url }}">
+<script src="{{ '/assets/js/transformer-demo.js' | relative_url }}" defer></script>
+
+---
+
 ## Applications des Transformers
 
 Les Transformers sont utilisés dans de nombreuses tâches :
