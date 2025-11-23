@@ -23,18 +23,11 @@ class RAGSystem {
      */
     async initialize() {
         try {
-            this.updateStatus('⏳ Chargement de Transformers.js...', 'loading');
+            this.updateStatus('⏳ Chargement de Transformers.js (25MB)...', 'loading');
 
-            // Load Transformers.js dynamically
-            if (typeof pipeline === 'undefined') {
-                await this.loadTransformersJS();
-            }
-
-            this.updateStatus('⏳ Chargement du modèle d\'embeddings (25MB)...', 'loading');
-
-            // Load the embedding model
-            const { pipeline: pipelineFunc } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
-            this.pipeline = await pipelineFunc('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+            // Load the embedding model directly
+            const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
+            this.pipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
             this.updateStatus('⏳ Analyse et chunking de l\'article...', 'loading');
 
@@ -60,23 +53,6 @@ class RAGSystem {
             console.error('Erreur d\'initialisation:', error);
             this.updateStatus('❌ Erreur d\'initialisation: ' + error.message, 'error');
         }
-    }
-
-    /**
-     * Load Transformers.js library
-     */
-    async loadTransformersJS() {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.textContent = `
-                import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1';
-                window.transformersPipeline = pipeline;
-            `;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
     }
 
     /**
