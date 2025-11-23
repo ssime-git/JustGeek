@@ -368,6 +368,57 @@ pre code {
   display: block;
 }
 
+/* ASCII Art Styling */
+.ascii-art {
+  font-family: 'Consolas', 'Monaco', 'Courier New', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: pre;
+  overflow-x: auto;
+  display: block;
+  text-align: center;
+  background-color: var(--code-bg);
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+.ascii-art code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--text-color);
+  display: block;
+  white-space: pre;
+}
+
+/* Responsive adjustments for ASCII art */
+@media (max-width: 768px) {
+  .ascii-art {
+    padding: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .ascii-art code {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .ascii-art {
+    padding: 0.75rem;
+    font-size: 0.55rem;
+  }
+
+  .ascii-art code {
+    font-size: 0.5rem;
+  }
+}
+
 /* Code block with line numbers */
 .highlight {
   background-color: var(--code-bg);
