@@ -1,0 +1,19 @@
+name = "rag-blog-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Compatibility flags
+compatibility_flags = []
+
+# Variables d'environnement publiques
+[vars]
+ENVIRONMENT = "production"
+
+# Configuration CORS
+[env.production]
+name = "rag-blog-worker"
+
+# Les secrets doivent être configurés avec:
+# wrangler secret put GEMINI_API_KEY
+# Secrets requis:
+# - GEMINI_API_KEY: Clé API Google AI Studio
