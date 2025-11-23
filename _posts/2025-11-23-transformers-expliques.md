@@ -187,9 +187,6 @@ Similaire à l'encoder, mais avec une couche supplémentaire :
   <div class="transformer-result"></div>
 </div>
 
-<link rel="stylesheet" href="{{ '/assets/css/transformer-demo.css' | relative_url }}">
-<script src="{{ '/assets/js/transformer-demo.js' | relative_url }}" defer></script>
-
 ---
 
 ## Applications des Transformers

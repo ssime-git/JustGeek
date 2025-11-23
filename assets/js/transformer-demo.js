@@ -362,14 +362,11 @@ json.dumps(result)
                                             <div class="matrix-row">
                                                 ${row.map((weight, j) => {
                                                     const intensity = Math.round(weight * 255);
-                                                    const bgColor = \`rgb(\${255 - intensity}, \${255 - intensity}, 255)\`;
-                                                    return \`
-                                                        <div class="matrix-cell"
-                                                             style="background-color: \${bgColor}"
-                                                             title="\${tokens[i]} → \${tokens[j]}: \${(weight * 100).toFixed(1)}%">
-                                                            <span class="cell-value">\${(weight * 100).toFixed(0)}%</span>
-                                                        </div>
-                                                    \`;
+                                                    const bgColor = 'rgb(' + (255 - intensity) + ', ' + (255 - intensity) + ', 255)';
+                                                    return '<div class="matrix-cell" style="background-color: ' + bgColor + '" ' +
+                                                           'title="' + tokens[i] + ' → ' + tokens[j] + ': ' + (weight * 100).toFixed(1) + '%">' +
+                                                           '<span class="cell-value">' + (weight * 100).toFixed(0) + '%</span>' +
+                                                           '</div>';
                                                 }).join('')}
                                             </div>
                                         `).join('')}
