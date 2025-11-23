@@ -179,6 +179,17 @@
     color: #be123c;
 }
 
+/* Tokens Info */
+.tokens-info {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #f9fafb;
+    border-left: 3px solid #667eea;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
 /* Answer Sources */
 .answer-sources {
     margin-top: 1.5rem;

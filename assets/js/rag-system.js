@@ -5,7 +5,7 @@
 
 class RAGSystem {
     constructor(options = {}) {
-        this.workerUrl = options.workerUrl || 'https://rag-blog-worker.YOUR-SUBDOMAIN.workers.dev';
+        this.workerUrl = options.workerUrl || 'https://rag-blog-worker.seb-sime.workers.dev/api/ask';
         this.statusElement = options.statusElement;
         this.answerElement = options.answerElement;
         this.questionInput = options.questionInput;
@@ -233,7 +233,7 @@ class RAGSystem {
             const data = await response.json();
 
             // Display the answer
-            this.displayAnswer(data.answer, relevantChunks);
+            this.displayAnswer(data.answer, relevantChunks, data.tokensUsed);
 
             this.updateStatus('✅ Système RAG prêt ! (Recherche locale + Gemini API)', 'ready');
 
@@ -256,14 +256,17 @@ class RAGSystem {
     /**
      * Display the answer
      */
-    displayAnswer(answer, relevantChunks) {
+    displayAnswer(answer, relevantChunks, tokensUsed = null) {
         if (!this.answerElement) return;
+
+        const tokensInfo = tokensUsed ? `<div class="tokens-info">🔢 Tokens utilisés: ${tokensUsed}</div>` : '';
 
         const html = `
             <div class="answer-box">
                 <div class="answer-content">
                     ${this.formatAnswer(answer)}
                 </div>
+                ${tokensInfo}
                 <details class="answer-sources">
                     <summary>📚 Passages utilisés (${relevantChunks.length})</summary>
                     <div class="sources-list">

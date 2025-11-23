@@ -213,7 +213,7 @@ Avec l'avènement des grands modèles de langage (LLM) comme GPT-4 ou Claude, le
 
 ---
 
-<div class="question-block" data-worker-url="https://rag-blog-worker.YOUR-SUBDOMAIN.workers.dev">
+<div class="question-block" data-worker-url="https://rag-blog-worker.seb-sime.workers.dev/api/ask">
   <h3>💬 Une question sur l'article ?</h3>
   <p>Posez votre question et obtenez une réponse basée sur le contenu de cet article grâce au système RAG local.</p>
 
