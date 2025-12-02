@@ -1,21 +1,80 @@
 /**
  * RAG System for Interactive Blog Posts
- * Uses Transformers.js for local embeddings and Gemini API for generation
+ * Uses Transformers.js for local embeddings, Gemini API for generation,
+ * and Cloudflare Turnstile for anti-bot protection
  */
+
+const WORKER_URL = 'https://rag-blog-worker.seb-sime.workers.dev';
+const TURNSTILE_SITE_KEY = '0x4AAAAAACEY6vkwXOKRVPHk';
 
 class RAGSystem {
     constructor(options = {}) {
-        this.workerUrl = options.workerUrl || 'https://rag-blog-worker.seb-sime.workers.dev/api/ask';
+        this.workerUrl = options.workerUrl || WORKER_URL + '/api/ask';
         this.statusElement = options.statusElement;
         this.answerElement = options.answerElement;
         this.questionInput = options.questionInput;
         this.askButton = options.askButton;
+        this.turnstileContainer = options.turnstileContainer;
 
         this.chunks = [];
         this.embeddings = [];
         this.pipeline = null;
         this.isReady = false;
         this.isProcessing = false;
+        this.turnstileReady = false;
+    }
+
+    /**
+     * Initialize Turnstile
+     */
+    async initTurnstile() {
+        return new Promise((resolve) => {
+            // Check if Turnstile is already loaded
+            if (typeof turnstile !== 'undefined') {
+                this.turnstileReady = true;
+                resolve();
+                return;
+            }
+
+            // Wait for Turnstile to load
+            const checkTurnstile = setInterval(() => {
+                if (typeof turnstile !== 'undefined') {
+                    clearInterval(checkTurnstile);
+                    this.turnstileReady = true;
+                    resolve();
+                }
+            }, 100);
+
+            // Timeout after 10 seconds
+            setTimeout(() => {
+                clearInterval(checkTurnstile);
+                console.warn('Turnstile not loaded, continuing without it');
+                resolve();
+            }, 10000);
+        });
+    }
+
+    /**
+     * Get Turnstile token (invisible to user)
+     */
+    async getTurnstileToken() {
+        if (!this.turnstileReady || typeof turnstile === 'undefined') {
+            throw new Error('Turnstile not available');
+        }
+
+        return new Promise((resolve, reject) => {
+            // Reset any existing widget first
+            if (this.turnstileContainer) {
+                this.turnstileContainer.innerHTML = '';
+            }
+
+            turnstile.render(this.turnstileContainer || '#turnstile-container', {
+                sitekey: TURNSTILE_SITE_KEY,
+                callback: (token) => resolve(token),
+                'error-callback': () => reject(new Error('Turnstile verification failed')),
+                size: 'invisible'
+            });
+        });
     }
 
     /**
@@ -23,6 +82,9 @@ class RAGSystem {
      */
     async initialize() {
         try {
+            this.updateStatus('⏳ Initialisation de la protection anti-bot...', 'loading');
+            await this.initTurnstile();
+
             this.updateStatus('⏳ Chargement de Transformers.js (25MB)...', 'loading');
 
             // Load the embedding model directly
@@ -46,7 +108,7 @@ class RAGSystem {
             if (this.questionInput) this.questionInput.disabled = false;
             if (this.askButton) {
                 this.askButton.disabled = false;
-                this.askButton.textContent = 'Poser la question';
+                this.askButton.textContent = '🚀 Poser la question';
             }
 
         } catch (error) {
@@ -178,7 +240,27 @@ class RAGSystem {
             this.isProcessing = true;
             if (this.askButton) {
                 this.askButton.disabled = true;
-                this.askButton.textContent = 'Traitement...';
+                this.askButton.textContent = '⏳ Vérification...';
+            }
+
+            this.updateStatus('🔐 Vérification anti-bot...', 'loading');
+
+            // Get Turnstile token
+            let turnstileToken = null;
+            try {
+                turnstileToken = await this.getTurnstileToken();
+            } catch (e) {
+                console.warn('Turnstile verification failed:', e);
+                this.updateStatus('⚠️ Vérification échouée, nouvelle tentative...', 'error');
+                // Reset and retry once
+                if (typeof turnstile !== 'undefined') {
+                    turnstile.reset();
+                }
+                throw new Error('Vérification anti-bot échouée. Veuillez réessayer.');
+            }
+
+            if (this.askButton) {
+                this.askButton.textContent = '⏳ Recherche...';
             }
 
             this.updateStatus('🔍 Recherche sémantique locale...', 'searching');
@@ -190,7 +272,7 @@ class RAGSystem {
 
             this.updateStatus('🤖 Génération de la réponse (Gemini API)...', 'generating');
 
-            // Call the Cloudflare Worker
+            // Call the Cloudflare Worker with Turnstile token
             const response = await fetch(this.workerUrl, {
                 method: 'POST',
                 headers: {
@@ -198,7 +280,8 @@ class RAGSystem {
                 },
                 body: JSON.stringify({
                     question: question,
-                    context: relevantChunks.map(c => c.chunk)
+                    context: relevantChunks.map(c => c.chunk),
+                    turnstileToken: turnstileToken
                 })
             });
 
@@ -224,7 +307,11 @@ class RAGSystem {
             this.isProcessing = false;
             if (this.askButton) {
                 this.askButton.disabled = false;
-                this.askButton.textContent = 'Poser la question';
+                this.askButton.textContent = '🚀 Poser la question';
+            }
+            // Reset Turnstile for next call
+            if (typeof turnstile !== 'undefined') {
+                turnstile.reset();
             }
         }
     }
@@ -314,13 +401,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerElement = document.getElementById('answer-container');
     const questionInput = document.getElementById('user-question');
     const askButton = document.getElementById('ask-button');
+    const turnstileContainer = document.getElementById('turnstile-container');
 
     ragSystem = new RAGSystem({
-        workerUrl: questionBlock.dataset.workerUrl || 'https://rag-blog-worker.YOUR-SUBDOMAIN.workers.dev',
+        workerUrl: questionBlock.dataset.workerUrl || WORKER_URL + '/api/ask',
         statusElement,
         answerElement,
         questionInput,
-        askButton
+        askButton,
+        turnstileContainer
     });
 
     // Initialize the system

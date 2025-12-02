@@ -235,6 +235,9 @@ Avec l'avènement des grands modèles de langage (LLM) comme GPT-4 ou Claude, le
 
 ---
 
+<!-- Turnstile Script (invisible - l'utilisateur ne voit rien) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <div class="question-block" data-worker-url="https://rag-blog-worker.seb-sime.workers.dev/api/ask">
   <h3>💬 Une question sur l'article ?</h3>
   <p>Posez votre question et obtenez une réponse basée sur le contenu de cet article grâce au système RAG local.</p>
@@ -253,6 +256,9 @@ Avec l'avènement des grands modèles de langage (LLM) comme GPT-4 ou Claude, le
 
   <div id="answer-container"></div>
 </div>
+
+<!-- Hidden container for Turnstile (invisible mode) -->
+<div id="turnstile-container" style="display:none;"></div>
 
 ---
 
