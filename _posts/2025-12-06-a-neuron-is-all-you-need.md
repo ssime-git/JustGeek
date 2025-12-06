@@ -55,19 +55,23 @@ An artificial neuron performs two fundamental steps:
 Let's visualize this structure:
 
 <pre class="ascii-art"><code>
-         INPUTS          WEIGHTS        COMPUTATION           OUTPUT
+    ANATOMY OF AN ARTIFICIAL NEURON
+    ═══════════════════════════════════════════════════════════════════
 
-    x₁ = 0.8 ────────→   w₁ = 0.5 ┐
-                                  │
-    x₂ = 0.6 ────────→   w₂ = 0.7 ├──→ Σ(wᵢxᵢ) + b ──→ σ(z) ──→ 0.76
-                                  │
-    x₃ = 0.9 ────────→   w₃ = 0.3 ┘
+     INPUTS          WEIGHTS         WEIGHTED SUM      ACTIVATION    OUTPUT
 
-    bias = 0.1 ───────────────────┘
+                                                           ┌─────┐
+    x₁ = 0.8 ───→ × w₁ = 0.5 ──┐                          │     │
+                                │                          │     │
+    x₂ = 0.6 ───→ × w₂ = 0.7 ──┼──→ Σ = 1.07 ──→ z ───→ σ(z) ──→ 0.76
+                                │     +0.10         +b     │     │
+    x₃ = 0.9 ───→ × w₃ = 0.3 ──┘      ────                │     │
+                                       1.17                └─────┘
+    bias b = 0.1 ────────────────────────┘
 
-    Where: Σ(wᵢxᵢ) = w₁x₁ + w₂x₂ + w₃x₃
-           z = Σ(wᵢxᵢ) + b
-           σ(z) = sigmoid activation function
+    ═══════════════════════════════════════════════════════════════════
+    Formula:  output = σ(w₁x₁ + w₂x₂ + w₃x₃ + b)
+    Where:    σ(z) = sigmoid activation = 1 / (1 + e⁻ᶻ)
 </code></pre>
 
 ### A Practical Example: Should I Go Running?
@@ -276,15 +280,15 @@ XOR (exclusive OR) is a simple logical operation:
 Here's the truth table:
 
 <pre class="ascii-art"><code>
-    XOR TRUTH TABLE
-    ─────────────────────────
-    Input 1 │ Input 2 │ Output
-    ────────┼─────────┼───────
-       0    │    0    │   0    (same → 0)
-       0    │    1    │   1    (different → 1)
-       1    │    0    │   1    (different → 1)
-       1    │    1    │   0    (same → 0)
-    ─────────────────────────
+     XOR TRUTH TABLE
+    ═══════════════════════════════════
+     Input 1 │ Input 2 │ Output
+    ─────────┼─────────┼─────────────────
+        0    │    0    │   0     (same)
+        0    │    1    │   1     (different)
+        1    │    0    │   1     (different)
+        1    │    1    │   0     (same)
+    ═══════════════════════════════════
 </code></pre>
 
 Let's visualize this problem:
@@ -460,21 +464,27 @@ What if we use **two neurons** in a hidden layer, each creating their own linear
 Here's the architecture:
 
 <pre class="ascii-art"><code>
-    INPUT LAYER      HIDDEN LAYER           OUTPUT LAYER
-                     (2 neurons)             (1 neuron)
+    TWO-LAYER NEURAL NETWORK ARCHITECTURE
+    ══════════════════════════════════════════════════════════════
 
-    x₁ = Input1 ───┬─────→ [Neuron A] ───┐
-                   │                      │
-                   │       (learns OR)    ├──→ [Output] ──→ Prediction
-                   │                      │    (combines
-    x₂ = Input2 ───┴─────→ [Neuron B] ───┘     A and B)
+    INPUT LAYER         HIDDEN LAYER              OUTPUT LAYER
+                        (2 neurons)                (1 neuron)
 
-                           (learns AND)
+                      ┌──────────────┐
+    x₁ (Input 1) ────→│  Neuron A    │───┐
+                 ╲    │  (learns OR) │   │
+                  ╲   └──────────────┘   │      ┌─────────────┐
+                   ╲                     ├─────→│   Output    │──→ Prediction
+                    ╲ ┌──────────────┐   │      │  (combines  │
+    x₂ (Input 2) ────→│  Neuron B    │───┘      │   A and B)  │
+                      │ (learns AND) │          └─────────────┘
+                      └──────────────┘
 
-    How it solves XOR:
-    • Neuron A learns: "At least ONE input is 1" (OR)
-    • Neuron B learns: "BOTH inputs are 1" (AND)
-    • Output neuron learns: "A is true BUT B is false" (OR AND NOT AND = XOR)
+    ══════════════════════════════════════════════════════════════
+    How XOR is solved:
+    • Neuron A fires when: At least ONE input is 1  (OR logic)
+    • Neuron B fires when: BOTH inputs are 1        (AND logic)
+    • Output computes:     A is true BUT B is false (XOR logic)
 </code></pre>
 
 ### Building a Two-Layer Network
@@ -808,19 +818,22 @@ MSE = (1/n) × Σ(prediction - target)²
 ```
 
 <pre class="ascii-art"><code>
-    LOSS CALCULATION EXAMPLE
+    MEAN SQUARED ERROR (MSE) CALCULATION
+    ══════════════════════════════════════════════════════════════════════
 
-    Sample  │  Target  │  Prediction  │  Error  │  Squared Error
-    ────────┼──────────┼──────────────┼─────────┼───────────────
-      [0,0] │    0     │    0.002     │  0.002  │     0.000004
-      [0,1] │    1     │    0.998     │ -0.002  │     0.000004
-      [1,0] │    1     │    0.997     │ -0.003  │     0.000009
-      [1,1] │    0     │    0.003     │  0.003  │     0.000009
-    ────────┴──────────┴──────────────┴─────────┴───────────────
-                                         MSE = Average = 0.0000065
+    Sample    Target    Prediction    Error         Squared Error
+    ──────────────────────────────────────────────────────────────────────
+     [0,0]      0         0.002       +0.002         0.000004
+     [0,1]      1         0.998       -0.002         0.000004
+     [1,0]      1         0.997       -0.003         0.000009
+     [1,1]      0         0.003       +0.003         0.000009
+    ──────────────────────────────────────────────────────────────────────
+                                      Sum:           0.000026
+                                      Average (÷4):  0.0000065  ← MSE
 
-    Low MSE = Good predictions ✓
-    High MSE = Bad predictions ✗
+    ══════════════════════════════════════════════════════════════════════
+    Low MSE  = Good predictions (errors close to 0) ✓
+    High MSE = Bad predictions  (errors far from 0) ✗
 </code></pre>
 
 <div class="pyodide-cell" id="cell-mse">
@@ -927,23 +940,30 @@ Imagine the loss function as a mountainous landscape. Your current weights place
 But how do you know which direction is downhill? That's where **gradients** come in.
 
 <pre class="ascii-art"><code>
-    GRADIENT DESCENT VISUALIZATION
+    GRADIENT DESCENT: Walking Downhill to Minimize Loss
+    ════════════════════════════════════════════════════════════
 
          Loss
-          ↑
-       ▲  │
-      ╱ ╲ │        ●  ← Start here (random weights, high loss)
-     ╱   ╲│       ╱
-    ╱     │●     ╱   Gradient tells us: "go this way ↓"
-   ╱      │ ╲   ╱
-  ╱       │  ● ╱
- ╱        │   ●        ← Each step follows the gradient
-╱─────────┼────●───────────────→ Weights
-          │     ╲
-          │      ●  ← Eventually reach minimum (optimal weights)
+          ▲
+          │
+          │    ●                  ← Start: Random weights
+          │   ╱ ╲                    High loss
+          │  ╱   ╲
+          │ ╱     ●               ← Step 1: Follow gradient down
+          │╱       ╲
+          │         ●             ← Step 2: Keep descending
+          │          ╲
+          │           ●           ← Step 3: Getting closer
+          │            ╲
+          │             ●         ← Step 4: Nearly there
+          │              ╲
+    ──────┼───────────────●──────────────→ Weights
+          │                ▲
+          │                └─ Goal: Minimum loss (optimal weights)
 
-    Key Idea: Gradient = direction of steepest increase
-              We move OPPOSITE to the gradient (downhill)
+    ════════════════════════════════════════════════════════════
+    Gradient = Direction of steepest INCREASE in loss
+    We move OPPOSITE to gradient = Go DOWNHILL = Reduce loss
 </code></pre>
 
 ### Computing Gradients: The Chain Rule
@@ -1410,40 +1430,62 @@ Congratulations! You've built a complete neural network from scratch and underst
 ### The Big Picture
 
 <pre class="ascii-art"><code>
-    THE DEEP LEARNING PROCESS
+    THE COMPLETE DEEP LEARNING TRAINING CYCLE
+    ═══════════════════════════════════════════════════════════════════
 
-    ┌─────────────────────────────────────────────────────────┐
-    │  1. INITIALIZATION: Start with random weights          │
-    └──────────────────────┬──────────────────────────────────┘
-                           ↓
-    ┌─────────────────────────────────────────────────────────┐
-    │  2. FORWARD PASS: Input → Hidden → Output              │
-    │     • Compute weighted sums                             │
-    │     • Apply activation functions                        │
-    │     • Generate predictions                              │
-    └──────────────────────┬──────────────────────────────────┘
-                           ↓
-    ┌─────────────────────────────────────────────────────────┐
-    │  3. LOSS CALCULATION: How wrong are we?                 │
-    │     • Compare predictions to targets                    │
-    │     • Compute MSE (or other loss)                       │
-    └──────────────────────┬──────────────────────────────────┘
-                           ↓
-    ┌─────────────────────────────────────────────────────────┐
-    │  4. BACKPROPAGATION: Find gradients                     │
-    │     • Work backward from output to input                │
-    │     • Use chain rule to compute ∂Loss/∂Weight           │
-    └──────────────────────┬──────────────────────────────────┘
-                           ↓
-    ┌─────────────────────────────────────────────────────────┐
-    │  5. GRADIENT DESCENT: Update weights                    │
-    │     • Weight -= learning_rate × gradient                │
-    │     • Move "downhill" on the loss landscape             │
-    └──────────────────────┬──────────────────────────────────┘
-                           ↓
-                    Repeat 2-5 for many epochs
-                           ↓
-                   ✓ Optimized network!
+         ┌────────────────────────────────────────────────────┐
+         │  STEP 1: INITIALIZATION                            │
+         │  • Create random weights and biases                │
+         │  • Network knows nothing yet                       │
+         └──────────────────┬─────────────────────────────────┘
+                            │
+                            ↓
+         ┌────────────────────────────────────────────────────┐
+         │  STEP 2: FORWARD PASS                              │
+         │  • Input → Hidden layers → Output                  │
+         │  • Compute: activation = σ(weights × input + bias) │
+         │  • Generate predictions                            │
+         └──────────────────┬─────────────────────────────────┘
+                            │
+                            ↓
+         ┌────────────────────────────────────────────────────┐
+         │  STEP 3: COMPUTE LOSS                              │
+         │  • Compare predictions to true targets             │
+         │  • Calculate error: MSE = mean((pred - target)²)   │
+         │  • Quantify how wrong we are                       │
+         └──────────────────┬─────────────────────────────────┘
+                            │
+                            ↓
+         ┌────────────────────────────────────────────────────┐
+         │  STEP 4: BACKPROPAGATION                           │
+         │  • Compute gradients using chain rule              │
+         │  • Find ∂Loss/∂Weight for every weight             │
+         │  • Determine how to adjust each weight             │
+         └──────────────────┬─────────────────────────────────┘
+                            │
+                            ↓
+         ┌────────────────────────────────────────────────────┐
+         │  STEP 5: GRADIENT DESCENT (Update Weights)         │
+         │  • weight_new = weight_old - learning_rate × grad  │
+         │  • Take small step downhill on loss landscape      │
+         │  • Network gets slightly better                    │
+         └──────────────────┬─────────────────────────────────┘
+                            │
+                            ↓
+                    ╔═══════════════╗
+                    ║  Repeat 2-5   ║
+                    ║  for 1000s of ║  ← Training loop
+                    ║    epochs     ║
+                    ╚═══════╦═══════╝
+                            │
+                            ↓
+                    ┌───────────────┐
+                    │   ✓ DONE!     │
+                    │ Trained model │
+                    │  ready to use │
+                    └───────────────┘
+
+    ═══════════════════════════════════════════════════════════════════
 </code></pre>
 
 ### What Comes Next
