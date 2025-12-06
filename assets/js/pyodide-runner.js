@@ -88,14 +88,29 @@
 
         const result = await pyodide.runPythonAsync(`
 import sys, io, traceback
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+import builtins
+
 _stdout, _stderr = sys.stdout, sys.stderr
 stdout = io.StringIO()
 stderr = io.StringIO()
 sys.stdout = stdout
 sys.stderr = stderr
 success = True
+
+# Create execution namespace with builtins and loaded modules
+exec_globals = {
+    '__builtins__': builtins,
+    'np': np,
+    'numpy': np,
+    'plt': plt,
+    'matplotlib': matplotlib
+}
+
 try:
-    exec(code_to_run, {})
+    exec(code_to_run, exec_globals)
 except Exception:
     success = False
     traceback.print_exc(file=stderr)
