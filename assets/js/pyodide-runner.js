@@ -63,6 +63,19 @@
     outputEl.appendChild(span);
   }
 
+  function appendImage(outputEl, base64Data) {
+    if (!outputEl || !base64Data) {
+      return;
+    }
+    const img = document.createElement('img');
+    img.src = `data:image/png;base64,${base64Data}`;
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.style.margin = '10px 0';
+    outputEl.appendChild(img);
+  }
+
   cells.forEach((cell) => {
     const textarea = cell.querySelector('textarea.pyodide-code');
     const runButton = cell.querySelector('[data-pyodide-action="run"]');
@@ -90,8 +103,10 @@
 import sys, io, traceback
 import numpy as np
 import matplotlib
+matplotlib.use('agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 import builtins
+import base64
 
 _stdout, _stderr = sys.stdout, sys.stderr
 stdout = io.StringIO()
@@ -99,6 +114,7 @@ stderr = io.StringIO()
 sys.stdout = stdout
 sys.stderr = stderr
 success = True
+plot_images = []
 
 # Create execution namespace with builtins and loaded modules
 exec_globals = {
@@ -111,23 +127,44 @@ exec_globals = {
 
 try:
     exec(code_to_run, exec_globals)
+
+    # Capture any matplotlib figures
+    figs = [plt.figure(num) for num in plt.get_fignums()]
+    for fig in figs:
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', bbox_inches='tight', dpi=100)
+        buf.seek(0)
+        img_str = base64.b64encode(buf.read()).decode('utf-8')
+        plot_images.append(img_str)
+        buf.close()
+    plt.close('all')  # Close all figures
+
 except Exception:
     success = False
     traceback.print_exc(file=stderr)
 finally:
     sys.stdout = _stdout
     sys.stderr = _stderr
-stdout.getvalue(), stderr.getvalue(), success
+stdout.getvalue(), stderr.getvalue(), success, plot_images
         `);
 
-        const [stdoutText, stderrText, success] = result.toJs({ create_proxies: false });
+        const [stdoutText, stderrText, success, plotImages] = result.toJs({ create_proxies: false });
+
         if (stdoutText) {
           appendOutput(outputEl, stdoutText, false);
         }
         if (stderrText) {
           appendOutput(outputEl, stderrText, true);
         }
-        if (!stdoutText && !stderrText) {
+
+        // Display matplotlib plots
+        if (plotImages && plotImages.length > 0) {
+          plotImages.forEach(imgData => {
+            appendImage(outputEl, imgData);
+          });
+        }
+
+        if (!stdoutText && !stderrText && (!plotImages || plotImages.length === 0)) {
           appendOutput(outputEl, '(no output)', false);
         }
         setStatus(statusEl, success ? 'Finished' : 'Finished with errors', success ? 'success' : 'error');
