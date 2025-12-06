@@ -16,6 +16,20 @@
     // Dark mode toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
     const body = document.body;
+    const themeColorMeta = document.getElementById('theme-color-meta');
+
+    // Theme colors for browser toolbar
+    const THEME_COLORS = {
+      light: '#FFFFF6',
+      dark: '#1a1a2e'
+    };
+
+    // Update browser theme-color meta tag
+    function updateThemeColor(theme) {
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', THEME_COLORS[theme]);
+      }
+    }
 
     // Check for saved theme preference or default to light mode
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -23,6 +37,7 @@
       body.classList.add('dark-mode');
       if (themeToggle) themeToggle.textContent = '☀️ Light';
     }
+    updateThemeColor(currentTheme);
 
     // Theme toggle click handler
     if (themeToggle) {
@@ -37,6 +52,7 @@
           themeToggle.textContent = '🌙 Dark';
         }
         localStorage.setItem('theme', theme);
+        updateThemeColor(theme);
       });
     }
   </script>
