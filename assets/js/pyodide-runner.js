@@ -7,6 +7,7 @@
   const PYODIDE_VERSION = '0.24.1';
   const INDEX_URL = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
   let pyodidePromise = null;
+  let packagesLoaded = false;
 
   function ensurePyodideLoaded() {
     if (!pyodidePromise) {
@@ -14,6 +15,9 @@
         const start = async () => {
           try {
             const pyodide = await globalThis.loadPyodide({ indexURL: INDEX_URL });
+            // Load NumPy and matplotlib automatically
+            await pyodide.loadPackage(['numpy', 'matplotlib']);
+            packagesLoaded = true;
             resolve(pyodide);
           } catch (error) {
             reject(error);
@@ -71,7 +75,7 @@
     }
 
     runButton.addEventListener('click', async () => {
-      setStatus(statusEl, 'Loading Pyodide…', 'info');
+      setStatus(statusEl, 'Loading Pyodide + NumPy + Matplotlib…', 'info');
       runButton.disabled = true;
       if (clearButton) clearButton.disabled = true;
       try {
