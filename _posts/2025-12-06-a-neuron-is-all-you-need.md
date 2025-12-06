@@ -465,23 +465,22 @@ Here's the architecture:
 
 <pre class="ascii-art"><code>
     TWO-LAYER NEURAL NETWORK ARCHITECTURE
-    ═══════════════════════════════════════════════════════════════════════════
+    ═════════════════════════════════════════════════════════════
 
-    INPUT LAYER              HIDDEN LAYER                 OUTPUT LAYER
-                             (2 neurons)                  (1 neuron)
+    INPUT LAYER         HIDDEN LAYER          OUTPUT LAYER
+                        (2 neurons)           (1 neuron)
 
-                          ┌────────────────┐
-    x₁ (Input 1) ────────→│   Neuron A     │────────┐
-                     \    │  (learns OR)   │        │
-                      \   └────────────────┘        │    ┌───────────────┐
-                       \                            ├───→│    Output     │───→ Prediction
-                        \                           │    │ (combines A,B)│
-                         \ ┌────────────────┐       │    └───────────────┘
-    x₂ (Input 2) ────────→│   Neuron B     │────────┘
-                          │ (learns AND)   │
-                          └────────────────┘
+                      ┌──────────────┐
+    x₁ (Input 1) ────→│   Neuron A   │────┐
+                  │   │  (learns OR) │    │
+                  │   └──────────────┘    │   ┌─────────────┐
+                  │                       ├──→│   Output    │──→ Prediction
+                  │   ┌──────────────┐    │   │(combines A,B)│
+    x₂ (Input 2) ─┼──→│   Neuron B   │────┘   └─────────────┘
+                      │ (learns AND) │
+                      └──────────────┘
 
-    ═══════════════════════════════════════════════════════════════════════════
+    ═════════════════════════════════════════════════════════════
     How XOR is solved:
     • Neuron A fires when: At least ONE input is 1  (OR logic)
     • Neuron B fires when: BOTH inputs are 1        (AND logic)
@@ -942,25 +941,26 @@ But how do you know which direction is downhill? That's where **gradients** come
 
 <pre class="ascii-art"><code>
     GRADIENT DESCENT: Walking Downhill to Minimize Loss
-    ═══════════════════════════════════════════════════════════════════════════
+    ═════════════════════════════════════════════════════════════
 
     Loss
       ▲
-      │         ●                         ← Start: Random weights (High loss)
-      │        / \
-      │       /   \
-      │      /     ●                      ← Step 1: Follow gradient down
-      │     /       \
-      │    /         ●                    ← Step 2: Keep descending
-      │   /           \
-      │  /             ●                  ← Step 3: Getting closer
-      │ /               \
-      │/                 ●                ← Step 4: Nearly there
-      └───────────────────●───────────────────────────────────────→ Weights
+      │
+      │    ●  Start: Random weights, High loss
+      │    │
+      │    └──●  Step 1: Follow gradient down
+      │        │
+      │        └──●  Step 2: Keep descending
+      │            │
+      │            └──●  Step 3: Getting closer
+      │                │
+      │                └──●  Step 4: Nearly there
+      │                    │
+      └────────────────────●────────────────────────────────→ Weights
                           ▲
-                          └── Goal: Minimum loss (optimal weights)
+                          Goal: Minimum loss (optimal weights)
 
-    ═══════════════════════════════════════════════════════════════════════════
+    ═════════════════════════════════════════════════════════════
     Gradient = Direction of steepest INCREASE in loss
     We move OPPOSITE to gradient = Go DOWNHILL = Reduce loss
 </code></pre>
