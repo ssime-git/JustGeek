@@ -307,7 +307,7 @@ One neuron, one line. What if two neurons each draw a line, and then a third neu
 
 ### Architecture Sketch
 
-```
+<pre class="ascii-art"><code>
     INPUT           HIDDEN LAYER        OUTPUT
 
     x₁ ─────┬──────→ [Neuron A] ───┬
@@ -318,7 +318,7 @@ One neuron, one line. What if two neurons each draw a line, and then a third neu
 
     Each hidden neuron draws its own line.
     The output neuron combines them.
-```
+</code></pre>
 
 ### Build It
 
