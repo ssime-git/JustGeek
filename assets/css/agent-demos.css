@@ -1,5 +1,147 @@
-/* Mini Demo Styles for Agent Article */
+/* Agent Article Styles */
 
+/* Pyodide Cell Styles */
+.pyodide-cell {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.pyodide-cell .demo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pyodide-cell .demo-badge {
+  background: #3b82f6;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pyodide-cell .demo-badge-final {
+  background: #10b981;
+}
+
+.pyodide-cell .demo-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.pyodide-cell textarea.pyodide-code {
+  width: 100%;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: #0f172a;
+  color: #e2e8f0;
+  resize: vertical;
+  tab-size: 4;
+}
+
+.pyodide-cell textarea.pyodide-code:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.pyodide-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pyodide-controls button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.pyodide-controls button:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.pyodide-controls button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.pyodide-controls button[data-pyodide-action="clear"] {
+  background: var(--bg-secondary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.pyodide-controls button[data-pyodide-action="clear"]:hover:not(:disabled) {
+  background: var(--border-color);
+}
+
+.pyodide-status {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.pyodide-status[data-status-type="success"] {
+  color: #10b981;
+}
+
+.pyodide-status[data-status-type="error"] {
+  color: #ef4444;
+}
+
+.pyodide-output {
+  background: #0f172a;
+  color: #f1f5f9;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  min-height: 100px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.pyodide-output:empty::before {
+  content: "Clique sur 'Exécuter' pour voir le résultat...";
+  color: #64748b;
+  font-style: italic;
+}
+
+.pyodide-output-line {
+  display: block;
+  padding: 2px 0;
+}
+
+.pyodide-output-line.error {
+  color: #f87171;
+}
+
+/* Mini Demo Styles (legacy) */
 .mini-demo {
   background: var(--bg-color);
   border: 1px solid var(--border-color);

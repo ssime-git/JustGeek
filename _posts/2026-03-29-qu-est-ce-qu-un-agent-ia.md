@@ -1,238 +1,465 @@
 ---
 layout: post-interactive
-title: "Qu'est-ce qu'un Agent IA ? La Boucle que le Tool Calling Cache"
+title: "Qu'est-ce qu'un Agent IA ? Construis-en un en 50 lignes"
 date: 2026-03-29
 author: "Sébastien Sime"
 categories: [IA, LLM, Agents]
-tags: [llm, agent, tool-calling, boucle-autonome, ia]
+tags: [llm, agent, tool-calling, boucle-autonome, ia, python]
 ---
 
-## Introduction
+Tu utilises ChatGPT tous les jours. Tu crois parler à une IA intelligente. En réalité, tu parles à un **perroquet statistique enfermé dans une boîte**. Il prédit le mot suivant, point final.
 
-Tout le monde confond. On dit "Claude Code est un LLM" ou "GPT-4 avec tools est un agent". **Faux.**
+L'agent, lui, a les clés de la boîte. Il peut sortir, agir, et revenir avec des résultats.
 
-Un **LLM** (Large Language Model) génère du texte. Rien d'autre.  
-Un **Agent** est un **système** qui utilise un LLM comme cerveau, mais ajoute des **mains** (outils) et une **boucle autonome**.
+Dans cet article, tu vas **construire un agent de zéro**, étape par étape, avec du vrai code Python qui s'exécute dans ton navigateur. Pas de mock, pas de simulation. Du code réel.
 
-Dans cet article, je vais te montrer exactement ce qui change, avec du code que tu peux exécuter dans ton navigateur.
+---
 
+## L'analogie qui change tout
 
-## Partie 1 : Le LLM Seul
+Imagine un médecin :
 
-### Ce qu'il fait vraiment
+- **LLM seul** : Il t'explique l'opération par téléphone. "Coupe ici, recouds là." Tu dois tout faire toi-même.
+- **LLM + Tool Calling** : Il te prescrit un médicament. Tu dois aller le chercher à la pharmacie.
+- **Agent** : Il est dans la salle d'opération. Il coupe, vérifie, recoud, sans rien te demander.
 
-Un LLM ne comprend rien. Il prédit la suite de caractères la plus probable.
+L'agent n'est pas plus intelligent. Il est **autonome**. C'est toute la différence.
 
-**Entrée :** `"Quelle heure est-il ?"`  
-**Sortie :** `"Je suis un modèle de langage, je n'ai pas accès à l'heure..."`
+On va construire ce médecin-chirurgien, étape par étape.
 
-Le LLM n'a pas accès à vos fichiers, à internet, ni à l'heure. Il s'arrête après avoir généré sa réponse.
+---
 
+## Étape 1 : Le LLM seul (le perroquet)
 
-## Demo 1 : Voyez ce que génère vraiment un LLM
+Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. Demande-lui l'heure, il va t'expliquer qu'il ne peut pas la connaître.
 
-Le simulateur ci-dessous reçoit une question et génère une réponse. Observe bien : il ne fait qu'écrire du texte.
+**Exécute ce code pour voir :**
 
-<div class="mini-demo" id="demo-llm-only">
+<div class="pyodide-cell" id="demo-step1">
   <div class="demo-header">
-    <span class="demo-badge">Demo 1</span>
-    <span class="demo-title">LLM seul : juste du texte</span>
+    <span class="demo-badge">Étape 1</span>
+    <span class="demo-title">Le LLM seul : juste du texte</span>
   </div>
-  
-  <div class="demo-flow">
-    <div class="flow-box user">Toi<br>"Quelle heure ?"</div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-box llm">LLM<br>(prédiction)</div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-box output">"Je ne sais pas..."</div>
+  <textarea class="pyodide-code" rows="12">
+# Simulation d'un LLM basique
+# En vrai, c'est un appel API à OpenAI/Anthropic
+
+def llm_generate(prompt):
+    """
+    Le LLM ne fait que générer du texte.
+    Il n'a accès à RIEN d'autre.
+    """
+    print(f"[INPUT]  Prompt reçu: '{prompt}'")
+    print(f"[LLM]    Génération en cours...")
+    
+    # Le LLM génère une réponse (simulée mais réaliste)
+    response = "Je suis un modèle de langage. Je n'ai pas accès à l'heure actuelle, ni à vos fichiers, ni à internet."
+    
+    print(f"[OUTPUT] '{response}'")
+    print(f"\n>>> Le LLM s'arrête ici. Il ne peut rien faire d'autre.")
+    return response
+
+# Test
+llm_generate("Quelle heure est-il ?")
+</textarea>
+  <div class="pyodide-controls">
+    <button data-pyodide-action="run">Exécuter</button>
+    <button data-pyodide-action="clear">Effacer</button>
+    <span class="pyodide-status"></span>
   </div>
-  
-  <button class="demo-run-btn" data-demo="llm-only">Simuler la réponse</button>
-  <div class="demo-output" id="output-llm-only"></div>
+  <div class="pyodide-output"></div>
 </div>
 
-**Le constat :** Le LLM s'arrête net. Il ne peut pas chercher l'heure, ni faire quoi que ce soit d'autre.
+**Constat :** Le LLM génère du texte, puis s'arrête. Il ne peut pas aller chercher l'heure. Il est enfermé dans sa boîte.
 
+---
 
-## Partie 2 : Le Tool Calling
+## Étape 2 : Le Tool Calling (la prescription)
 
-Les LLM modernes peuvent générer des **appels structurés** sous forme de JSON. Mais attention au piège.
-
-### Ce que génère le LLM
-
-Quand on lui dit "Tu peux appeler des outils", il répond ainsi :
+Les LLM modernes peuvent générer des **appels structurés** en JSON. Quand tu lui dis "tu as accès à ces outils", il peut répondre :
 
 ```json
-{
-  "tool_call": {
-    "name": "get_current_time",
-    "arguments": {}
-  }
+{"tool": "get_time", "args": {}}
+```
+
+Mais attention : **ce n'est que du texte**. Le LLM a juste écrit du JSON bien formaté. Personne ne l'a exécuté.
+
+**Exécute ce code pour voir le JSON brut :**
+
+<div class="pyodide-cell" id="demo-step2">
+  <div class="demo-header">
+    <span class="demo-badge">Étape 2</span>
+    <span class="demo-title">Tool Calling : le LLM génère du JSON</span>
+  </div>
+  <textarea class="pyodide-code" rows="20">
+import json
+
+def llm_with_tools(prompt, available_tools):
+    """
+    Le LLM sait qu'il a des outils disponibles.
+    Il génère un JSON structuré pour les appeler.
+    """
+    print(f"[INPUT]  Prompt: '{prompt}'")
+    print(f"[INPUT]  Outils disponibles: {available_tools}")
+    print(f"[LLM]    Analyse de la demande...")
+    
+    # Le LLM décide d'appeler un outil (simulé)
+    tool_call = {
+        "type": "tool_call",
+        "tool": "get_time",
+        "arguments": {}
+    }
+    
+    print(f"[LLM]    Décision: appeler un outil")
+    print(f"[OUTPUT] JSON généré:")
+    print(json.dumps(tool_call, indent=2))
+    
+    print(f"\n>>> Le LLM a généré du JSON. Mais QUI va l'exécuter ?")
+    print(f">>> Ce JSON est inerte. C'est juste du texte.")
+    
+    return tool_call
+
+# Test
+tools = ["get_time", "read_file", "calculate"]
+llm_with_tools("Quelle heure est-il ?", tools)
+</textarea>
+  <div class="pyodide-controls">
+    <button data-pyodide-action="run">Exécuter</button>
+    <button data-pyodide-action="clear">Effacer</button>
+    <span class="pyodide-status"></span>
+  </div>
+  <div class="pyodide-output"></div>
+</div>
+
+**Question clé :** Le LLM a généré `{"tool": "get_time"}`. Mais qui va réellement appeler la fonction `get_time()` ? Pas le LLM. C'est **ton code**.
+
+---
+
+## Étape 3 : Le Dispatcher (ton code)
+
+Entre le LLM et l'outil, il faut un **programme intermédiaire** qui :
+1. Parse le JSON du LLM
+2. Trouve la bonne fonction
+3. L'exécute vraiment
+4. Récupère le résultat
+
+C'est ce code que personne ne te montre. Le voici :
+
+<div class="pyodide-cell" id="demo-step3">
+  <div class="demo-header">
+    <span class="demo-badge">Étape 3</span>
+    <span class="demo-title">Le Dispatcher : parser et exécuter</span>
+  </div>
+  <textarea class="pyodide-code" rows="35">
+import json
+from datetime import datetime
+
+# ═══════════════════════════════════════════════════════════
+# 1. DÉFINIR LES OUTILS (les vraies fonctions)
+# ═══════════════════════════════════════════════════════════
+def get_time():
+    """Retourne l'heure actuelle"""
+    return datetime.now().strftime("%H:%M:%S")
+
+def calculate(expression):
+    """Évalue une expression mathématique"""
+    return str(eval(expression))
+
+# Registre des outils
+TOOLS = {
+    "get_time": get_time,
+    "calculate": calculate
 }
-```
 
-**Mais ce n'est pas l'agent !** Le LLM a juste généré du texte formaté. Quelqu'un doit **lire ce JSON et exécuter** la fonction.
+print("=== OUTILS DISPONIBLES ===")
+print(f"Fonctions: {list(TOOLS.keys())}")
 
+# ═══════════════════════════════════════════════════════════
+# 2. LE JSON DU LLM (simulé)
+# ═══════════════════════════════════════════════════════════
+llm_output = '{"type": "tool_call", "tool": "get_time", "arguments": {}}'
 
-## Demo 2 : Le Tool Call en Action
+print(f"\n=== JSON REÇU DU LLM ===")
+print(llm_output)
 
-Voyons ce que le LLM génère concrètement. Ce JSON ne s'exécute pas tout seul. Voici le code qui doit le parser :
-
-<div class="mini-demo" id="demo-tool-call">
-  <div class="demo-header">
-    <span class="demo-badge">Demo 2</span>
-    <span class="demo-title">Tool Calling : parser le JSON du LLM</span>
-  </div>
-  
-  <div class="agent-code-mini">
-    <pre><code>import json
-
-# Le LLM génère ce JSON
-llm_output = '{"tool": "get_time", "args": {}}'
-
-# TON CODE doit le parser
+# ═══════════════════════════════════════════════════════════
+# 3. TON CODE : PARSER ET EXÉCUTER
+# ═══════════════════════════════════════════════════════════
+print(f"\n=== PARSING ===")
 parsed = json.loads(llm_output)
-print(f"Outil à appeler: {parsed['tool']}")
-print(f"Arguments: {parsed['args']}")</code></pre>
+tool_name = parsed["tool"]
+tool_args = parsed.get("arguments", {})
+
+print(f"Outil demandé: {tool_name}")
+print(f"Arguments: {tool_args}")
+
+print(f"\n=== EXÉCUTION ===")
+if tool_name in TOOLS:
+    result = TOOLS[tool_name](**tool_args)
+    print(f">>> {tool_name}() exécuté")
+    print(f">>> Résultat: {result}")
+else:
+    print(f">>> Erreur: outil '{tool_name}' inconnu")
+
+print(f"\n>>> Ce résultat doit maintenant être renvoyé au LLM.")
+</textarea>
+  <div class="pyodide-controls">
+    <button data-pyodide-action="run">Exécuter</button>
+    <button data-pyodide-action="clear">Effacer</button>
+    <span class="pyodide-status"></span>
   </div>
-  
-  <button class="demo-run-btn" data-demo="tool-call">Exécuter le parser</button>
-  <div class="demo-output" id="output-tool-call"></div>
+  <div class="pyodide-output"></div>
 </div>
 
-**La question clé :** Qui exécute ce JSON ? C'est toi, avec ce code.
+**C'est ce code qui manque au LLM seul.** Sans lui, le JSON reste du texte inerte. Avec lui, le JSON devient une action réelle.
 
+Mais il manque encore quelque chose : **la boucle**.
 
-## Partie 3 : Le Programme Intermédiaire
+---
 
-Entre le LLM et l'outil, il faut un **programme** qui :
-1. Parse le JSON
-2. Appelle la vraie fonction
-3. Renvoie le résultat au LLM
+## Étape 4 : La Boucle Autonome (l'agent)
 
-C'est **ton code**, pas le LLM. Voici ce que ça ressemble :
-
-
-## Demo 3 : Exécuter l'Outil (ton code)
-
-Maintenant on exécute vraiment la fonction. Le JSON n'est plus juste du texte, c'est une action réelle :
-
-<div class="mini-demo" id="demo-missing-loop">
-  <div class="demo-header">
-    <span class="demo-badge">Demo 3</span>
-    <span class="demo-title">Exécuter l'outil (ton code)</span>
-  </div>
-  
-  <div class="agent-code-mini">
-    <pre><code>import json
-
-# Le LLM a généré ce JSON
-llm_response = '{"tool": "get_time", "args": {}}'
-parsed = json.loads(llm_response)
-
-# TON CODE exécute l'outil
-def get_current_time():
-    return "14h32"
-
-if parsed["tool"] == "get_time":
-    print("[EXEC]Exécution de get_time()...")
-    result = get_current_time()
-    print(f"[RESULT]{result}")
-    print("[SEND]Envoi du résultat au LLM...")
-</code></pre>
-  </div>
-  
-  <button class="demo-run-btn" data-demo="missing-loop">Exécuter l'outil</button>
-  <div class="demo-output" id="output-missing-loop"></div>
-</div>
-
-**C'est ce code qui manque au LLM seul.** Sans lui, le JSON reste inerte. C'est ce qui transforme un générateur de texte en système capable d'agir.
-
-
-## Partie 4 : L'Agent Autonome
-
-L'agent ajoute une **boucle autonome** qui tourne sans vous. Voici l'architecture complète :
+Un agent, c'est quand tu mets tout ça dans une **boucle while** :
 
 ```
-Vous (objectif) → LLM (décide) → JSON (tool call)
-                                         ↓
-                              Programme (exécute)
-                                         ↓
-                              Résultat → LLM (analyse)
-                                         ↓
-                        Nouveau tool call ? → Oui → Boucle
-                                        ↓ Non
-                                     Terminé
+while not finished:
+    1. LLM décide (texte ou tool_call ?)
+    2. Si tool_call → exécuter l'outil
+    3. Renvoyer le résultat au LLM
+    4. Recommencer
 ```
 
-**La différence cruciale :** L'agent gère tout seul les itérations. Tu donnes un objectif, il s'occupe du reste.
+Le LLM reprend la main après chaque outil. Il peut décider d'appeler un autre outil, ou de répondre. **Sans intervention humaine.**
 
+Voici l'agent complet :
 
-## Demo 4 : L'Agent Complet en Python
-
-Voici le code complet d'un agent minimal. Regarde bien : tu vas voir la boucle s'exécuter, le LLM décider, l'outil s'exécuter, et le LLM reprendre la main. C'est ça, un agent.
-
-<div class="mini-demo agent-full" id="demo-agent-full">
+<div class="pyodide-cell" id="demo-step4">
   <div class="demo-header">
-    <span class="demo-badge demo-badge-final">Demo 4</span>
-    <span class="demo-title">L'Agent : la boucle autonome en action</span>
+    <span class="demo-badge demo-badge-final">Étape 4</span>
+    <span class="demo-title">L'Agent Complet : la boucle autonome</span>
   </div>
-  
-  <div class="agent-status-mini" id="agent-status-mini">Prêt</div>
-  
-  <div class="agent-visualizer-mini">
-    <div class="mini-step" data-step="1">Objectif</div>
-    <div class="mini-arrow">→</div>
-    <div class="mini-step" data-step="2">Décide</div>
-    <div class="mini-arrow">→</div>
-    <div class="mini-step" data-step="3">Exécute</div>
-    <div class="mini-arrow">→</div>
-    <div class="mini-step" data-step="4">Résultat</div>
-    <div class="mini-arrow">→</div>
-    <div class="mini-step" data-step="5">Répond</div>
-  </div>
-  
-  <div class="agent-code-mini">
-    <pre><code>def run_agent(goal):
+  <textarea class="pyodide-code" rows="75">
+import json
+from datetime import datetime
+
+# ═══════════════════════════════════════════════════════════
+# ÉTAPE 1 : DÉFINIR LES OUTILS
+# ═══════════════════════════════════════════════════════════
+def get_time():
+    return datetime.now().strftime("%H:%M:%S")
+
+def calculate(expression):
+    return str(eval(expression))
+
+def read_file(path):
+    FILES = {
+        "config.json": '{"version": "2.1.0", "debug": true}',
+        "package.json": '{"name": "mon-app", "dependencies": {"react": "18.2.0"}}'
+    }
+    return FILES.get(path, f"Fichier '{path}' non trouvé")
+
+TOOLS = {
+    "get_time": get_time,
+    "calculate": calculate,
+    "read_file": read_file
+}
+
+# ═══════════════════════════════════════════════════════════
+# ÉTAPE 2 : SIMULER LE LLM
+# ═══════════════════════════════════════════════════════════
+def llm_decide(messages):
+    """
+    Simule la décision du LLM.
+    En production, c'est un appel API à OpenAI/Anthropic.
+    """
+    last_msg = messages[-1]
+    context = " ".join(m.get("content", "") for m in messages).lower()
+    
+    # Vérifier ce qu'on a déjà collecté
+    has_time = any(m["role"] == "tool" and ":" in m.get("content", "") for m in messages)
+    has_calc = any(m["role"] == "tool" and m.get("tool") == "calculate" for m in messages)
+    
+    # Logique de décision
+    if "heure" in context and not has_time:
+        return {"type": "tool_call", "tool": "get_time", "arguments": {}}
+    
+    if ("+" in context or "-" in context or "*" in context) and not has_calc:
+        # Extraire l'expression (simplifié)
+        for expr in ["2+2", "10*5", "100-42"]:
+            if expr.replace("*", "x") in context or expr in context:
+                return {"type": "tool_call", "tool": "calculate", "arguments": {"expression": expr}}
+        return {"type": "tool_call", "tool": "calculate", "arguments": {"expression": "2+2"}}
+    
+    # Construire la réponse finale
+    parts = []
+    for m in messages:
+        if m["role"] == "tool":
+            if ":" in m["content"] and m.get("tool") == "get_time":
+                parts.append(f"Il est {m['content']}")
+            elif m.get("tool") == "calculate":
+                parts.append(f"Le résultat est {m['content']}")
+    
+    answer = ". ".join(parts) if parts else "Je n'ai pas pu répondre."
+    return {"type": "answer", "content": answer}
+
+# ═══════════════════════════════════════════════════════════
+# ÉTAPE 3 : LA BOUCLE AGENT
+# ═══════════════════════════════════════════════════════════
+def run_agent(goal, max_iterations=5):
+    print("=" * 60)
+    print(f"AGENT DÉMARRÉ")
+    print(f"Objectif: {goal}")
+    print("=" * 60)
+    
     messages = [{"role": "user", "content": goal}]
     
-    for i in range(5):  # Boucle autonome
-        # 1. LLM décide
-        response = llm.generate(messages, tools)
+    for i in range(max_iterations):
+        print(f"\n--- Itération {i + 1} ---")
         
-        if response.type == "final":
-            return response.content  # Terminé
+        # 1. Le LLM analyse et décide
+        print(f"[LLM] Analyse du contexte ({len(messages)} messages)...")
+        decision = llm_decide(messages)
         
-        # 2. Exécute l'outil
-        result = execute_tool(response.tool_call)
+        # 2. Si réponse finale, on arrête
+        if decision["type"] == "answer":
+            print(f"[LLM] Type: RÉPONSE FINALE")
+            print(f"\n{'=' * 60}")
+            print(f"RÉPONSE: {decision['content']}")
+            print(f"Agent terminé en {i + 1} itération(s)")
+            print("=" * 60)
+            return decision["content"]
         
-        # 3. Continue la boucle
-        messages.append({"role": "tool", "content": result})</code></pre>
+        # 3. Sinon, exécuter l'outil
+        tool_name = decision["tool"]
+        tool_args = decision.get("arguments", {})
+        
+        print(f"[LLM] Type: TOOL_CALL")
+        print(f"[LLM] Outil: {tool_name}({tool_args})")
+        
+        # Exécution réelle
+        print(f"[EXEC] Appel de {tool_name}()...")
+        result = TOOLS[tool_name](**tool_args)
+        print(f"[EXEC] Résultat: {result}")
+        
+        # 4. Ajouter aux messages et continuer
+        messages.append({
+            "role": "tool",
+            "tool": tool_name,
+            "content": result
+        })
+        print(f"[LOOP] Résultat ajouté au contexte. Retour au LLM...")
+    
+    return "Nombre maximum d'itérations atteint"
+
+# ═══════════════════════════════════════════════════════════
+# EXÉCUTER L'AGENT
+# ═══════════════════════════════════════════════════════════
+run_agent("Quelle heure est-il et combien fait 2+2 ?")
+</textarea>
+  <div class="pyodide-controls">
+    <button data-pyodide-action="run">Exécuter</button>
+    <button data-pyodide-action="clear">Effacer</button>
+    <span class="pyodide-status"></span>
   </div>
-  
-  <button class="demo-run-btn btn-primary" data-demo="agent-full">Exécuter l'Agent Autonome</button>
-  <div class="demo-output agent-console" id="output-agent-full"></div>
+  <div class="pyodide-output"></div>
 </div>
 
+**Observe bien la console :**
+1. Le LLM analyse → décide d'appeler `get_time()`
+2. L'outil s'exécute → résultat ajouté au contexte
+3. Le LLM reprend → décide d'appeler `calculate()`
+4. L'outil s'exécute → résultat ajouté
+5. Le LLM reprend → génère la réponse finale
 
-## Résumé Visuel
+**C'est ça, un agent.** Une boucle qui tourne jusqu'à ce que le LLM décide qu'il a fini.
+
+---
+
+## Étape 5 : Expérimente toi-même
+
+Modifie le code ci-dessous et teste différents objectifs :
+
+<div class="pyodide-cell" id="demo-step5">
+  <div class="demo-header">
+    <span class="demo-badge" style="background: #8b5cf6;">Sandbox</span>
+    <span class="demo-title">Ton agent personnalisé</span>
+  </div>
+  <textarea class="pyodide-code" rows="30">
+import json
+from datetime import datetime
+
+# Tes outils
+def get_time():
+    return datetime.now().strftime("%H:%M:%S")
+
+def calculate(expression):
+    return str(eval(expression))
+
+def read_file(path):
+    FILES = {
+        "config.json": '{"version": "2.1.0"}',
+        "package.json": '{"react": "18.2.0"}'
+    }
+    return FILES.get(path, "Non trouvé")
+
+TOOLS = {"get_time": get_time, "calculate": calculate, "read_file": read_file}
+
+# Change l'objectif ici !
+GOAL = "Quelle heure est-il ?"
+
+# Agent simplifié
+messages = [{"role": "user", "content": GOAL}]
+print(f"Objectif: {GOAL}\n")
+
+# Une seule itération pour tester
+if "heure" in GOAL.lower():
+    print("[LLM] Je dois appeler get_time()")
+    result = get_time()
+    print(f"[EXEC] Résultat: {result}")
+    print(f"\n[RÉPONSE] Il est {result}")
+elif "+" in GOAL or "calcul" in GOAL.lower():
+    expr = "2+2"  # Simplifié
+    print(f"[LLM] Je dois appeler calculate('{expr}')")
+    result = calculate(expr)
+    print(f"[EXEC] Résultat: {result}")
+    print(f"\n[RÉPONSE] {expr} = {result}")
+else:
+    print("[LLM] Je ne sais pas quel outil utiliser.")
+</textarea>
+  <div class="pyodide-controls">
+    <button data-pyodide-action="run">Exécuter</button>
+    <button data-pyodide-action="clear">Effacer</button>
+    <span class="pyodide-status"></span>
+  </div>
+  <div class="pyodide-output"></div>
+</div>
+
+---
+
+## Résumé : LLM vs Tool Calling vs Agent
 
 | | LLM seul | Tool Calling | Agent |
 |---|---|---|---|
 | Génère du texte | Oui | Oui | Oui |
-| Décide d'agir | Non | Oui | Oui |
+| Peut demander une action | Non | Oui | Oui |
 | Exécute l'action | Non | Non | Oui |
 | Boucle autonome | Non | Non | Oui |
+| Gère plusieurs étapes | Non | Non | Oui |
 
+---
 
-## L'Analogie Finale
+## Ce que tu as appris
 
-- **LLM** : Un médecin qui t'explique l'opération par téléphone. Tu dois tout faire toi-même.
-- **Tool Calling** : Le médecin te prescrit un soin. Tu dois aller chercher le médicament toi-même.
-- **Agent** : Le médecin est dans la salle d'opération avec ses scalpels. Il opère, vérifie, recouse, sans rien te demander entre deux.
+1. **Un LLM** génère du texte, rien d'autre
+2. **Le Tool Calling** permet au LLM de générer des JSON structurés
+3. **Le Dispatcher** (ton code) parse le JSON et exécute les fonctions
+4. **L'Agent** met tout ça dans une boucle autonome
 
-L'agent n'est pas plus intelligent. Il est autonome. C'est toute la différence.
+Un agent, c'est **50 lignes de Python**. Pas de magie, pas de framework complexe. Juste une boucle while, un dispatcher, et des outils.
 
+La prochaine fois que tu utilises Claude ou GPT avec des outils, tu sauras exactement ce qui se passe sous le capot.
+
+---
 
 <!-- Turnstile Script -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -247,7 +474,7 @@ L'agent n'est pas plus intelligent. Il est autonome. C'est toute la différence.
     <input
       type="text"
       id="user-question"
-      placeholder="Ex: Pourquoi le LLM ne peut pas exécuter directement ?"
+      placeholder="Ex: Comment ajouter un nouvel outil à l'agent ?"
       disabled
     />
     <button id="ask-button" disabled>Chargement...</button>
