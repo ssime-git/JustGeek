@@ -205,7 +205,7 @@ if parsed["tool"] == "get_time":
     ensurePyodide();
   }
 
-  // Demo 4: Full Agent - Complete autonomous loop
+  // Demo 4: Full Agent - Complete autonomous loop with real code execution
   const demoAgent = document.getElementById('demo-agent-full');
   if (demoAgent) {
     const btn = demoAgent.querySelector('[data-demo="agent-full"]');
@@ -235,18 +235,10 @@ if parsed["tool"] == "get_time":
       };
     })();
     
-    const updateStep = (step) => {
-      const steps = demoAgent.querySelectorAll('.mini-step');
-      steps.forEach((s, i) => {
-        if (i < step) s.classList.add('active');
-        else s.classList.remove('active');
-      });
-    };
-    
-    const addStepOutput = (stepName, content, type = 'info') => {
+    const addStepOutput = (content, type = 'info') => {
       const line = document.createElement('div');
       line.className = `step-output step-${type}`;
-      line.innerHTML = `<strong>${stepName}:</strong> ${content}`;
+      line.innerHTML = content;
       output.appendChild(line);
       output.scrollTop = output.scrollHeight;
     };
@@ -254,68 +246,107 @@ if parsed["tool"] == "get_time":
     const agentCode = `
 import json
 
-def simulate_llm(messages, tools):
-    last = messages[-1].get("content", "") if messages else ""
-    if "dependencies" in last:
-        return {"type": "final", "content": "React 18.2.0 est installé"}
-    return {"type": "tool_call", "tool": "read_file", "args": {"path": "package.json"}}
+print("[START]===== AGENT AUTONOME =====")
+print("[START]Objectif: Quelle version de React ?")
+print()
 
+# Étape 1: Initialiser les messages
+messages = [{"role": "user", "content": "Quelle version de React ?"}]
+print("[INIT]Messages initialisés:")
+print(f"[INIT]  {messages}")
+print()
+
+# Étape 2: Définir les outils
 def read_file(path):
+    print(f"[TOOL_EXEC]  -> Exécution réelle: lecture de {path}")
     files = {"package.json": '{"dependencies":{"react":"^18.2.0"}}'}
-    return files.get(path, "Non trouvé")
+    result = files.get(path, "Non trouvé")
+    print(f"[TOOL_EXEC]  -> Résultat: {result}")
+    return result
 
 TOOLS = {"read_file": read_file}
 
-def run_agent(goal):
-    messages = [{"role": "user", "content": goal}]
+# Étape 3: Simuler le LLM
+def simulate_llm(messages):
+    last_msg = messages[-1].get("content", "") if messages else ""
+    print(f"[LLM_THINK]Le LLM analyse le contexte...")
+    print(f"[LLM_THINK]  Dernier message: {last_msg}")
     
-    for i in range(3):
-        print(f"[ITERATION_{i+1}]")
-        resp = simulate_llm(messages, TOOLS)
-        
-        if resp["type"] == "final":
-            print(f"[FINAL]{resp['content']}")
-            return resp["content"]
-        
-        print(f"[TOOL_CALL]{resp['tool']}|{resp['args']}")
-        result = TOOLS[resp["tool"]](**resp["args"])
-        print(f"[RESULT]{result}")
-        messages.append({"role": "tool", "content": result})
-    
-    return "Trop d'iterations"
+    if "dependencies" in last_msg or "react" in last_msg.lower():
+        print(f"[LLM_FINAL]Le LLM décide: C'est la réponse finale!")
+        return {"type": "final", "content": "React 18.2.0 est installé"}
+    else:
+        print(f"[LLM_DECIDE]Le LLM décide: Je dois appeler read_file")
+        return {"type": "tool_call", "tool": "read_file", "args": {"path": "package.json"}}
 
-run_agent("Quelle version de React ?")
+# Étape 4: La boucle autonome
+print("[LOOP]===== DÉBUT DE LA BOUCLE =====")
+for iteration in range(3):
+    print()
+    print(f"[LOOP]--- Itération {iteration + 1} ---")
+    
+    # Le LLM décide
+    print(f"[LOOP]1. LLM décide...")
+    response = simulate_llm(messages)
+    
+    # Vérifier si c'est fini
+    if response["type"] == "final":
+        print(f"[LOOP]2. Réponse finale détectée!")
+        print(f"[LOOP]3. Réponse: {response['content']}")
+        print()
+        print("[END]===== AGENT TERMINÉ =====")
+        break
+    
+    # Exécuter l'outil
+    print(f"[LOOP]2. Exécution de l'outil: {response['tool']}")
+    result = TOOLS[response["tool"]](**response["args"])
+    
+    # Ajouter le résultat aux messages
+    print(f"[LOOP]3. Ajout du résultat aux messages")
+    messages.append({"role": "tool", "content": result})
+    print(f"[LOOP]4. Messages mis à jour: {len(messages)} messages")
+    print(f"[LOOP]5. Retour à l'étape 1 (LLM reprend la main)")
 `;
     
     btn?.addEventListener('click', async () => {
       btn.disabled = true;
       output.innerHTML = '';
-      updateStep(1);
       
       try {
         const pyodide = await ensurePyodide();
-        let iterationCount = 0;
         
         pyodide.setStdout({ batched: (text) => {
-          const lines = text.split('\n').filter(l => l.trim());
+          const lines = text.split('\n');
           
           lines.forEach(line => {
-            if (line.includes('[ITERATION_')) {
-              iterationCount++;
-              addStepOutput(`Itération ${iterationCount}`, 'Le LLM reçoit le contexte et décide', 'llm');
-              updateStep(2);
-            } else if (line.includes('[TOOL_CALL]')) {
-              const parts = line.replace('[TOOL_CALL]', '').split('|');
-              addStepOutput('Appel d\'outil', `${parts[0]}(${parts[1]})`, 'tool');
-              updateStep(3);
-            } else if (line.includes('[RESULT]')) {
-              const result = line.replace('[RESULT]', '');
-              addStepOutput('Résultat', result, 'result');
-              updateStep(4);
-            } else if (line.includes('[FINAL]')) {
-              const answer = line.replace('[FINAL]', '');
-              addStepOutput('Réponse finale', answer, 'final');
-              updateStep(5);
+            if (!line.trim()) return;
+            
+            if (line.includes('[START]')) {
+              const msg = line.replace('[START]', '');
+              addStepOutput(`<strong>Démarrage:</strong> ${msg}`, 'llm');
+            } else if (line.includes('[INIT]')) {
+              const msg = line.replace('[INIT]', '');
+              addStepOutput(`<strong>Initialisation:</strong> ${msg}`, 'llm');
+            } else if (line.includes('[LOOP]')) {
+              const msg = line.replace('[LOOP]', '');
+              addStepOutput(`<strong>Boucle:</strong> ${msg}`, 'tool');
+            } else if (line.includes('[LLM_THINK]')) {
+              const msg = line.replace('[LLM_THINK]', '');
+              addStepOutput(`<strong>LLM pense:</strong> ${msg}`, 'llm');
+            } else if (line.includes('[LLM_DECIDE]')) {
+              const msg = line.replace('[LLM_DECIDE]', '');
+              addStepOutput(`<strong>LLM décide:</strong> ${msg}`, 'tool');
+            } else if (line.includes('[LLM_FINAL]')) {
+              const msg = line.replace('[LLM_FINAL]', '');
+              addStepOutput(`<strong>LLM final:</strong> ${msg}`, 'final');
+            } else if (line.includes('[TOOL_EXEC]')) {
+              const msg = line.replace('[TOOL_EXEC]', '');
+              addStepOutput(`<strong>Exécution outil:</strong> ${msg}`, 'result');
+            } else if (line.includes('[END]')) {
+              const msg = line.replace('[END]', '');
+              addStepOutput(`<strong>Fin:</strong> ${msg}`, 'final');
+            } else {
+              addStepOutput(line, 'info');
             }
           });
         }});
@@ -323,7 +354,7 @@ run_agent("Quelle version de React ?")
         await pyodide.runPythonAsync(agentCode);
         
       } catch (e) {
-        addStepOutput('Erreur', e.toString(), 'error');
+        addStepOutput(`<strong>Erreur:</strong> ${e.toString()}`, 'error');
       } finally {
         btn.disabled = false;
       }

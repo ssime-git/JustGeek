@@ -170,12 +170,12 @@ Vous (objectif) → LLM (décide) → JSON (tool call)
 
 ## Demo 4 : L'Agent Complet en Python
 
-Voici un agent minimal que tu peux exécuter toi-même. Il lit un fichier, analyse le résultat, et répond, tout seul.
+Voici le code complet d'un agent minimal. Regarde bien : tu vas voir la boucle s'exécuter, le LLM décider, l'outil s'exécuter, et le LLM reprendre la main. C'est ça, un agent.
 
 <div class="mini-demo agent-full" id="demo-agent-full">
   <div class="demo-header">
     <span class="demo-badge demo-badge-final">Demo 4</span>
-    <span class="demo-title">L'Agent : boucle autonome complète</span>
+    <span class="demo-title">L'Agent : la boucle autonome en action</span>
   </div>
   
   <div class="agent-status-mini" id="agent-status-mini">Prêt</div>
