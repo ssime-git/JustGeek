@@ -31,8 +31,7 @@ On va construire ce médecin-chirurgien, étape par étape.
 
 Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. Demande-lui l'heure, il va t'expliquer qu'il ne peut pas la connaître.
 
-```
-┌─────────────┐      ┌─────────────┐      ┌─────────────┐
+<div class="ascii-art"><code>┌─────────────┐      ┌─────────────┐      ┌─────────────┐
 │     Toi     │ ──── │     LLM     │ ──── │   Texte     │
 │  "Quelle    │      │  (prédit)   │      │  "Je ne     │
 │   heure?"   │      │             │      │   sais pas" │
@@ -40,8 +39,7 @@ Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. 
                             │
                             ▼
                          [STOP]
-                     Pas d'action possible
-```
+                     Pas d'action possible</code></div>
 
 **Exécute ce code pour voir :**
 
@@ -129,8 +127,7 @@ C'est du texte qui génère du texte. Pas de magie.
 
 Quand il juge qu'un outil est pertinent, il répond :
 
-```
-┌─────────────┐      ┌─────────────┐      ┌─────────────────────┐
+<div class="ascii-art"><code>┌─────────────┐      ┌─────────────┐      ┌─────────────────────┐
 │     Toi     │ ──── │     LLM     │ ──── │   JSON (texte)      │
 │  "Quelle    │      │  (prédit)   │      │  {"tool":"get_time"}│
 │   heure?"   │      │             │      │                     │
@@ -138,8 +135,7 @@ Quand il juge qu'un outil est pertinent, il répond :
                                                     │
                                                     ▼
                                                    ???
-                                          Qui exécute ce JSON ?
-```
+                                          Qui exécute ce JSON ?</code></div>
 
 Mais attention : **ce n'est que du texte**. Le LLM a juste écrit du JSON bien formaté. Personne ne l'a exécuté.
 
@@ -201,8 +197,7 @@ Entre le LLM et l'outil, il faut un **programme intermédiaire** qui :
 3. L'exécute vraiment
 4. Récupère le résultat
 
-```
-┌─────────┐    ┌─────────┐    ┌──────────────┐    ┌─────────┐    ┌──────────┐
+<div class="ascii-art"><code>┌─────────┐    ┌─────────┐    ┌──────────────┐    ┌─────────┐    ┌──────────┐
 │   Toi   │───▶│   LLM   │───▶│    JSON      │───▶│ TON CODE│───▶│  OUTIL   │
 │         │    │         │    │ {"tool":...} │    │ (parse) │    │ get_time │
 └─────────┘    └─────────┘    └──────────────┘    └─────────┘    └──────────┘
@@ -211,8 +206,7 @@ Entre le LLM et l'outil, il faut un **programme intermédiaire** qui :
                                                        │◀─────────────┘
                                                        │
                                                        ▼
-                                                  "14:32:05"
-```
+                                                  "14:32:05"</code></div>
 
 C'est ce code que personne ne te montre. Le voici :
 
@@ -291,8 +285,7 @@ Mais il manque encore quelque chose : **la boucle**.
 
 Un agent, c'est quand tu mets tout ça dans une **boucle while**. Le LLM reprend la main après chaque outil et décide : encore un outil, ou réponse finale ?
 
-```
-                              ┌──────────────────────────────────────┐
+<div class="ascii-art"><code>                              ┌──────────────────────────────────────┐
                               │                                      │
                               ▼                                      │
 ┌─────────┐    ┌─────────────────────────┐    ┌──────────────┐      │
@@ -314,8 +307,7 @@ Un agent, c'est quand tu mets tout ça dans une **boucle while**. Le LLM reprend
                                           └───────────────│  14:32"  │
                                             Résultat      └──────────┘
                                             renvoyé
-                                            au LLM
-```
+                                            au LLM</code></div>
 
 **Sans intervention humaine.** Tu donnes un objectif, l'agent fait le reste.
 
