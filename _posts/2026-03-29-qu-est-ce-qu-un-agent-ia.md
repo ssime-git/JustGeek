@@ -275,7 +275,7 @@ Voici l'agent complet :
     <span class="demo-badge demo-badge-final">Étape 4</span>
     <span class="demo-title">L'Agent Complet : la boucle autonome</span>
   </div>
-  <textarea class="pyodide-code" rows="75">
+  <textarea class="pyodide-code" rows="75" readonly>
 import json
 from datetime import datetime
 
@@ -410,56 +410,63 @@ run_agent("Quelle heure est-il et combien fait 2+2 ?")
 
 **C'est ça, un agent.** Une boucle qui tourne jusqu'à ce que le LLM décide qu'il a fini.
 
----
 
-## Étape 5 : Expérimente toi-même
+## Étape 5 : À toi de jouer
 
-Modifie le code ci-dessous et teste différents objectifs :
+L'agent ci-dessus a deux outils : `get_time()` et `calculate()`. Mais il manque quelque chose : **la lecture de fichiers**.
+
+### L'exercice
+
+Complète le code ci-dessous pour ajouter l'outil `read_file` :
+
+1. Crée une fonction `read_file(path)` qui simule la lecture d'un fichier
+2. Ajoute-la au dictionnaire `TOOLS`
+3. Ajoute une condition dans le dispatcher pour détecter quand l'utilisateur demande de lire un fichier
+4. Teste avec l'objectif : `"Lis le fichier config.json"`
 
 <div class="pyodide-cell" id="demo-step5">
   <div class="demo-header">
-    <span class="demo-badge" style="background: #8b5cf6;">Sandbox</span>
-    <span class="demo-title">Ton agent personnalisé</span>
+    <span class="demo-badge" style="background: #8b5cf6;">Exercice</span>
+    <span class="demo-title">Ajoute l'outil read_file</span>
   </div>
-  <textarea class="pyodide-code" rows="30">
+  <textarea class="pyodide-code" rows="35">
 import json
 from datetime import datetime
 
-# Tes outils
+# Outils existants
 def get_time():
     return datetime.now().strftime("%H:%M:%S")
 
 def calculate(expression):
     return str(eval(expression))
 
-def read_file(path):
-    FILES = {
-        "config.json": '{"version": "2.1.0"}',
-        "package.json": '{"react": "18.2.0"}'
-    }
-    return FILES.get(path, "Non trouvé")
+# TODO: Ajoute ici la fonction read_file(path)
+# Elle doit retourner le contenu d'un fichier simulé
+# Utilise un dictionnaire FILES pour simuler les fichiers disponibles
 
-TOOLS = {"get_time": get_time, "calculate": calculate, "read_file": read_file}
 
-# Change l'objectif ici !
-GOAL = "Quelle heure est-il ?"
+# TODO: Ajoute read_file au dictionnaire TOOLS
+TOOLS = {"get_time": get_time, "calculate": calculate}
 
-# Agent simplifié
-messages = [{"role": "user", "content": GOAL}]
+# Change l'objectif pour tester ton outil !
+GOAL = "Lis le fichier config.json"
+
 print(f"Objectif: {GOAL}\n")
 
-# Une seule itération pour tester
+# Dispatcher simplifié
 if "heure" in GOAL.lower():
     print("[LLM] Je dois appeler get_time()")
     result = get_time()
     print(f"[EXEC] Résultat: {result}")
     print(f"\n[RÉPONSE] Il est {result}")
 elif "+" in GOAL or "calcul" in GOAL.lower():
-    expr = "2+2"  # Simplifié
+    expr = "2+2"
     print(f"[LLM] Je dois appeler calculate('{expr}')")
     result = calculate(expr)
     print(f"[EXEC] Résultat: {result}")
     print(f"\n[RÉPONSE] {expr} = {result}")
+# TODO: Ajoute une condition pour détecter "lis" ou "fichier" dans GOAL
+# et appeler read_file avec le bon chemin
 else:
     print("[LLM] Je ne sais pas quel outil utiliser.")
 </textarea>
@@ -470,6 +477,61 @@ else:
   </div>
   <div class="pyodide-output"></div>
 </div>
+
+<details>
+<summary><strong>Voir la solution</strong></summary>
+
+```python
+import json
+from datetime import datetime
+
+# Outils existants
+def get_time():
+    return datetime.now().strftime("%H:%M:%S")
+
+def calculate(expression):
+    return str(eval(expression))
+
+# SOLUTION: La fonction read_file
+def read_file(path):
+    FILES = {
+        "config.json": '{"version": "2.1.0", "debug": true}',
+        "package.json": '{"name": "mon-app", "react": "18.2.0"}'
+    }
+    return FILES.get(path, f"Fichier '{path}' non trouvé")
+
+# SOLUTION: Ajout au dictionnaire TOOLS
+TOOLS = {"get_time": get_time, "calculate": calculate, "read_file": read_file}
+
+GOAL = "Lis le fichier config.json"
+
+print(f"Objectif: {GOAL}\n")
+
+# Dispatcher avec read_file
+if "heure" in GOAL.lower():
+    print("[LLM] Je dois appeler get_time()")
+    result = get_time()
+    print(f"[EXEC] Résultat: {result}")
+    print(f"\n[RÉPONSE] Il est {result}")
+elif "+" in GOAL or "calcul" in GOAL.lower():
+    expr = "2+2"
+    print(f"[LLM] Je dois appeler calculate('{expr}')")
+    result = calculate(expr)
+    print(f"[EXEC] Résultat: {result}")
+    print(f"\n[RÉPONSE] {expr} = {result}")
+# SOLUTION: Condition pour read_file
+elif "lis" in GOAL.lower() or "fichier" in GOAL.lower():
+    # Extraire le nom du fichier (simplifié)
+    path = "config.json" if "config" in GOAL else "package.json"
+    print(f"[LLM] Je dois appeler read_file('{path}')")
+    result = read_file(path)
+    print(f"[EXEC] Résultat: {result}")
+    print(f"\n[RÉPONSE] Contenu de {path}: {result}")
+else:
+    print("[LLM] Je ne sais pas quel outil utiliser.")
+```
+
+</details>
 
 
 ## Résumé : LLM vs Tool Calling vs Agent
@@ -492,7 +554,7 @@ else:
 
 Un agent, c'est **50 lignes de Python**. Pas de magie, pas de framework complexe. Juste une boucle while, un dispatcher, et des outils.
 
-La prochaine fois que tu utilises Claude ou GPT avec des outils, tu sauras exactement ce qui se passe sous le capot.
+La prochaine fois que tu utilises Claude ou Codex avec des outils, tu sauras exactement ce qui se passe sous le capot.
 
 
 <!-- Turnstile Script -->
