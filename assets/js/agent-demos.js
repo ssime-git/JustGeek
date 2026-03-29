@@ -150,7 +150,7 @@ def run_agent(goal):
     messages = [{"role": "user", "content": goal}]
     
     for i in range(3):
-        print(f"\nIteration {i+1}")
+        print(f"Iteration {i+1}")
         print("-" * 35)
         
         # LLM décide
