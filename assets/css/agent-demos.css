@@ -289,6 +289,45 @@
   background: #0f172a;
 }
 
+/* Step output styling */
+.step-output {
+  padding: 10px 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.step-output strong {
+  color: #f1f5f9;
+}
+
+.step-llm {
+  border-left-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.step-tool {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.step-result {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.step-final {
+  border-left-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.step-error {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .demo-flow {
