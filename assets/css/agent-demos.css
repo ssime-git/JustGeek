@@ -56,6 +56,17 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
+.pyodide-cell textarea.pyodide-code[readonly] {
+  background: #1e293b;
+  cursor: default;
+  resize: none;
+}
+
+.pyodide-cell textarea.pyodide-code[readonly]:focus {
+  border-color: var(--border-color);
+  box-shadow: none;
+}
+
 .pyodide-controls {
   display: flex;
   align-items: center;

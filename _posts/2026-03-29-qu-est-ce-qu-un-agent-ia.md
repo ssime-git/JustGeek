@@ -13,7 +13,6 @@ L'agent, lui, a les clés de la boîte. Il peut sortir, agir, et revenir avec de
 
 Dans cet article, tu vas **construire un agent de zéro**, étape par étape, avec du vrai code Python qui s'exécute dans ton navigateur. Pas de mock, pas de simulation. Du code réel.
 
----
 
 ## L'analogie qui change tout
 
@@ -27,7 +26,6 @@ L'agent n'est pas plus intelligent. Il est **autonome**. C'est toute la différe
 
 On va construire ce médecin-chirurgien, étape par étape.
 
----
 
 ## Étape 1 : Le LLM seul (le perroquet)
 
@@ -40,7 +38,7 @@ Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. 
     <span class="demo-badge">Étape 1</span>
     <span class="demo-title">Le LLM seul : juste du texte</span>
   </div>
-  <textarea class="pyodide-code" rows="12">
+  <textarea class="pyodide-code" rows="12" readonly>
 # Simulation d'un LLM basique
 # En vrai, c'est un appel API à OpenAI/Anthropic
 
@@ -72,11 +70,52 @@ llm_generate("Quelle heure est-il ?")
 
 **Constat :** Le LLM génère du texte, puis s'arrête. Il ne peut pas aller chercher l'heure. Il est enfermé dans sa boîte.
 
----
 
 ## Étape 2 : Le Tool Calling (la prescription)
 
-Les LLM modernes peuvent générer des **appels structurés** en JSON. Quand tu lui dis "tu as accès à ces outils", il peut répondre :
+Les LLM modernes peuvent générer des **appels structurés** en JSON. Mais comment le LLM sait-il quels outils existent ?
+
+### Le prompt système : la clé de tout
+
+Quand tu appelles l'API d'OpenAI ou Anthropic avec des outils, tu envoies quelque chose comme ça :
+
+```json
+{
+  "model": "gpt-4",
+  "messages": [{"role": "user", "content": "Quelle heure est-il ?"}],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_time",
+        "description": "Retourne l'heure actuelle du serveur",
+        "parameters": {"type": "object", "properties": {}}
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate",
+        "description": "Évalue une expression mathématique",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {"type": "string", "description": "L'expression à calculer"}
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+Le LLM **voit** cette liste d'outils dans son contexte. Il ne "décide" pas intelligemment, il fait du **pattern matching** : "L'utilisateur demande l'heure → j'ai un outil `get_time` → je génère un JSON pour l'appeler."
+
+C'est du texte qui génère du texte. Pas de magie.
+
+### Ce que le LLM génère
+
+Quand il juge qu'un outil est pertinent, il répond :
 
 ```json
 {"tool": "get_time", "args": {}}
@@ -91,7 +130,7 @@ Mais attention : **ce n'est que du texte**. Le LLM a juste écrit du JSON bien f
     <span class="demo-badge">Étape 2</span>
     <span class="demo-title">Tool Calling : le LLM génère du JSON</span>
   </div>
-  <textarea class="pyodide-code" rows="20">
+  <textarea class="pyodide-code" rows="20" readonly>
 import json
 
 def llm_with_tools(prompt, available_tools):
@@ -133,7 +172,6 @@ llm_with_tools("Quelle heure est-il ?", tools)
 
 **Question clé :** Le LLM a généré `{"tool": "get_time"}`. Mais qui va réellement appeler la fonction `get_time()` ? Pas le LLM. C'est **ton code**.
 
----
 
 ## Étape 3 : Le Dispatcher (ton code)
 
@@ -150,7 +188,7 @@ C'est ce code que personne ne te montre. Le voici :
     <span class="demo-badge">Étape 3</span>
     <span class="demo-title">Le Dispatcher : parser et exécuter</span>
   </div>
-  <textarea class="pyodide-code" rows="35">
+  <textarea class="pyodide-code" rows="35" readonly>
 import json
 from datetime import datetime
 
@@ -215,7 +253,6 @@ print(f"\n>>> Ce résultat doit maintenant être renvoyé au LLM.")
 
 Mais il manque encore quelque chose : **la boucle**.
 
----
 
 ## Étape 4 : La Boucle Autonome (l'agent)
 
@@ -434,7 +471,6 @@ else:
   <div class="pyodide-output"></div>
 </div>
 
----
 
 ## Résumé : LLM vs Tool Calling vs Agent
 
@@ -446,7 +482,6 @@ else:
 | Boucle autonome | Non | Non | Oui |
 | Gère plusieurs étapes | Non | Non | Oui |
 
----
 
 ## Ce que tu as appris
 
@@ -459,7 +494,6 @@ Un agent, c'est **50 lignes de Python**. Pas de magie, pas de framework complexe
 
 La prochaine fois que tu utilises Claude ou GPT avec des outils, tu sauras exactement ce qui se passe sous le capot.
 
----
 
 <!-- Turnstile Script -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
