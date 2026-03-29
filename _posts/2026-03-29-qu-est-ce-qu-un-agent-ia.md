@@ -41,7 +41,7 @@ Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. 
                          [STOP]
                      Pas d'action possible</code></div>
 
-**Exécute ce code pour voir :**
+**Exécute ce code pour voir (n'hésite pas à scroller vers le bas pour voir tout le code) :**
 
 <div class="pyodide-cell" id="demo-step1">
   <div class="demo-header">
@@ -119,7 +119,7 @@ Quand tu appelles l'API d'OpenAI ou Anthropic avec des outils, tu envoies quelqu
 }
 ```
 
-Le LLM **voit** cette liste d'outils dans son contexte. Il ne "décide" pas intelligemment, il fait du **pattern matching** : "L'utilisateur demande l'heure → j'ai un outil `get_time` → je génère un JSON pour l'appeler."
+Le LLM **voit** cette liste d'outils dans son contexte. Il peut alors faire du **pattern matching** : par exemple "L'utilisateur demande l'heure → j'ai un outil `get_time` → je génère un JSON pour l'appeler."
 
 C'est du texte qui génère du texte. Pas de magie.
 
