@@ -22,61 +22,187 @@
     });
   }
 
-  // Demo 2: Tool Call - Shows JSON generation
+  // Demo 2: Tool Call - Parse JSON with Python
   const demoToolCall = document.getElementById('demo-tool-call');
   if (demoToolCall) {
     const btn = demoToolCall.querySelector('[data-demo="tool-call"]');
     const output = document.getElementById('output-tool-call');
     
-    btn?.addEventListener('click', () => {
-      output.innerHTML = `
-        <div class="demo-log">
-          <div class="log-line"><span class="timestamp">[T+0ms]</span> LLM analyse : "Quelle heure ?"</div>
-          <div class="log-line"><span class="timestamp">[T+100ms]</span> LLM décide : "Je dois appeler get_time()"</div>
-          <div class="log-line"><span class="timestamp">[T+150ms]</span> JSON généré :</div>
-          <pre class="json-output">{
-  "tool_call": {
-    "name": "get_current_time",
-    "arguments": {}
-  }
-}</pre>
-          <div class="log-line"><span class="timestamp">[T+151ms]</span> <strong>LE LLM S'ARRÊTE. Le JSON attend.</strong></div>
-        </div>
-      `;
+    const toolCallCode = `
+import json
+
+llm_output = '{"tool": "get_time", "args": {}}'
+print("[PARSE]Parsing JSON...")
+parsed = json.loads(llm_output)
+print(f"[TOOL]{parsed['tool']}")
+print(f"[ARGS]{parsed['args']}")
+`;
+    
+    const ensurePyodide = (() => {
+      let pyodidePromise = null;
+      return async () => {
+        if (pyodidePromise) return pyodidePromise;
+        const INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/';
+        pyodidePromise = new Promise((resolve, reject) => {
+          const start = async () => {
+            try {
+              const pyodide = await globalThis.loadPyodide({ indexURL: INDEX_URL });
+              resolve(pyodide);
+            } catch (e) {
+              reject(e);
+            }
+          };
+          start();
+        });
+        return pyodidePromise;
+      };
+    })();
+    
+    btn?.addEventListener('click', async () => {
+      btn.disabled = true;
+      output.innerHTML = '';
       
-      demoToolCall.querySelectorAll('.flow-box').forEach((box, i) => {
-        setTimeout(() => box.classList.add('active'), i * 400);
-      });
-      
-      setTimeout(() => {
-        demoToolCall.querySelector('.demo-halt')?.classList.add('blink');
-      }, 1600);
+      try {
+        const pyodide = await ensurePyodide();
+        
+        pyodide.setStdout({ batched: (text) => {
+          const lines = text.split('\n').filter(l => l.trim());
+          lines.forEach(line => {
+            if (line.includes('[PARSE]')) {
+              const msg = line.replace('[PARSE]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-llm';
+              el.innerHTML = `<strong>Parser:</strong> ${msg}`;
+              output.appendChild(el);
+            } else if (line.includes('[TOOL]')) {
+              const tool = line.replace('[TOOL]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-tool';
+              el.innerHTML = `<strong>Outil détecté:</strong> ${tool}`;
+              output.appendChild(el);
+            } else if (line.includes('[ARGS]')) {
+              const args = line.replace('[ARGS]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-result';
+              el.innerHTML = `<strong>Arguments:</strong> ${args}`;
+              output.appendChild(el);
+            }
+          });
+          output.scrollTop = output.scrollHeight;
+        }});
+        
+        await pyodide.runPythonAsync(toolCallCode);
+        
+      } catch (e) {
+        const el = document.createElement('div');
+        el.className = 'step-output step-error';
+        el.innerHTML = `<strong>Erreur:</strong> ${e}`;
+        output.appendChild(el);
+      } finally {
+        btn.disabled = false;
+      }
     });
+    
+    // Preload Pyodide
+    ensurePyodide();
   }
 
-  // Demo 3: Missing Loop - Shows what code needs to be added
+  // Demo 3: Missing Loop - Execute tool with Python
   const demoMissingLoop = document.getElementById('demo-missing-loop');
   if (demoMissingLoop) {
     const btn = demoMissingLoop.querySelector('[data-demo="missing-loop"]');
     const output = document.getElementById('output-missing-loop');
     
-    btn?.addEventListener('click', () => {
-      output.innerHTML = `
-        <div class="demo-log">
-          <div class="log-line"><span class="timestamp">[T+0ms]</span> Reçoit JSON : {"tool":"get_time"}</div>
-          <div class="log-line"><span class="timestamp">[T+10ms]</span> Parse le JSON...</div>
-          <div class="log-line"><span class="timestamp">[T+20ms]</span> Appelle get_current_time()</div>
-          <div class="log-line code-call"><span class="timestamp">[T+25ms]</span> -> Exécution réelle : time.now()</div>
-          <div class="log-line"><span class="timestamp">[T+30ms]</span> Résultat : "14:32:15"</div>
-          <div class="log-line"><span class="timestamp">[T+40ms]</span> Envoie au LLM pour analyse...</div>
-          <div class="log-line"><span class="timestamp">[T+200ms]</span> LLM répond : "Il est 14h32"</div>
-        </div>
-      `;
+    const toolExecutionCode = `
+import json
+
+llm_response = '{"tool": "get_time", "args": {}}'
+print("[PARSE]Parsing JSON...")
+parsed = json.loads(llm_response)
+
+def get_current_time():
+    return "14h32"
+
+print("[EXEC]Exécution de get_time()...")
+if parsed["tool"] == "get_time":
+    result = get_current_time()
+    print(f"[RESULT]{result}")
+    print("[SEND]Envoi du résultat au LLM...")
+`;
+    
+    const ensurePyodide = (() => {
+      let pyodidePromise = null;
+      return async () => {
+        if (pyodidePromise) return pyodidePromise;
+        const INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/';
+        pyodidePromise = new Promise((resolve, reject) => {
+          const start = async () => {
+            try {
+              const pyodide = await globalThis.loadPyodide({ indexURL: INDEX_URL });
+              resolve(pyodide);
+            } catch (e) {
+              reject(e);
+            }
+          };
+          start();
+        });
+        return pyodidePromise;
+      };
+    })();
+    
+    btn?.addEventListener('click', async () => {
+      btn.disabled = true;
+      output.innerHTML = '';
       
-      demoMissingLoop.querySelectorAll('.flow-box').forEach((box, i) => {
-        setTimeout(() => box.classList.add('active'), i * 300);
-      });
+      try {
+        const pyodide = await ensurePyodide();
+        
+        pyodide.setStdout({ batched: (text) => {
+          const lines = text.split('\n').filter(l => l.trim());
+          lines.forEach(line => {
+            if (line.includes('[PARSE]')) {
+              const msg = line.replace('[PARSE]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-llm';
+              el.innerHTML = `<strong>Parser:</strong> ${msg}`;
+              output.appendChild(el);
+            } else if (line.includes('[EXEC]')) {
+              const msg = line.replace('[EXEC]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-tool';
+              el.innerHTML = `<strong>Exécution:</strong> ${msg}`;
+              output.appendChild(el);
+            } else if (line.includes('[RESULT]')) {
+              const result = line.replace('[RESULT]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-result';
+              el.innerHTML = `<strong>Résultat:</strong> ${result}`;
+              output.appendChild(el);
+            } else if (line.includes('[SEND]')) {
+              const msg = line.replace('[SEND]', '');
+              const el = document.createElement('div');
+              el.className = 'step-output step-final';
+              el.innerHTML = `<strong>Retour:</strong> ${msg}`;
+              output.appendChild(el);
+            }
+          });
+          output.scrollTop = output.scrollHeight;
+        }});
+        
+        await pyodide.runPythonAsync(toolExecutionCode);
+        
+      } catch (e) {
+        const el = document.createElement('div');
+        el.className = 'step-output step-error';
+        el.innerHTML = `<strong>Erreur:</strong> ${e}`;
+        output.appendChild(el);
+      } finally {
+        btn.disabled = false;
+      }
     });
+    
+    // Preload Pyodide
+    ensurePyodide();
   }
 
   // Demo 4: Full Agent - Complete autonomous loop

@@ -76,29 +76,31 @@ Quand on lui dit "Tu peux appeler des outils", il répond ainsi :
 
 ## Demo 2 : Le Tool Call en Action
 
-Voyons ce que le LLM génère concrètement. Ce JSON ne s'exécute pas tout seul.
+Voyons ce que le LLM génère concrètement. Ce JSON ne s'exécute pas tout seul. Voici le code qui doit le parser :
 
 <div class="mini-demo" id="demo-tool-call">
   <div class="demo-header">
     <span class="demo-badge">Demo 2</span>
-    <span class="demo-title">Tool Calling : le LLM génère un JSON</span>
+    <span class="demo-title">Tool Calling : parser le JSON du LLM</span>
   </div>
   
-  <div class="demo-flow">
-    <div class="flow-box user">Toi<br>"Quelle heure ?"</div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-box llm">LLM<br>(décide)</div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-box json">JSON généré<br><code>{"tool":"get_time"}</code></div>
+  <div class="agent-code-mini">
+    <pre><code>import json
+
+# Le LLM génère ce JSON
+llm_output = '{"tool": "get_time", "args": {}}'
+
+# TON CODE doit le parser
+parsed = json.loads(llm_output)
+print(f"Outil à appeler: {parsed['tool']}")
+print(f"Arguments: {parsed['args']}")</code></pre>
   </div>
   
-  <div class="demo-halt">ET LÀ, LE LLM S'ARRÊTE</div>
-  
-  <button class="demo-run-btn" data-demo="tool-call">Voir le JSON généré</button>
+  <button class="demo-run-btn" data-demo="tool-call">Exécuter le parser</button>
   <div class="demo-output" id="output-tool-call"></div>
 </div>
 
-**La question clé :** Qui exécute ce JSON ? Certainement pas le LLM.
+**La question clé :** Qui exécute ce JSON ? C'est toi, avec ce code.
 
 
 ## Partie 3 : Le Programme Intermédiaire
@@ -108,43 +110,43 @@ Entre le LLM et l'outil, il faut un **programme** qui :
 2. Appelle la vraie fonction
 3. Renvoie le résultat au LLM
 
-```python
-# C'EST TON CODE, PAS LE LLM
-llm_response = {"tool": "get_time", "args": {}}
-
-if llm_response["tool"] == "get_time":
-    result = get_current_time()  # ← Exécution réelle ici
-    # ← Ensuite on renvoie au LLM
-```
-
-Sans ce programme, le JSON reste inerte. C'est toi qui dois faire la boucle manuellement.
+C'est **ton code**, pas le LLM. Voici ce que ça ressemble :
 
 
-## Demo 3 : Ce qui Manque (la boucle)
+## Demo 3 : Exécuter l'Outil (ton code)
 
-Voici le code minimal qu'il faut ajouter pour que ça fonctionne. Sans ça, strictement rien ne se passe.
+Maintenant on exécute vraiment la fonction. Le JSON n'est plus juste du texte, c'est une action réelle :
 
 <div class="mini-demo" id="demo-missing-loop">
   <div class="demo-header">
     <span class="demo-badge">Demo 3</span>
-    <span class="demo-title">La boucle manquante (ton code)</span>
+    <span class="demo-title">Exécuter l'outil (ton code)</span>
   </div>
   
-  <div class="demo-flow">
-    <div class="flow-box json">JSON<br><code>{"tool":"get_time"}</code></div>
-    <div class="flow-arrow">↓</div>
-    <div class="flow-box code">Ton code<br>parse + exécute</div>
-    <div class="flow-arrow">↓</div>
-    <div class="flow-box result">Résultat<br>"14h30"</div>
-    <div class="flow-arrow">↓</div>
-    <div class="flow-box llm">LLM<br>reçoit le résultat</div>
+  <div class="agent-code-mini">
+    <pre><code>import json
+
+# Le LLM a généré ce JSON
+llm_response = '{"tool": "get_time", "args": {}}'
+parsed = json.loads(llm_response)
+
+# TON CODE exécute l'outil
+def get_current_time():
+    return "14h32"
+
+if parsed["tool"] == "get_time":
+    print("[EXEC]Exécution de get_time()...")
+    result = get_current_time()
+    print(f"[RESULT]{result}")
+    print("[SEND]Envoi du résultat au LLM...")
+</code></pre>
   </div>
   
-  <button class="demo-run-btn" data-demo="missing-loop">Exécuter la boucle</button>
+  <button class="demo-run-btn" data-demo="missing-loop">Exécuter l'outil</button>
   <div class="demo-output" id="output-missing-loop"></div>
 </div>
 
-**Cette boucle, c'est ce qui manque.** Le LLM seul ne l'a pas. C'est ce qui transforme un simple générateur de texte en système capable d'agir.
+**C'est ce code qui manque au LLM seul.** Sans lui, le JSON reste inerte. C'est ce qui transforme un générateur de texte en système capable d'agir.
 
 
 ## Partie 4 : L'Agent Autonome
