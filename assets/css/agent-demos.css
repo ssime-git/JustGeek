@@ -152,6 +152,49 @@
   color: #f87171;
 }
 
+/* Solution dropdown */
+details {
+  margin: 20px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+details summary {
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+details summary:hover {
+  background: var(--border-color);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.solution-code {
+  margin: 0;
+  padding: 0;
+}
+
+.solution-code pre {
+  margin: 0;
+  padding: 16px;
+  background: #0f172a;
+  overflow-x: auto;
+}
+
+.solution-code code {
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  white-space: pre;
+}
+
 /* Mini Demo Styles (legacy) */
 .mini-demo {
   background: var(--bg-color);

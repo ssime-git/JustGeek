@@ -14,7 +14,7 @@ L'agent, lui, a les clés de la boîte. Il peut sortir, agir, et revenir avec de
 Dans cet article, tu vas **construire un agent de zéro**, étape par étape, avec du vrai code Python qui s'exécute dans ton navigateur. Pas de mock, pas de simulation. Du code réel.
 
 
-## L'analogie qui change tout
+## Pour t'expliquer avec une analogie
 
 Imagine un médecin :
 
@@ -30,6 +30,18 @@ On va construire ce médecin-chirurgien, étape par étape.
 ## Étape 1 : Le LLM seul (le perroquet)
 
 Un LLM ne "comprend" rien. Il prédit la suite de caractères la plus probable. Demande-lui l'heure, il va t'expliquer qu'il ne peut pas la connaître.
+
+```
+┌─────────────┐      ┌─────────────┐      ┌─────────────┐
+│     Toi     │ ──── │     LLM     │ ──── │   Texte     │
+│  "Quelle    │      │  (prédit)   │      │  "Je ne     │
+│   heure?"   │      │             │      │   sais pas" │
+└─────────────┘      └─────────────┘      └─────────────┘
+                            │
+                            ▼
+                         [STOP]
+                     Pas d'action possible
+```
 
 **Exécute ce code pour voir :**
 
@@ -117,8 +129,16 @@ C'est du texte qui génère du texte. Pas de magie.
 
 Quand il juge qu'un outil est pertinent, il répond :
 
-```json
-{"tool": "get_time", "args": {}}
+```
+┌─────────────┐      ┌─────────────┐      ┌─────────────────────┐
+│     Toi     │ ──── │     LLM     │ ──── │   JSON (texte)      │
+│  "Quelle    │      │  (prédit)   │      │  {"tool":"get_time"}│
+│   heure?"   │      │             │      │                     │
+└─────────────┘      └─────────────┘      └─────────────────────┘
+                                                    │
+                                                    ▼
+                                                   ???
+                                          Qui exécute ce JSON ?
 ```
 
 Mais attention : **ce n'est que du texte**. Le LLM a juste écrit du JSON bien formaté. Personne ne l'a exécuté.
@@ -180,6 +200,19 @@ Entre le LLM et l'outil, il faut un **programme intermédiaire** qui :
 2. Trouve la bonne fonction
 3. L'exécute vraiment
 4. Récupère le résultat
+
+```
+┌─────────┐    ┌─────────┐    ┌──────────────┐    ┌─────────┐    ┌──────────┐
+│   Toi   │───▶│   LLM   │───▶│    JSON      │───▶│ TON CODE│───▶│  OUTIL   │
+│         │    │         │    │ {"tool":...} │    │ (parse) │    │ get_time │
+└─────────┘    └─────────┘    └──────────────┘    └─────────┘    └──────────┘
+                                                       │              │
+                                                       │   Exécute    │
+                                                       │◀─────────────┘
+                                                       │
+                                                       ▼
+                                                  "14:32:05"
+```
 
 C'est ce code que personne ne te montre. Le voici :
 
@@ -256,17 +289,35 @@ Mais il manque encore quelque chose : **la boucle**.
 
 ## Étape 4 : La Boucle Autonome (l'agent)
 
-Un agent, c'est quand tu mets tout ça dans une **boucle while** :
+Un agent, c'est quand tu mets tout ça dans une **boucle while**. Le LLM reprend la main après chaque outil et décide : encore un outil, ou réponse finale ?
 
 ```
-while not finished:
-    1. LLM décide (texte ou tool_call ?)
-    2. Si tool_call → exécuter l'outil
-    3. Renvoyer le résultat au LLM
-    4. Recommencer
+                              ┌──────────────────────────────────────┐
+                              │                                      │
+                              ▼                                      │
+┌─────────┐    ┌─────────────────────────┐    ┌──────────────┐      │
+│   Toi   │───▶│          LLM            │───▶│  tool_call?  │      │
+│ "Quelle │    │   (analyse contexte)    │    │              │      │
+│ heure?" │    └─────────────────────────┘    └──────────────┘      │
+└─────────┘                                          │              │
+                                          ┌──────────┴──────────┐   │
+                                          ▼                     ▼   │
+                                    ┌──────────┐          ┌─────────┐
+                                    │   OUI    │          │   NON   │
+                                    │ Exécuter │          │ Réponse │
+                                    │  outil   │          │ finale  │
+                                    └──────────┘          └─────────┘
+                                          │                     │
+                                          │                     ▼
+                                          │               ┌──────────┐
+                                          │               │  "Il est │
+                                          └───────────────│  14:32"  │
+                                            Résultat      └──────────┘
+                                            renvoyé
+                                            au LLM
 ```
 
-Le LLM reprend la main après chaque outil. Il peut décider d'appeler un autre outil, ou de répondre. **Sans intervention humaine.**
+**Sans intervention humaine.** Tu donnes un objectif, l'agent fait le reste.
 
 Voici l'agent complet :
 
@@ -481,8 +532,8 @@ else:
 <details>
 <summary><strong>Voir la solution</strong></summary>
 
-```python
-import json
+<div class="solution-code">
+<pre><code>import json
 from datetime import datetime
 
 # Outils existants
@@ -528,8 +579,8 @@ elif "lis" in GOAL.lower() or "fichier" in GOAL.lower():
     print(f"[EXEC] Résultat: {result}")
     print(f"\n[RÉPONSE] Contenu de {path}: {result}")
 else:
-    print("[LLM] Je ne sais pas quel outil utiliser.")
-```
+    print("[LLM] Je ne sais pas quel outil utiliser.")</code></pre>
+</div>
 
 </details>
 
