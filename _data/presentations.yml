@@ -1,0 +1,11 @@
+- title: "LLMs, ChatGPT & Prompt Engineering Masterclass"
+  description: "A fullscreen technical walkthrough of prompt engineering, Transformer mechanics, generation, and deployment trade-offs."
+  mode: "fullscreen"
+  url: "/presentations/llm-masterclass/"
+  date: "2026-04-30"
+  slides: 21
+  tags:
+    - LLM
+    - ChatGPT
+    - Prompt engineering
+    - Transformers

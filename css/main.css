@@ -1079,6 +1079,49 @@ hr.small {
 .p-4 { padding: 2rem; }
 
 /* ========================================
+   Presentations
+   ======================================== */
+.presentation-list {
+  display: grid;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.presentation-card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: var(--code-bg);
+}
+
+.presentation-card h2 {
+  margin-top: 0.75rem;
+}
+
+.presentation-card__meta,
+.presentation-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.presentation-card__meta span,
+.presentation-card__tags span {
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  opacity: 0.8;
+}
+
+.presentation-card__link {
+  display: inline-flex;
+  margin-top: 1.25rem;
+  font-weight: 700;
+}
+
+/* ========================================
    Print Styles
    ======================================== */
 @media print {

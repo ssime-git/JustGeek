@@ -25,6 +25,7 @@ header_pages:
   - about.md
   - archive.md
   - blog/index.md
+  - presentations.md
 
 # Social links (optional)
 github_username: ssime-git
