@@ -9,3 +9,14 @@
     - ChatGPT
     - Prompt engineering
     - Transformers
+- title: "Data Engineering et Data Warehousing"
+  description: "Introduction au Data Warehousing, SQL et aux fondamentaux de l'ingénierie des données pour data scientists juniors."
+  mode: "fullscreen"
+  url: "/presentations/data-engineering-warehousing-sql/"
+  date: "2026-05-15"
+  slides: 30
+  tags:
+    - Data Engineering
+    - Data Warehousing
+    - SQL
+    - ETL
