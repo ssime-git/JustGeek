@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2012-22 · Modern Era — History of AI</title>
+  <link rel="stylesheet" href="../css/retro.css" />
+  <style>
+    .era-block {
+      border: 1px solid var(--border);
+      margin: var(--gap-lg) 0;
+      overflow: hidden;
+    }
+    .era-block .era-head {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .era-block .era-year {
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 32px);
+      color: var(--accent);
+      padding: var(--gap-md);
+      border-right: 1px solid var(--border);
+    }
+    .era-block .era-title-col {
+      padding: var(--gap-md);
+    }
+    .era-block .era-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .era-block .era-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .era-block .era-body {
+      padding: var(--gap-md) var(--gap-lg);
+    }
+    .era-block .era-stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: var(--gap-md);
+      margin: var(--gap-md) 0;
+    }
+    .era-block .era-stat {
+      text-align: center;
+    }
+    .era-block .era-stat .n {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 3vw, 28px);
+      color: var(--accent);
+      line-height: 1;
+    }
+    .era-block .era-stat .l {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .arc-timeline {
+      border: 1px solid var(--border);
+      padding: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+      overflow-x: auto;
+    }
+    .arc-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--gap-md);
+      text-align: center;
+    }
+    .arc-nodes {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      min-width: 600px;
+    }
+    .arc-node {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .arc-node::before {
+      content: '';
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .arc-node:last-child::before { display: none; }
+    .arc-node .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--muted);
+      background: var(--bg);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .arc-node.active .dot { border-color: var(--accent); background: var(--accent); }
+    .arc-node.past .dot { border-color: var(--muted); background: var(--muted); }
+    .arc-node .nd-year {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+    .arc-node .nd-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 2px;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .arc-node.active .nd-year { color: var(--accent); }
+    .arc-node.active .nd-label { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh;" data-od-id="screen-07">
+
+    <div class="section" style="padding-top: var(--gap-xl);">
+      <div class="terminal-line" style="margin-bottom: var(--gap-lg);">
+        <span class="prompt"><span class="dir">~/history/ai</span>$</span>
+        <span class="cmd">cat 07-modern-era.md</span>
+      </div>
+
+      <div class="term-window">
+        <p class="eyebrow" style="margin-bottom: 4px;">CHAPTER 07</p>
+        <p class="meta" style="margin-bottom: var(--gap-sm);">2012 – 2022 · The Modern Revolution</p>
+        <h1 class="crt-glow">Deep Learning,<br/>Transformers &amp; ChatGPT</h1>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section entry-content">
+      <p>
+        The winters hadn't ended because the problems were solved. They ended because three missing ingredients finally arrived — at scale — at the same time: <strong>data</strong>, <strong>compute</strong>, <strong>method</strong>.
+      </p>
+    </div>
+
+    <!-- The people who didn't give up -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE PEOPLE WHO DIDN'T GIVE UP — 1980s – 2012</div>
+
+      <p style="font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--muted);line-height:1.7;margin-bottom:var(--gap-lg);">
+        While the field moved on to expert systems and then into a second winter (1987–1993), a small group of researchers kept working on neural networks when almost no one else did. They were ignored, underfunded, and repeatedly told they were chasing a dead end. Three of them would share the 2018 Turing Award — computing's highest honor. A fourth created the dataset that proved them right.
+      </p>
+
+      <div class="person-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="90" rx="52" ry="50" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="82" cy="83" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="118" cy="83" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 91 L95 104 L105 104" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M86 116 Q100 125 114 116" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="140" x2="100" y2="166" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M20 222 C50 166 74 160 100 166 C126 160 150 166 180 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">GH</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Geoffrey Hinton</div>
+            <div class="person-role">Backprop (1986). Boltzmann machines. AlexNet (2012). Godfather of deep learning. Turing Award 2018.</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="44" ry="50" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="84" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="116" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 116 Q100 125 113 116" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="142" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">YL</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Yann LeCun</div>
+            <div class="person-role">Convolutional networks (1989). Handwriting recognition. Chief AI Scientist at Meta. Turing Award 2018.</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="54" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 118 Q100 127 113 118" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="146" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">YB</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Yoshua Bengio</div>
+            <div class="person-role">Language models, attention mechanisms, deep learning theory. Montreal Institute for Learning Algorithms. Turing Award 2018.</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="95" rx="40" ry="56" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="85" cy="87" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="115" cy="87" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 97 L95 108 L105 108" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M88 118 Q100 127 112 118" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="151" x2="100" y2="170" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 170 76 164 100 170 C124 164 148 170 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">FL</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Fei-Fei Li</div>
+            <div class="person-role">Created ImageNet (2009) — 1.2M labeled images, the dataset that made AlexNet possible. Stanford AI Lab co-director.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- AlexNet -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THREE TURNING POINTS</div>
+
+      <div class="era-block">
+        <div class="era-head">
+          <div class="era-year">2012</div>
+          <div class="era-title-col">
+            <div class="era-title">AlexNet Wins ImageNet</div>
+            <div class="era-sub">Deep learning at scale · Hinton, Krizhevsky, Sutskever · University of Toronto</div>
+          </div>
+        </div>
+        <div class="era-body">
+          <!-- Depth diagram -->
+          <div class="diagram-scroll" style="margin-bottom: var(--gap-md);">
+            <svg viewBox="0 0 720 90" xmlns="http://www.w3.org/2000/svg" style="min-width:580px; max-width:720px; width:100%; height:auto; display:block;">
+              <defs>
+                <marker id="alexArr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                  <polygon points="0 0, 6 2, 0 4" fill="oklch(0.68 0.15 85)" />
+                </marker>
+              </defs>
+              <!-- Input -->
+              <rect x="5" y="20" width="60" height="50" fill="none" stroke="oklch(0.25 0.02 145)" stroke-width="1"/>
+              <text x="35" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">IMAGE</text>
+              <text x="35" y="56" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.44 0.04 145)">224×224</text>
+              <text x="35" y="69" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.44 0.04 145)">pixels</text>
+              <!-- Arrow -->
+              <line x1="65" y1="45" x2="90" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <!-- Conv layers 1-5 -->
+              <rect x="92" y="10" width="42" height="70" fill="oklch(0.11 0.008 145)" stroke="oklch(0.50 0.05 145)" stroke-width="1"/>
+              <text x="113" y="50" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.50 0.08 145)">CONV1</text>
+              <line x1="134" y1="45" x2="154" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <rect x="156" y="14" width="40" height="62" fill="oklch(0.11 0.008 145)" stroke="oklch(0.50 0.05 145)" stroke-width="1"/>
+              <text x="176" y="50" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.50 0.08 145)">CONV2</text>
+              <line x1="196" y1="45" x2="216" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <rect x="218" y="18" width="38" height="54" fill="oklch(0.11 0.008 145)" stroke="oklch(0.50 0.05 145)" stroke-width="1"/>
+              <text x="237" y="50" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.50 0.08 145)">CONV3</text>
+              <line x1="256" y1="45" x2="276" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <rect x="278" y="22" width="36" height="46" fill="oklch(0.11 0.008 145)" stroke="oklch(0.50 0.05 145)" stroke-width="1"/>
+              <text x="296" y="50" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.50 0.08 145)">CONV4</text>
+              <line x1="314" y1="45" x2="334" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <rect x="336" y="26" width="34" height="38" fill="oklch(0.11 0.008 145)" stroke="oklch(0.50 0.05 145)" stroke-width="1"/>
+              <text x="353" y="50" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.50 0.08 145)">CONV5</text>
+              <!-- Fully connected -->
+              <line x1="370" y1="45" x2="390" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <rect x="392" y="28" width="56" height="34" fill="oklch(0.095 0.009 145)" stroke="oklch(0.45 0.07 145)" stroke-width="1"/>
+              <text x="420" y="47" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.55 0.09 145)">FC × 2</text>
+              <line x1="448" y1="45" x2="468" y2="45" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#alexArr)"/>
+              <!-- Output -->
+              <rect x="470" y="24" width="72" height="42" fill="oklch(0.095 0.010 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+              <text x="506" y="43" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)">1,000</text>
+              <text x="506" y="56" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.55 0.10 85)">CLASSES</text>
+              <!-- GPU label -->
+              <rect x="560" y="4" width="152" height="62" fill="none" stroke="oklch(0.22 0.02 145)" stroke-width="0.5" rx="2"/>
+              <text x="636" y="25" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">RUNS ON</text>
+              <text x="636" y="42" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.55 0.09 145)">2 × GPU</text>
+              <text x="636" y="57" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">60M params · 650K neurons</text>
+            </svg>
+          </div>
+
+          <div class="era-stat-row">
+            <div class="era-stat"><div class="n">26%</div><div class="l">Error Rate Before</div></div>
+            <div class="era-stat"><div class="n" style="color: oklch(0.60 0.12 140);">15%</div><div class="l">Error Rate After</div></div>
+            <div class="era-stat"><div class="n">1.2M</div><div class="l">Training Images</div></div>
+            <div class="era-stat"><div class="n">60M</div><div class="l">Parameters</div></div>
+          </div>
+
+          <div style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); line-height: 1.7;">
+            The architecture wasn't new — convolutional layers and backprop existed since the 1980s. What changed was scale: 60M parameters, 1.2M training images, 2 GPUs running in parallel. The lesson was unmistakable: <strong style="color: var(--fg);">depth + data + compute worked.</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transformer -->
+      <div class="era-block">
+        <div class="era-head">
+          <div class="era-year">2017</div>
+          <div class="era-title-col">
+            <div class="era-title">Transformers — "Attention Is All You Need"</div>
+            <div class="era-sub">Google Brain · Vaswani et al. · Parallel processing of sequences</div>
+          </div>
+        </div>
+        <div class="era-body">
+          <!-- Attention vs RNN visual -->
+          <div class="diagram-scroll" style="margin-bottom: var(--gap-md);">
+            <svg viewBox="0 0 620 100" xmlns="http://www.w3.org/2000/svg" style="min-width:520px; max-width:620px; width:100%; height:auto; display:block;">
+              <defs>
+                <marker id="tArr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                  <polygon points="0 0, 6 2, 0 4" fill="oklch(0.68 0.15 85)" />
+                </marker>
+              </defs>
+              <!-- Old: RNN / sequential -->
+              <text x="148" y="14" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">BEFORE: RNN (sequential)</text>
+              <circle cx="24" cy="50" r="14" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+              <text x="24" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">t₁</text>
+              <line x1="38" y1="50" x2="58" y2="50" stroke="oklch(0.54 0.08 140)" stroke-width="1" marker-end="url(#tArr)"/>
+              <circle cx="72" cy="50" r="14" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+              <text x="72" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">t₂</text>
+              <line x1="86" y1="50" x2="106" y2="50" stroke="oklch(0.54 0.08 140)" stroke-width="1" marker-end="url(#tArr)"/>
+              <circle cx="120" cy="50" r="14" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+              <text x="120" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">t₃</text>
+              <line x1="134" y1="50" x2="154" y2="50" stroke="oklch(0.54 0.08 140)" stroke-width="1" marker-end="url(#tArr)"/>
+              <circle cx="168" cy="50" r="14" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+              <text x="168" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">t₄</text>
+              <text x="148" y="86" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.44 0.04 145)">One token at a time. Slow to train.</text>
+
+              <!-- Divider -->
+              <line x1="200" y1="10" x2="200" y2="90" stroke="oklch(0.18 0.01 145)" stroke-width="1" stroke-dasharray="4,3"/>
+
+              <!-- New: Transformer / parallel -->
+              <text x="412" y="14" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)" letter-spacing="2">AFTER: TRANSFORMER (parallel)</text>
+              <circle cx="248" cy="50" r="14" fill="oklch(0.095 0.010 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+              <text x="248" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)">t₁</text>
+              <circle cx="312" cy="50" r="14" fill="oklch(0.095 0.010 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+              <text x="312" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)">t₂</text>
+              <circle cx="376" cy="50" r="14" fill="oklch(0.095 0.010 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+              <text x="376" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)">t₃</text>
+              <circle cx="440" cy="50" r="14" fill="oklch(0.095 0.010 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+              <text x="440" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)">t₄</text>
+              <!-- Attention lines: all-to-all -->
+              <line x1="262" y1="44" x2="298" y2="44" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.6"/>
+              <line x1="262" y1="50" x2="362" y2="50" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.4"/>
+              <line x1="262" y1="56" x2="426" y2="56" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.3"/>
+              <line x1="326" y1="44" x2="362" y2="44" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.6"/>
+              <line x1="326" y1="56" x2="426" y2="56" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.4"/>
+              <line x1="390" y1="44" x2="426" y2="44" stroke="oklch(0.50 0.10 85)" stroke-width="0.5" opacity="0.6"/>
+              <text x="344" y="86" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.55 0.10 85)">All tokens attend to all others simultaneously.</text>
+
+              <!-- vs label -->
+              <line x1="540" y1="10" x2="540" y2="90" stroke="oklch(0.18 0.01 145)" stroke-width="0.5" stroke-dasharray="2,3"/>
+              <text x="580" y="30" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">Scales to</text>
+              <text x="580" y="44" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">billions of</text>
+              <text x="580" y="58" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">parameters.</text>
+            </svg>
+          </div>
+
+          <div style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); line-height: 1.7;">
+            The Transformer replaced recurrence with self-attention. Every token could attend to every other token in parallel — training became massively faster. Designed for translation, it became the universal architecture: BERT, GPT, DALL-E, Stable Diffusion. All descendants of this one paper.
+          </div>
+        </div>
+      </div>
+
+      <!-- ChatGPT -->
+      <div class="era-block">
+        <div class="era-head">
+          <div class="era-year">2022</div>
+          <div class="era-title-col">
+            <div class="era-title">ChatGPT</div>
+            <div class="era-sub">OpenAI · GPT-3.5 + RLHF · The productization moment</div>
+          </div>
+        </div>
+        <div class="era-body">
+          <div class="era-stat-row">
+            <div class="era-stat"><div class="n">100M</div><div class="l">Users in 2 months</div></div>
+            <div class="era-stat"><div class="n">5 yrs</div><div class="l">After Transformer Paper</div></div>
+            <div class="era-stat"><div class="n">175B</div><div class="l">Parameters (GPT-3)</div></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); line-height: 1.7;">
+            ChatGPT was not a fundamental research breakthrough. The architecture was five years old. What was new was the interface: a chat window that made large language models accessible to anyone. It reached 100 million users in two months — the fastest consumer software adoption in history. The arc from Turing's Bombe had crossed into public life.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Full arc timeline -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE COMPLETE ARC · 1939 – 2022</div>
+
+      <div class="arc-timeline">
+        <div class="arc-title">EACH WAVE: SAME PROMISE · SAME WALL · DIFFERENT INGREDIENT MISSING</div>
+        <div class="arc-nodes">
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1939</div><div class="nd-label">Turing<br/>Bombe</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1956</div><div class="nd-label">AI<br/>Named</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1958</div><div class="nd-label">Perceptron<br/>Hype</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1969</div><div class="nd-label">XOR<br/>Winter</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1980</div><div class="nd-label">Expert<br/>Systems</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">1987</div><div class="nd-label">Winter<br/>II</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">2012</div><div class="nd-label">AlexNet<br/>Deep Learning</div></div>
+          <div class="arc-node past"><div class="dot"></div><div class="nd-year">2017</div><div class="nd-label">Trans-<br/>former</div></div>
+          <div class="arc-node active"><div class="dot"></div><div class="nd-year">2022</div><div class="nd-label">ChatGPT<br/>Now</div></div>
+        </div>
+      </div>
+
+      <div class="quote-block" style="margin-top: var(--gap-lg);">
+        <div class="quote-text">What makes the current moment different is not just that the models are better. It is that the stack finally caught up with the ambition.</div>
+        <div class="quote-source">The complete history of artificial intelligence · 1939 – 2022</div>
+      </div>
+
+      <div class="term-window" style="text-align: center; margin-top: var(--gap-lg);">
+        <span style="font-family: var(--font-display); font-size: var(--fs-h3);">$ ./continue.sh</span>
+        <div style="margin-top: var(--gap-md);"><span class="cursor"></span></div>
+        <p class="meta" style="margin-top: var(--gap-sm);">The story continues beyond 2022.</p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="chapter-nav">
+      <a href="06-expert.html">← Previous: Expert Systems</a>
+      <span class="chapter-indicator">CHAPTER 07 · 2012 — 2022</span>
+      <span></span>
+    </div>
+
+    <div style="text-align: center; padding-bottom: var(--gap-lg);">
+      <a href="../index.html" class="btn btn-primary">← Back to index</a>
+    </div>
+
+  </div>
+</body>
+</html>

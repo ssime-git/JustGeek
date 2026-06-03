@@ -1,0 +1,229 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The History of Artificial Intelligence · Interactive Book</title>
+  <link rel="stylesheet" href="css/retro.css" />
+  <style>
+    .boot-sequence {
+      margin-bottom: var(--gap-xl);
+    }
+    .boot-sequence .line {
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .boot-sequence .line:nth-child(1) { animation-delay: 0.1s; }
+    .boot-sequence .line:nth-child(2) { animation-delay: 0.3s; }
+    .boot-sequence .line:nth-child(3) { animation-delay: 0.5s; }
+    .boot-sequence .line:nth-child(4) { animation-delay: 0.7s; }
+    .boot-sequence .line:nth-child(5) { animation-delay: 1.0s; }
+    .boot-sequence .line:nth-child(6) { animation-delay: 1.3s; }
+    .boot-sequence .line:nth-child(7) { animation-delay: 1.6s; }
+    .boot-sequence .line:nth-child(8) { animation-delay: 2.0s; }
+    .boot-sequence .line.success { color: var(--fg); }
+    .boot-sequence .line.warn { color: var(--accent); }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .chapter-list { margin-top: var(--gap-lg); }
+
+    .chapter-item {
+      display: grid;
+      grid-template-columns: 80px 1fr 120px;
+      gap: var(--gap-md);
+      align-items: baseline;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--fg);
+      transition: background 0.1s;
+      padding-left: var(--gap-sm);
+      padding-right: var(--gap-sm);
+    }
+    .chapter-item:hover {
+      background: oklch(0.10 0.006 145);
+      text-decoration: none;
+    }
+    .chapter-item .year {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: var(--fs-meta);
+    }
+    .chapter-item .title {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+    }
+    .chapter-item .tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: right;
+      justify-self: end;
+    }
+    .chapter-item:hover .title { color: var(--accent); }
+
+    .chapter-item .title .cursor {
+      display: none;
+    }
+    .chapter-item:hover .title .cursor {
+      display: inline-block;
+    }
+
+    .timeline-strip {
+      display: flex;
+      gap: 0;
+      margin: var(--gap-lg) 0;
+      width: 100%;
+    }
+    .timeline-strip .seg {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      position: relative;
+    }
+    .timeline-strip .seg .label {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--muted);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-area {
+      margin-top: var(--gap-xl);
+      padding-top: var(--gap-md);
+      border-top: 1px solid var(--border);
+    }
+
+    .cursor-line {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-sm);
+      font-family: var(--font-mono);
+      font-size: var(--fs-body);
+    }
+    .cursor-line .prompt-sym { color: var(--accent); }
+    .cursor-line .input-text { color: var(--fg); }
+
+    .hero-terminal {
+      text-align: center;
+      padding: var(--gap-2xl) 0 var(--gap-xl);
+    }
+
+    .hero-terminal h1 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 6vw, 64px);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-terminal .subtitle {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      margin-top: var(--gap-sm);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .chapter-item {
+        grid-template-columns: 60px 1fr;
+      }
+      .chapter-item .tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <div class="boot-sequence">
+      <div class="line">> SYSTEM INITIALIZATION v1.0.0</div>
+      <div class="line">> MEMORY CHECK: 64KB OK</div>
+      <div class="line">> LOADING KERNEL: HISTORICAL-ANALYSIS.SYS</div>
+      <div class="line">> READING ARCHIVE: THE_COMPLETE_HISTORY_OF_AI.DAT</div>
+      <div class="line success">> 7 RECORDS FOUND</div>
+      <div class="line success">> ARCHIVE INTEGRITY: VERIFIED</div>
+      <div class="line warn">> <span class="cursor"></span></div>
+    </div>
+
+    <div class="hero-terminal">
+      <h1>THE COMPLETE HISTORY<br/>OF ARTIFICIAL INTELLIGENCE</h1>
+      <div class="subtitle">From Wartime Codebreaking to Modern AI Systems · 1939 – 2022</div>
+    </div>
+
+    <div class="timeline-strip">
+      <div class="seg"><div class="label">1939</div></div>
+      <div class="seg"><div class="label">1956</div></div>
+      <div class="seg"><div class="label">1969</div></div>
+      <div class="seg"><div class="label">1980</div></div>
+      <div class="seg"><div class="label">2012</div></div>
+      <div class="seg"><div class="label">2017</div></div>
+      <div class="seg"><div class="label">2022</div></div>
+    </div>
+
+    <div class="chapter-list">
+      <a href="screens/01-turing.html" class="chapter-item" data-od-id="ch-01">
+        <span class="year">1939 – 45</span>
+        <span class="title">Turing, Enigma & the Bombe <span class="cursor"></span></span>
+        <span class="tag">Codebreaking</span>
+      </a>
+      <a href="screens/02-dartmouth.html" class="chapter-item" data-od-id="ch-02">
+        <span class="year">1956</span>
+        <span class="title">The Moment AI Became a Field <span class="cursor"></span></span>
+        <span class="tag">Dartmouth</span>
+      </a>
+      <a href="screens/03-split.html" class="chapter-item" data-od-id="ch-03">
+        <span class="year">1956 – 69</span>
+        <span class="title">Rules or Learning: The First Civil War <span class="cursor"></span></span>
+        <span class="tag">Paradigm Split</span>
+      </a>
+      <a href="screens/04-perceptron.html" class="chapter-item" data-od-id="ch-04">
+        <span class="year">1958</span>
+        <span class="title">The Perceptron & The First Hype Cycle <span class="cursor"></span></span>
+        <span class="tag">Hype & Crash</span>
+      </a>
+      <a href="screens/05-winter.html" class="chapter-item" data-od-id="ch-05">
+        <span class="year">1969 – 80</span>
+        <span class="title">Minsky's Critique & The First Winter <span class="cursor"></span></span>
+        <span class="tag">AI Winter</span>
+      </a>
+      <a href="screens/06-expert.html" class="chapter-item" data-od-id="ch-06">
+        <span class="year">1980 – 87</span>
+        <span class="title">Expert Systems & The Commercial Compromise <span class="cursor"></span></span>
+        <span class="tag">Commercial</span>
+      </a>
+      <a href="screens/07-modern.html" class="chapter-item" data-od-id="ch-07">
+        <span class="year">2012 – 22</span>
+        <span class="title">Deep Learning, Transformers & ChatGPT <span class="cursor"></span></span>
+        <span class="tag">Modern Era</span>
+      </a>
+    </div>
+
+    <div class="prompt-area" style="margin-top: auto; padding-bottom: var(--gap-lg);">
+      <div class="cursor-line">
+        <span class="prompt-sym">$</span>
+        <span class="input-text">cat chapter-[1-7] &amp;&amp; ./continue.sh</span>
+        <span class="cursor"></span>
+      </div>
+      <div style="margin-top: var(--gap-sm); font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted);">
+        Select a chapter above to begin reading.
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,3 +1,13 @@
+- title: "The History of Artificial Intelligence · Interactive Book"
+  description: "An interactive retro-styled book walking through 7 chapters of AI history — from Turing & the Bombe to modern deep learning."
+  mode: "interactive"
+  url: "/presentations/history-of-ai/"
+  date: "2026-06-03"
+  slides: 7
+  tags:
+    - History
+    - AI
+    - Interactive
 - title: "LLMs, ChatGPT & Prompt Engineering Masterclass"
   description: "A fullscreen technical walkthrough of prompt engineering, Transformer mechanics, generation, and deployment trade-offs."
   mode: "fullscreen"

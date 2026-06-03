@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1939 · Turing & The Bombe — History of AI</title>
+  <link rel="stylesheet" href="../css/retro.css" />
+  <style>
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: var(--gap-xl);
+      align-items: start;
+    }
+    @media (max-width: 600px) { .hero-layout { grid-template-columns: 1fr; } }
+
+    .machine-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      align-items: start;
+      margin: var(--gap-lg) 0;
+    }
+    @media (max-width: 600px) { .machine-layout { grid-template-columns: 1fr; } }
+
+    .machine-specs { font-family: var(--font-mono); font-size: var(--fs-meta); }
+    .machine-specs .spec {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--gap-sm);
+    }
+    .machine-specs .spec:last-child { border-bottom: 0; }
+    .machine-specs .spec .k { color: var(--muted); }
+    .machine-specs .spec .v { color: var(--fg); text-align: right; }
+
+    .builders {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+    }
+    @media (max-width: 600px) { .builders { grid-template-columns: 1fr; } }
+
+    .builder-card { border: 1px solid var(--border); padding: var(--gap-md); }
+    .builder-card .role {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .builder-card .name {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: 1.1;
+      margin-bottom: var(--gap-sm);
+    }
+    .builder-card .detail {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--gap-md);
+      margin: var(--gap-lg) 0;
+    }
+    .stat-cell {
+      border: 1px solid var(--border);
+      padding: var(--gap-md);
+      text-align: center;
+    }
+    .stat-cell .num {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 34px);
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-cell .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .legacy-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      margin-top: var(--gap-lg);
+    }
+    @media (max-width: 600px) { .legacy-split { grid-template-columns: 1fr; } }
+
+    .legacy-card {
+      border: 1px solid var(--border);
+      padding: var(--gap-md);
+    }
+    .legacy-card.highlighted {
+      border-color: var(--accent);
+      background: oklch(0.09 0.006 145);
+    }
+    .legacy-card .lc-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--gap-sm);
+    }
+    .legacy-card .lc-q {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: 1.2;
+    }
+    .legacy-card .lc-desc {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      margin-top: var(--gap-sm);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh;" data-od-id="screen-01">
+
+    <div class="section" style="padding-top: var(--gap-xl);">
+      <div class="terminal-line" style="margin-bottom: var(--gap-lg);">
+        <span class="prompt"><span class="dir">~/history/ai</span>$</span>
+        <span class="cmd">cat 01-turing-bombe.md</span>
+      </div>
+
+      <div class="hero-layout">
+        <div>
+          <div class="term-window">
+            <p class="eyebrow" style="margin-bottom: 4px;">CHAPTER 01</p>
+            <p class="meta" style="margin-bottom: var(--gap-sm);">1939–1945 · Bletchley Park, England</p>
+            <h1 class="crt-glow">Turing, Enigma,<br/>and the First<br/>Machine Intelligence</h1>
+          </div>
+          <p style="margin-top: var(--gap-md); color: var(--muted); font-size: var(--fs-body); line-height: 1.7; max-width: 52ch;">
+            In 1939, Germany's Enigma machines encrypted military orders with
+            <strong style="color: var(--fg);">158 quintillion</strong> possible settings.
+            Alan Turing's breakthrough was to reframe an impossible mental problem as a mechanical search problem.
+          </p>
+        </div>
+        <div>
+          <div class="photo-frame" style="aspect-ratio:3/4;">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 117 Q100 126 113 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">AT</text>
+              <text x="100" y="16" font-family="monospace" font-size="9" fill="#3a6042" text-anchor="middle" letter-spacing="3">ALAN TURING · 1912–1954</text>
+            </svg>
+          </div>
+          <div class="photo-caption">ALAN TURING · 1912 – 1954</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Reframing Diagram -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">TURING'S KEY REFRAMING — HOW HE SOLVED THE UNSOLVABLE</div>
+
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 870 244" xmlns="http://www.w3.org/2000/svg" style="min-width:620px; max-width:870px; width:100%; height:auto; display:block;" aria-label="Turing's reframing diagram">
+          <defs>
+            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="oklch(0.68 0.15 85)" />
+            </marker>
+          </defs>
+
+          <!-- Panel 1 – The Problem -->
+          <rect x="4" y="4" width="256" height="236" fill="none" stroke="oklch(0.18 0.01 145)" stroke-width="1"/>
+          <text x="132" y="25" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)" letter-spacing="3">THE PROBLEM</text>
+          <line x1="4" y1="32" x2="260" y2="32" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+
+          <text x="132" y="74" text-anchor="middle" font-family="monospace" font-size="30" fill="oklch(0.68 0.15 85)">158</text>
+          <text x="132" y="95" text-anchor="middle" font-family="monospace" font-size="12" fill="oklch(0.55 0.12 85)" letter-spacing="2">QUINTILLION</text>
+          <text x="132" y="113" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.56 0.09 140)">possible Enigma settings</text>
+
+          <text x="132" y="152" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">No human can enumerate</text>
+          <text x="132" y="168" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">them before the orders</text>
+          <text x="132" y="184" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">become irrelevant.</text>
+
+          <rect x="32" y="207" width="200" height="22" fill="oklch(0.11 0.008 240)" rx="0"/>
+          <text x="132" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.45 0.08 240)" letter-spacing="2">✗ IMPOSSIBLE BY HAND</text>
+
+          <!-- Arrow 1 -->
+          <line x1="268" y1="122" x2="316" y2="122" stroke="oklch(0.68 0.15 85)" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <text x="292" y="113" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.60 0.10 140)" letter-spacing="1">TURING'S</text>
+          <text x="292" y="135" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.60 0.10 140)" letter-spacing="1">REFRAMING</text>
+
+          <!-- Panel 2 – The Method (highlighted) -->
+          <rect x="322" y="4" width="222" height="236" fill="oklch(0.095 0.007 145)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+          <text x="433" y="25" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.68 0.15 85)" letter-spacing="3">THE INSIGHT</text>
+          <line x1="322" y1="32" x2="544" y2="32" stroke="oklch(0.68 0.15 85)" stroke-width="0.5"/>
+
+          <text x="433" y="62" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.60 0.12 140)">① Find a CRIB</text>
+          <text x="433" y="79" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">(a phrase that must appear)</text>
+
+          <line x1="433" y1="88" x2="433" y2="95" stroke="oklch(0.44 0.04 145)" stroke-width="1" stroke-dasharray="3,2"/>
+
+          <text x="433" y="115" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.60 0.12 140)">② Test for CONTRADICTIONS</text>
+          <text x="433" y="132" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">(settings that can't produce it)</text>
+
+          <line x1="433" y1="141" x2="433" y2="148" stroke="oklch(0.44 0.04 145)" stroke-width="1" stroke-dasharray="3,2"/>
+
+          <text x="433" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.60 0.12 140)">③ ELIMINATE wrong settings</text>
+          <text x="433" y="185" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">(machine does this 24/7)</text>
+
+          <rect x="352" y="207" width="162" height="22" fill="oklch(0.11 0.010 145)" rx="0"/>
+          <text x="433" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.68 0.15 85)" letter-spacing="2">MECHANICAL SEARCH</text>
+
+          <!-- Arrow 2 -->
+          <line x1="552" y1="122" x2="598" y2="122" stroke="oklch(0.68 0.15 85)" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+          <!-- Panel 3 – The Result -->
+          <rect x="604" y="4" width="262" height="236" fill="none" stroke="oklch(0.18 0.01 145)" stroke-width="1"/>
+          <text x="735" y="25" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)" letter-spacing="3">THE RESULT</text>
+          <line x1="604" y1="32" x2="866" y2="32" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+
+          <text x="735" y="76" text-anchor="middle" font-family="monospace" font-size="28" fill="oklch(0.60 0.12 140)">Hundreds</text>
+          <text x="735" y="97" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.56 0.09 140)">possible settings remain</text>
+
+          <text x="735" y="140" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">Human cryptanalysts</text>
+          <text x="735" y="157" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">can crack those by hand</text>
+          <text x="735" y="174" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.52 0.08 140)">fast enough to act on intel</text>
+
+          <rect x="634" y="207" width="202" height="22" fill="oklch(0.09 0.009 145)" rx="0"/>
+          <text x="735" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.12 140)" letter-spacing="2">✓ INTELLIGENCE AS SEARCH</text>
+        </svg>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- The Machine -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE MACHINE — BOMBE (1939)</div>
+
+      <div class="machine-layout">
+        <div>
+          <div class="photo-frame" style="aspect-ratio: 4/3;">
+            <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <!-- Title bar -->
+              <text x="160" y="18" font-family="monospace" font-size="9" fill="#3a6042" text-anchor="middle" letter-spacing="3">BOMBE MACHINE · BTM 1940</text>
+              <line x1="20" y1="24" x2="300" y2="24" stroke="#1a3020" stroke-width="0.5"/>
+              <!-- 3×6 grid of rotating drum symbols -->
+              <!-- Row 1 -->
+              <g transform="translate(28,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(76,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(124,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(172,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(220,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(268,38)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <!-- Row 2 -->
+              <g transform="translate(28,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(76,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(124,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(172,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(220,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(268,86)">
+                <circle r="16" fill="none" stroke="#42b862" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#2a4830" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#2a4830" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#2a4830" stroke-width="0.5"/>
+              </g>
+              <!-- Row 3 -->
+              <g transform="translate(28,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(76,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(124,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(172,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(220,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <g transform="translate(268,134)">
+                <circle r="16" fill="none" stroke="#52e07a" stroke-width="1.2"/>
+                <circle r="10" fill="none" stroke="#3a6042" stroke-width="0.8"/>
+                <line x1="-16" y1="0" x2="16" y2="0" stroke="#3a6042" stroke-width="0.5"/>
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#3a6042" stroke-width="0.5"/>
+              </g>
+              <!-- Horizontal wiring rail -->
+              <line x1="12" y1="38" x2="284" y2="38" stroke="#1a3020" stroke-width="0.5"/>
+              <line x1="12" y1="86" x2="284" y2="86" stroke="#1a3020" stroke-width="0.5"/>
+              <line x1="12" y1="134" x2="284" y2="134" stroke="#1a3020" stroke-width="0.5"/>
+              <!-- Labels -->
+              <text x="160" y="170" font-family="monospace" font-size="8" fill="#3a6042" text-anchor="middle" letter-spacing="2">108 DRUMS · 10 MI WIRE · 1 TON</text>
+              <text x="160" y="185" font-family="monospace" font-size="8" fill="#3a6042" text-anchor="middle">Mechanical elimination engine · Bletchley 1940</text>
+              <!-- Status line -->
+              <rect x="20" y="200" width="280" height="18" fill="#0c1a10" stroke="#1a3020" stroke-width="0.5"/>
+              <text x="30" y="213" font-family="monospace" font-size="8" fill="#52e07a">STATUS: RUNNING · ENIGMA SETTINGS ELIMINATED: 158,962,555,217,826,355,001</text>
+            </svg>
+          </div>
+          <div class="photo-caption">REBUILT BOMBE · BLETCHLEY PARK MUSEUM</div>
+        </div>
+        <div>
+          <div class="machine-specs">
+            <div class="spec"><span class="k">Designed by</span><span class="v">Alan Turing</span></div>
+            <div class="spec"><span class="k">Engineered by</span><span class="v">Harold Keen / BTM</span></div>
+            <div class="spec"><span class="k">First delivery</span><span class="v">March 1940</span></div>
+            <div class="spec"><span class="k">Rotating drums</span><span class="v">108 per machine</span></div>
+            <div class="spec"><span class="k">Wire inside each</span><span class="v">~10 miles</span></div>
+            <div class="spec"><span class="k">Weight</span><span class="v">~1 ton each</span></div>
+            <div class="spec"><span class="k">Total produced</span><span class="v">210 machines</span></div>
+            <div class="spec"><span class="k">Peak throughput</span><span class="v">4,000+ msg/day</span></div>
+          </div>
+          <p style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); margin-top: var(--gap-md); line-height: 1.65;">
+            Not a computer. A mechanical elimination engine — 108 rotating drums spinning in parallel, hunting for the logical contradictions that rule out millions of Enigma settings at a time.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Who Built It -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">WHO BUILT IT</div>
+
+      <div class="builders">
+        <div class="builder-card">
+          <div class="role">Concept &amp; Mathematical Framework</div>
+          <div class="name">Alan Turing</div>
+          <div class="detail">
+            Cambridge mathematician. Reframed the cryptanalytic problem as mechanical search. Defined which contradictions to look for, how to chain them, and how to reduce quintillions to hundreds. The mathematics and the insight were entirely his.
+          </div>
+        </div>
+        <div class="builder-card">
+          <div class="role">Engineering &amp; Physical Construction</div>
+          <div class="name">Harold Keen</div>
+          <div class="detail">
+            Chief engineer at British Tabulating Machine Company (BTM). Translated Turing's abstract method into working hardware: drum mechanisms, relay logic, cabling, and the production line that delivered 210 machines by 1945.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Impact Stats -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">IMPACT BY 1945</div>
+
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="num">200+</div>
+          <div class="label">Bombes Operational</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">4,000+</div>
+          <div class="label">Messages Decrypted Daily</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">10,000+</div>
+          <div class="label">Codebreakers at Bletchley</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">~2 yrs</div>
+          <div class="label">War Shortened (est.)</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Lasting Legacy -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">LASTING LEGACY — THE TURING REFRAME (1950)</div>
+
+      <div class="legacy-split">
+        <div class="legacy-card">
+          <div class="lc-label" style="color: var(--muted);">The old question (1950)</div>
+          <div class="lc-q" style="color: var(--muted);">Can machines THINK?</div>
+          <div class="lc-desc">Unanswerable. Philosophical. Leads nowhere practical.</div>
+        </div>
+        <div class="legacy-card highlighted">
+          <div class="lc-label" style="color: var(--accent);">Turing's new question</div>
+          <div class="lc-q">What behavior would COUNT as thinking?</div>
+          <div class="lc-desc">Testable. Behavioral. Changed the field before the field had a name. The same reframe that cracked Enigma — shift from philosophy to measurable criteria.</div>
+        </div>
+      </div>
+
+      <div class="quote-block" style="margin-top: var(--gap-lg);">
+        <div class="quote-text">"Stop asking whether machines can think. Ask what would count as evidence that they can."</div>
+        <div class="quote-source">Alan Turing · "Computing Machinery and Intelligence" (1950)</div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="chapter-nav">
+      <span></span>
+      <span class="chapter-indicator">CHAPTER 01 · 1939 — 1945</span>
+      <a href="02-dartmouth.html">Next: Dartmouth 1956 →</a>
+    </div>
+
+    <div style="text-align: center; padding-bottom: var(--gap-lg);">
+      <a href="../index.html" class="btn">← Back to index</a>
+    </div>
+
+  </div>
+</body>
+</html>

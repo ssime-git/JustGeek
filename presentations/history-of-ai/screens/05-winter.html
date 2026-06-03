@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1969-80 · AI Winter — History of AI</title>
+  <link rel="stylesheet" href="../css/retro.css" />
+  <style>
+    .authors-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+    }
+    @media (max-width: 600px) { .authors-row { grid-template-columns: 1fr; } }
+
+    .author-card {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: var(--gap-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .author-card .ac-photo {
+      aspect-ratio: 3/4;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--muted);
+    }
+    .author-card .ac-info {
+      padding: var(--gap-md) var(--gap-md) var(--gap-md) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .author-card .ac-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .author-card .ac-name {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: 1.1;
+    }
+    .author-card .ac-role {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .winter-bar-chart {
+      margin: var(--gap-lg) 0;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 60px;
+      gap: var(--gap-sm);
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    @media (max-width: 600px) { .bar-row { grid-template-columns: 130px 1fr 50px; } }
+    .bar-row .bar-label {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .bar-row .bar-track {
+      background: var(--surface);
+      height: 20px;
+      position: relative;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .bar-row .bar-fill {
+      height: 100%;
+      background: oklch(0.42 0.08 240);
+      transition: width 0.5s;
+      display: flex;
+      align-items: center;
+      padding-left: 6px;
+    }
+    .bar-row .bar-value {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: oklch(0.42 0.08 240);
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh;" data-od-id="screen-05">
+
+    <div class="section" style="padding-top: var(--gap-xl);">
+      <div class="terminal-line" style="margin-bottom: var(--gap-lg);">
+        <span class="prompt"><span class="dir">~/history/ai</span>$</span>
+        <span class="cmd">cat 05-first-winter.md</span>
+      </div>
+
+      <div class="term-window">
+        <p class="eyebrow" style="margin-bottom: 4px;">CHAPTER 05</p>
+        <p class="meta" style="margin-bottom: var(--gap-sm);">1969 – 1980 · The First AI Winter</p>
+        <h1 class="crt-glow">Minsky's Critique<br/>and the First Winter</h1>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section entry-content">
+      <p>
+        For a decade, Minsky and Rosenblatt argued. Then in 1969, Minsky and his co-author Seymour Papert ended the debate — mathematically. A single proof collapsed an entire research program.
+      </p>
+
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:var(--gap-md);">THE AUTHORS OF THE BLOW</div>
+
+      <div class="authors-row">
+        <div class="author-card">
+          <div class="ac-photo" style="position:relative; overflow:hidden;">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="85" r="9" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="85" r="9" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="92" y1="85" x2="108" y2="85" stroke="#52e07a" stroke-width="1.2"/>
+              <line x1="74" y1="85" x2="65" y2="83" stroke="#52e07a" stroke-width="1.2"/>
+              <line x1="126" y1="85" x2="135" y2="83" stroke="#52e07a" stroke-width="1.2"/>
+              <path d="M99 97 L95 108 L105 108" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 119 Q100 128 113 119" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">MM</text>
+            </svg>
+          </div>
+          <div class="ac-info">
+            <div class="ac-tag">MIT · Symbolic AI</div>
+            <div class="ac-name">Marvin Minsky</div>
+            <div class="ac-role">Co-author of <em>Perceptrons</em> (1969). Had always believed neural nets were a dead end.</div>
+          </div>
+        </div>
+        <div class="author-card">
+          <div class="ac-photo" style="position:relative; overflow:hidden;">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="44" ry="54" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="84" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="116" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 118 Q100 127 113 118" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="146" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">SP</text>
+            </svg>
+          </div>
+          <div class="ac-info">
+            <div class="ac-tag">MIT · Mathematics</div>
+            <div class="ac-name">Seymour Papert</div>
+            <div class="ac-role">Provided the rigorous mathematical proofs showing the structural limits of single-layer networks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- XOR Visual -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE KILLING BLOW — THE XOR PROBLEM</div>
+
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg" style="min-width:580px; max-width:720px; width:100%; height:auto; display:block;" aria-label="XOR problem visualization">
+          <defs>
+            <marker id="axisArr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="oklch(0.52 0.08 140)" />
+            </marker>
+          </defs>
+
+          <!-- Left: XOR Truth Table -->
+          <rect x="4" y="4" width="260" height="222" fill="none" stroke="oklch(0.18 0.01 145)" stroke-width="1"/>
+          <text x="134" y="26" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.54 0.08 140)" letter-spacing="3">XOR TRUTH TABLE</text>
+          <line x1="4" y1="32" x2="264" y2="32" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+
+          <!-- Table headers -->
+          <text x="58" y="52" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">Input A</text>
+          <text x="134" y="52" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">Input B</text>
+          <text x="210" y="52" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">XOR</text>
+          <line x1="4" y1="57" x2="264" y2="57" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+          <line x1="95" y1="32" x2="95" y2="222" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+          <line x1="171" y1="32" x2="171" y2="222" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+
+          <!-- Row 1 -->
+          <text x="58" y="82" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+          <text x="134" y="82" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+          <text x="210" y="82" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+          <line x1="4" y1="91" x2="264" y2="91" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+          <!-- Row 2 -->
+          <text x="58" y="116" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+          <text x="134" y="116" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">1</text>
+          <text x="210" y="116" text-anchor="middle" font-family="monospace" font-size="16" fill="oklch(0.68 0.15 85)">1</text>
+          <line x1="4" y1="125" x2="264" y2="125" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+          <!-- Row 3 -->
+          <text x="58" y="150" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">1</text>
+          <text x="134" y="150" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+          <text x="210" y="150" text-anchor="middle" font-family="monospace" font-size="16" fill="oklch(0.68 0.15 85)">1</text>
+          <line x1="4" y1="159" x2="264" y2="159" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+          <!-- Row 4 -->
+          <text x="58" y="184" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">1</text>
+          <text x="134" y="184" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">1</text>
+          <text x="210" y="184" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.54 0.08 140)">0</text>
+
+          <text x="134" y="215" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">True when inputs DIFFER</text>
+
+          <!-- Explanation gap -->
+          <text x="320" y="115" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">Why does</text>
+          <text x="320" y="131" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">this matter?</text>
+          <line x1="320" y1="138" x2="320" y2="150" stroke="oklch(0.52 0.08 140)" stroke-width="1" stroke-dasharray="2,2"/>
+
+          <!-- Right: Scatter plot -->
+          <rect x="360" y="4" width="356" height="222" fill="none" stroke="oklch(0.18 0.01 145)" stroke-width="1"/>
+          <text x="538" y="26" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.54 0.08 140)" letter-spacing="2">NO LINE CAN SEPARATE THESE</text>
+          <line x1="360" y1="32" x2="716" y2="32" stroke="oklch(0.18 0.01 145)" stroke-width="0.5"/>
+
+          <!-- Axes -->
+          <line x1="410" y1="196" x2="690" y2="196" stroke="oklch(0.44 0.04 145)" stroke-width="1" marker-end="url(#axisArr)"/>
+          <line x1="410" y1="196" x2="410" y2="55" stroke="oklch(0.44 0.04 145)" stroke-width="1" marker-end="url(#axisArr)"/>
+          <text x="700" y="199" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">A</text>
+          <text x="406" y="50" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">B</text>
+          <text x="398" y="199" text-anchor="end" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">0</text>
+          <text x="398" y="115" text-anchor="end" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">1</text>
+          <text x="480" y="210" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">0</text>
+          <text x="620" y="210" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">1</text>
+
+          <!-- Points: (0,0)=0 → muted; (0,1)=1 → accent; (1,0)=1 → accent; (1,1)=0 → muted -->
+          <!-- (0,0) = x:480 y:196 → output 0 -->
+          <circle cx="480" cy="196" r="10" fill="oklch(0.15 0.01 145)" stroke="oklch(0.54 0.08 140)" stroke-width="1.5"/>
+          <text x="480" y="200" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">0</text>
+
+          <!-- (0,1) = x:480 y:110 → output 1 -->
+          <circle cx="480" cy="110" r="10" fill="oklch(0.15 0.015 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+          <text x="480" y="114" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.68 0.15 85)">1</text>
+
+          <!-- (1,0) = x:620 y:196 → output 1 -->
+          <circle cx="620" cy="196" r="10" fill="oklch(0.15 0.015 85)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+          <text x="620" y="200" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.68 0.15 85)">1</text>
+
+          <!-- (1,1) = x:620 y:110 → output 0 -->
+          <circle cx="620" cy="110" r="10" fill="oklch(0.15 0.01 145)" stroke="oklch(0.54 0.08 140)" stroke-width="1.5"/>
+          <text x="620" y="114" text-anchor="middle" font-family="monospace" font-size="10" fill="oklch(0.60 0.10 140)">0</text>
+
+          <!-- Diagonal line attempts — both fail -->
+          <line x1="415" y1="165" x2="650" y2="155" stroke="oklch(0.40 0.08 220)" stroke-width="1" stroke-dasharray="6,3" opacity="0.6"/>
+          <line x1="415" y1="155" x2="650" y2="200" stroke="oklch(0.40 0.08 220)" stroke-width="1" stroke-dasharray="6,3" opacity="0.6"/>
+          <text x="538" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.40 0.08 220)">← any line fails</text>
+
+          <text x="538" y="218" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.52 0.08 140)">0s and 1s cannot be linearly separated</text>
+        </svg>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); line-height: 1.7; margin-top: var(--gap-md);">
+        A perceptron can only draw a straight line through its input space to separate categories. XOR requires a boundary that bends — impossible for a single-layer network.
+        Minsky proved this was not a fixable bug. It was a structural limit. Without a way to train multi-layer networks (the fix wouldn't come until backprop in the 1980s), neural networks looked like a dead end.
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Winter Stats -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">FIRST AI WINTER (1974 – 1980) — THE NUMBERS</div>
+
+      <div class="winter-bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">US AI Research Funding</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;"></div></div>
+          <div class="bar-value">−50%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">UK AI Research Funding</div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div>
+          <div class="bar-value">−75%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">PhD Programs Closed</div>
+          <div class="bar-track"><div class="bar-fill" style="width:40%;"></div></div>
+          <div class="bar-value">15+</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Researchers Left Field</div>
+          <div class="bar-track"><div class="bar-fill" style="width:40%;"></div></div>
+          <div class="bar-value">~40%</div>
+        </div>
+      </div>
+
+      <div class="quote-block" style="border-left-color: oklch(0.42 0.08 240);">
+        <div class="quote-text">"[AI has achieved] nothing of real importance."</div>
+        <div class="quote-source">Lighthill Report (1973) · Recommended drastic funding cuts to British AI programs</div>
+      </div>
+
+      <p>
+        That cycle would become a constant in AI history. When the promise outruns the machinery, winter follows.
+      </p>
+    </div>
+
+    <hr />
+
+    <!-- Backpropagation -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE FIX THAT FINALLY CAME — BACKPROPAGATION (1986)</div>
+
+      <p style="font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--muted);line-height:1.7;margin-bottom:var(--gap-lg);">
+        Minsky proved that <em>single-layer</em> perceptrons couldn't solve XOR. He did not prove that <em>multi-layer</em> networks couldn't. The missing piece was an efficient way to train multiple layers at once. In 1986, David Rumelhart, Geoffrey Hinton, and Ronald Williams published backpropagation — an algorithm that flows error signals backwards through every layer, adjusting all weights in a single pass. The XOR problem was now trivially solvable. Neural networks revived.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:var(--gap-md);align-items:center;margin-bottom:var(--gap-lg);">
+        <div style="border:1px solid var(--border);padding:var(--gap-md);">
+          <div style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;">1969 · The limit</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-h3);">Single-layer only</div>
+          <div style="font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--muted);margin-top:var(--gap-sm);line-height:1.5;">XOR impossible. No way to train deeper networks. Dead end declared.</div>
+        </div>
+        <div style="font-family:var(--font-display);font-size:clamp(20px,3vw,36px);color:var(--accent);text-align:center;">→</div>
+        <div style="border:1px solid var(--accent);background:oklch(0.09 0.006 145);padding:var(--gap-md);">
+          <div style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:4px;">1986 · Backprop</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-h3);">Multi-layer unlocked</div>
+          <div style="font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--muted);margin-top:var(--gap-sm);line-height:1.5;">Error flows backward. All layers adjust. Neural nets revive — but still need more data and compute to scale.</div>
+        </div>
+      </div>
+
+      <div class="person-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="90" rx="52" ry="50" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="82" cy="83" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="118" cy="83" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 91 L95 104 L105 104" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M86 116 Q100 125 114 116" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="140" x2="100" y2="166" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M20 222 C50 166 74 160 100 166 C126 160 150 166 180 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">GH</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Hinton</div>
+            <div class="person-role">Backprop co-inventor 1986. Later: AlexNet (2012), Turing Award 2018.</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 117 Q100 126 113 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">DR</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Rumelhart</div>
+            <div class="person-role">Cognitive scientist, lead author of the 1986 paper "Learning Representations by Back-propagating Errors."</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 117 Q100 126 113 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">RW</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Williams</div>
+            <div class="person-role">Third co-author. Later contributed to training recurrent networks — a step toward modern sequence models.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="chapter-nav">
+      <a href="04-perceptron.html">← Previous: The Perceptron</a>
+      <span class="chapter-indicator">CHAPTER 05 · 1969 — 1980</span>
+      <a href="06-expert.html">Next: Expert Systems →</a>
+    </div>
+
+    <div style="text-align: center; padding-bottom: var(--gap-lg);">
+      <a href="../index.html" class="btn">← Back to index</a>
+    </div>
+
+  </div>
+</body>
+</html>

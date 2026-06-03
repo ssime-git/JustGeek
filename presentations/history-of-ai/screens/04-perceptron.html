@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1958 · The Perceptron — History of AI</title>
+  <link rel="stylesheet" href="../css/retro.css" />
+  <style>
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: var(--gap-xl);
+      align-items: start;
+    }
+    @media (max-width: 600px) { .hero-layout { grid-template-columns: 1fr; } }
+
+    .newspaper-clipping {
+      border: 1px solid oklch(0.55 0.08 85);
+      padding: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+      position: relative;
+      background: oklch(0.085 0.007 85);
+    }
+    .newspaper-clipping::before {
+      content: 'NEW YORK TIMES · JULY 8, 1958';
+      position: absolute;
+      top: -10px;
+      left: var(--gap-md);
+      background: var(--bg);
+      padding: 0 8px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: oklch(0.55 0.08 85);
+      letter-spacing: 0.1em;
+    }
+    .newspaper-clipping .headline {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      line-height: 1.2;
+      color: oklch(0.72 0.10 85);
+      margin-bottom: var(--gap-sm);
+    }
+    .newspaper-clipping .byline {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid oklch(0.30 0.04 85);
+    }
+
+    .hype-reality {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+    }
+    @media (max-width: 600px) { .hype-reality { grid-template-columns: 1fr; } }
+
+    .hype-card, .reality-card {
+      border: 1px solid var(--border);
+      padding: var(--gap-md);
+    }
+    .hype-card {
+      border-color: oklch(0.55 0.08 85);
+      background: oklch(0.09 0.006 85);
+    }
+    .hype-card .label { color: oklch(0.65 0.10 85); }
+    .reality-card .label { color: oklch(0.55 0.08 220); }
+
+    .card-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--gap-sm);
+    }
+    .card-big {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 4vw, 36px);
+      line-height: 1.1;
+    }
+    .card-sub {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      margin-top: var(--gap-sm);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh;" data-od-id="screen-04">
+
+    <div class="section" style="padding-top: var(--gap-xl);">
+      <div class="terminal-line" style="margin-bottom: var(--gap-lg);">
+        <span class="prompt"><span class="dir">~/history/ai</span>$</span>
+        <span class="cmd">cat 04-perceptron.md</span>
+      </div>
+
+      <div class="hero-layout">
+        <div>
+          <div class="term-window">
+            <p class="eyebrow" style="margin-bottom: 4px;">CHAPTER 04</p>
+            <p class="meta" style="margin-bottom: var(--gap-sm);">1958 · Cornell University, New York</p>
+            <h1 class="crt-glow">The Perceptron and<br/>the First Hype Cycle</h1>
+          </div>
+          <p style="margin-top: var(--gap-md); color: var(--muted); font-size: var(--fs-body); line-height: 1.7; max-width: 52ch;">
+            Cornell psychologist Frank Rosenblatt built a machine that could <em>adjust itself</em> —
+            the first neural network. The press declared it conscious. The reality was a coin flip.
+          </p>
+        </div>
+        <div>
+          <div class="photo-frame" style="aspect-ratio:3/4;">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 117 Q100 126 113 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">FR</text>
+              <text x="100" y="16" font-family="monospace" font-size="9" fill="#3a6042" text-anchor="middle" letter-spacing="2">FRANK ROSENBLATT · 1928–1971</text>
+            </svg>
+          </div>
+          <div class="photo-caption">FRANK ROSENBLATT · 1928–1971</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Perceptron Architecture SVG -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE MARK I PERCEPTRON — HOW IT WORKED</div>
+
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" style="min-width:580px; max-width:760px; width:100%; height:auto; display:block;" aria-label="Perceptron architecture diagram">
+          <defs>
+            <marker id="pArr" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="oklch(0.68 0.15 85)" />
+            </marker>
+            <marker id="pArrFb" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="oklch(0.45 0.08 220)" />
+            </marker>
+          </defs>
+
+          <!-- Layer 1: Input -->
+          <text x="52" y="16" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">INPUT</text>
+          <!-- 5 sample photocells -->
+          <circle cx="52" cy="42" r="10" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <text x="52" y="46" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.54 0.08 140)">■</text>
+          <circle cx="52" cy="72" r="10" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <text x="52" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.54 0.08 140)">■</text>
+          <circle cx="52" cy="102" r="10" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <text x="52" y="106" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.54 0.08 140)">■</text>
+          <circle cx="52" cy="132" r="10" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <text x="52" y="136" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.54 0.08 140)">■</text>
+          <circle cx="52" cy="162" r="10" fill="none" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <text x="52" y="166" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.54 0.08 140)">■</text>
+          <!-- Label -->
+          <text x="52" y="186" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">400 photocells</text>
+          <text x="52" y="197" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">20×20 grid</text>
+
+          <!-- Connection lines -->
+          <line x1="62" y1="42" x2="248" y2="95" stroke="oklch(0.22 0.02 145)" stroke-width="0.5"/>
+          <line x1="62" y1="72" x2="248" y2="100" stroke="oklch(0.22 0.02 145)" stroke-width="0.5"/>
+          <line x1="62" y1="102" x2="248" y2="102" stroke="oklch(0.44 0.04 145)" stroke-width="1"/>
+          <line x1="62" y1="132" x2="248" y2="108" stroke="oklch(0.22 0.02 145)" stroke-width="0.5"/>
+          <line x1="62" y1="162" x2="248" y2="112" stroke="oklch(0.22 0.02 145)" stroke-width="0.5"/>
+
+          <!-- Layer 2: Weights -->
+          <text x="306" y="16" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">WEIGHTS</text>
+          <rect x="248" y="72" width="116" height="60" fill="oklch(0.095 0.007 145)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+          <text x="306" y="99" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.68 0.15 85)">w₁ w₂ w₃…</text>
+          <text x="306" y="116" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.45 0.07 140)">Adjustable</text>
+          <text x="306" y="186" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">Electrically</text>
+          <text x="306" y="197" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">variable resistors</text>
+
+          <!-- Arrow to output -->
+          <line x1="364" y1="102" x2="436" y2="102" stroke="oklch(0.68 0.15 85)" stroke-width="1.5" marker-end="url(#pArr)"/>
+
+          <!-- Layer 3: Sum + Threshold -->
+          <text x="492" y="16" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">THRESHOLD</text>
+          <circle cx="492" cy="102" r="36" fill="oklch(0.10 0.008 145)" stroke="oklch(0.54 0.08 140)" stroke-width="1"/>
+          <text x="492" y="98" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.60 0.12 140)">Σ</text>
+          <text x="492" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">≥ θ ?</text>
+          <text x="492" y="186" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">Weighted sum</text>
+          <text x="492" y="197" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">vs threshold</text>
+
+          <!-- Arrow to output -->
+          <line x1="528" y1="102" x2="596" y2="102" stroke="oklch(0.68 0.15 85)" stroke-width="1.5" marker-end="url(#pArr)"/>
+
+          <!-- Output -->
+          <text x="648" y="16" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)" letter-spacing="2">OUTPUT</text>
+          <rect x="598" y="78" width="100" height="48" fill="oklch(0.095 0.007 145)" stroke="oklch(0.68 0.15 85)" stroke-width="1.5"/>
+          <text x="648" y="99" text-anchor="middle" font-family="monospace" font-size="14" fill="oklch(0.68 0.15 85)">+1 / −1</text>
+          <text x="648" y="116" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.60 0.10 140)">yes / no</text>
+          <text x="648" y="186" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">Triangle?</text>
+          <text x="648" y="197" text-anchor="middle" font-family="monospace" font-size="8" fill="oklch(0.52 0.08 140)">Circle?</text>
+
+          <!-- Feedback arrow (adjustment) -->
+          <path d="M 698 126 Q 698 160 492 160 Q 286 160 286 132" fill="none" stroke="oklch(0.45 0.08 220)" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#pArrFb)"/>
+          <text x="492" y="176" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.45 0.08 220)">ERROR SIGNAL — adjust weights if wrong</text>
+        </svg>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); line-height: 1.7; margin-top: var(--gap-md);">
+        The radical part: if the answer was wrong, the machine <em>adjusted its own weights</em>. It wasn't following a fixed program — it was learning. After 50 trials, it could tell triangles from squares. That loop — predict, measure error, adjust — is the same loop every neural network uses today.
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- The Hype vs Reality -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE HYPE CYCLE — SAME AS IT EVER WAS</div>
+
+      <div class="newspaper-clipping">
+        <div class="headline">
+          "The Navy revealed the embryo of an electronic computer today that it expects will be able to walk, talk, see, write, reproduce itself and be conscious of its existence."
+        </div>
+        <div class="byline">New York Times · July 8, 1958</div>
+      </div>
+
+      <div class="hype-reality">
+        <div class="hype-card">
+          <div class="card-label label">The Headlines Said</div>
+          <div class="card-big" style="color: oklch(0.72 0.10 85);">Walk. Talk.<br/>See. Write.<br/>Be conscious.</div>
+          <div class="card-sub">Navy funding. Front page. Detachment from engineering reality.</div>
+        </div>
+        <div class="reality-card">
+          <div class="card-label label">The Machine Actually Did</div>
+          <div class="card-big" style="color: oklch(0.55 0.08 220);">50–60%<br/>accuracy</div>
+          <div class="card-sub">Distinguishing triangles from squares. A coin flip is 50%. Real advance. Wildly oversold.</div>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">A real technical advance can still be wildly oversold. The field keeps relearning this lesson.</div>
+        <div class="quote-source">The first AI hype cycle · 1958</div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="chapter-nav">
+      <a href="03-split.html">← Previous: Rules vs Learning</a>
+      <span class="chapter-indicator">CHAPTER 04 · 1958</span>
+      <a href="05-winter.html">Next: First AI Winter →</a>
+    </div>
+
+    <div style="text-align: center; padding-bottom: var(--gap-lg);">
+      <a href="../index.html" class="btn">← Back to index</a>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1956 · AI Named — History of AI</title>
+  <link rel="stylesheet" href="../css/retro.css" />
+  <style>
+    .naming-moment {
+      text-align: center;
+      padding: var(--gap-xl) var(--gap-md);
+      border: 1px solid var(--border);
+      margin: var(--gap-lg) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .naming-moment::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, oklch(0.11 0.010 145) 0%, var(--bg) 70%);
+    }
+    .naming-moment .word {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 8vw, 80px);
+      line-height: 1;
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+    .naming-moment .word.ai { color: var(--accent); text-shadow: 0 0 20px oklch(0.68 0.15 85 / 0.3); }
+    .naming-moment .subtext {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      color: var(--muted);
+      margin-top: var(--gap-sm);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .fork-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      margin: var(--gap-lg) 0;
+    }
+    @media (max-width: 600px) { .fork-legend { grid-template-columns: 1fr; } }
+
+    .fork-side {
+      border: 1px solid var(--border);
+      padding: var(--gap-md);
+    }
+    .fork-side .side-head {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: 1.1;
+      margin-bottom: var(--gap-sm);
+    }
+    .fork-side .side-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--gap-sm);
+    }
+    .fork-side ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .fork-side ul li {
+      font-family: var(--font-mono);
+      font-size: var(--fs-meta);
+      padding: 5px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .fork-side ul li:first-child { border-top: 0; }
+    .fork-side .champ {
+      margin-top: var(--gap-sm);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="min-height: 100vh;" data-od-id="screen-02">
+
+    <div class="section" style="padding-top: var(--gap-xl);">
+      <div class="terminal-line" style="margin-bottom: var(--gap-lg);">
+        <span class="prompt"><span class="dir">~/history/ai</span>$</span>
+        <span class="cmd">cat 02-dartmouth-conference.md</span>
+      </div>
+
+      <div class="term-window">
+        <p class="eyebrow" style="margin-bottom: 4px;">CHAPTER 02</p>
+        <p class="meta" style="margin-bottom: var(--gap-sm);">Summer 1956 · Dartmouth College, New Hampshire</p>
+        <h1 class="crt-glow">The Moment AI<br/>Became a Field</h1>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section entry-content">
+      <p>
+        After Turing, research on intelligent machines existed in fragments — no shared name, no community, no momentum. A field without a name can't attract funding, students, or institutions.
+        In the summer of 1956, four men changed that.
+      </p>
+
+      <!-- The naming moment -->
+      <div class="naming-moment">
+        <div class="word">ARTIFICIAL</div>
+        <div class="word ai">INTELLIGENCE</div>
+        <div class="subtext">Dartmouth College · July – August 1956 · The name that created the field</div>
+      </div>
+
+      <!-- Four founders with photos -->
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE FOUR ORGANIZERS</div>
+
+      <div class="person-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="83" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 117 Q100 126 113 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">JM</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">McCarthy</div>
+            <div class="person-role">Coined "Artificial Intelligence"</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="46" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <!-- glasses -->
+              <circle cx="83" cy="85" r="9" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="117" cy="85" r="9" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="92" y1="85" x2="108" y2="85" stroke="#52e07a" stroke-width="1.2"/>
+              <line x1="74" y1="85" x2="65" y2="83" stroke="#52e07a" stroke-width="1.2"/>
+              <line x1="126" y1="85" x2="135" y2="83" stroke="#52e07a" stroke-width="1.2"/>
+              <path d="M99 97 L95 108 L105 108" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 119 Q100 128 113 119" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">MM</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Minsky</div>
+            <div class="person-role">Symbolic AI · Logic &amp; Rules</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="42" ry="52" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="84" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="116" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M88 117 Q100 125 112 117" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="144" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M24 222 C52 168 76 162 100 168 C124 162 148 168 176 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">CS</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Shannon</div>
+            <div class="person-role">Information Theory</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <div class="person-photo">
+            <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="display:block;background:#070e09">
+              <ellipse cx="100" cy="92" rx="44" ry="50" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="84" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <circle cx="116" cy="84" r="5" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M99 93 L95 106 L105 106" fill="none" stroke="#52e07a" stroke-width="1" opacity="0.65"/>
+              <path d="M87 116 Q100 125 113 116" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <line x1="100" y1="142" x2="100" y2="168" stroke="#52e07a" stroke-width="1.5"/>
+              <path d="M22 222 C52 168 76 162 100 168 C124 162 148 168 178 222" fill="none" stroke="#52e07a" stroke-width="1.5"/>
+              <text x="100" y="249" font-family="monospace" font-size="13" fill="#d4a017" text-anchor="middle" letter-spacing="6">NR</text>
+            </svg>
+          </div>
+          <div class="person-info">
+            <div class="person-name">Rochester</div>
+            <div class="person-role">IBM · First General-Purpose Computer Architect</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">"Every aspect of learning or any other feature of intelligence can be so precisely described that a machine can be made to simulate it."</div>
+        <div class="quote-source">Dartmouth Workshop Proposal · 1956</div>
+      </div>
+
+      <p>
+        It was an ambitious label, maybe deliberately so. But naming the field worked. Once the question existed — <em>how do you build a machine that behaves intelligently?</em> — the room immediately split over the answer.
+      </p>
+    </div>
+
+    <hr />
+
+    <!-- The Fork -->
+    <div class="section">
+      <div class="section-label" style="border-top:0; padding-top:0; margin-top:0;">THE CENTRAL QUESTION SPLIT THE ROOM</div>
+
+      <!-- Fork SVG -->
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="min-width:500px; max-width:600px; width:100%; height:auto; display:block;">
+          <defs>
+            <marker id="forkArr" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="oklch(0.68 0.15 85)" />
+            </marker>
+            <marker id="forkArrB" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="oklch(0.60 0.12 220)" />
+            </marker>
+          </defs>
+          <!-- Central node -->
+          <rect x="168" y="4" width="264" height="36" fill="oklch(0.11 0.010 145)" stroke="oklch(0.68 0.15 85)" stroke-width="1"/>
+          <text x="300" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.68 0.15 85)" letter-spacing="1">HOW TO MAKE A MACHINE INTELLIGENT?</text>
+          <!-- Stem -->
+          <line x1="300" y1="40" x2="300" y2="65" stroke="oklch(0.52 0.08 140)" stroke-width="1"/>
+          <!-- Fork left -->
+          <line x1="300" y1="65" x2="130" y2="65" stroke="oklch(0.52 0.08 140)" stroke-width="1"/>
+          <line x1="130" y1="65" x2="130" y2="82" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#forkArrB)"/>
+          <!-- Fork right -->
+          <line x1="300" y1="65" x2="470" y2="65" stroke="oklch(0.52 0.08 140)" stroke-width="1"/>
+          <line x1="470" y1="65" x2="470" y2="82" stroke="oklch(0.52 0.08 140)" stroke-width="1" marker-end="url(#forkArr)"/>
+          <!-- Left box -->
+          <rect x="30" y="84" width="200" height="40" fill="none" stroke="oklch(0.60 0.12 220)" stroke-width="1"/>
+          <text x="130" y="101" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.60 0.12 220)">SYMBOLIC AI</text>
+          <text x="130" y="117" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">Specify it · Logic + Rules · Minsky</text>
+          <!-- Right box -->
+          <rect x="370" y="84" width="200" height="40" fill="none" stroke="oklch(0.68 0.15 85)" stroke-width="1"/>
+          <text x="470" y="101" text-anchor="middle" font-family="monospace" font-size="11" fill="oklch(0.68 0.15 85)">NEURAL NETWORKS</text>
+          <text x="470" y="117" text-anchor="middle" font-family="monospace" font-size="9" fill="oklch(0.54 0.08 140)">Learn it · Patterns · Rosenblatt</text>
+        </svg>
+      </div>
+
+      <div class="fork-legend">
+        <div class="fork-side">
+          <div class="side-tag" style="color: oklch(0.60 0.12 220);">Camp A</div>
+          <div class="side-head" style="color: oklch(0.60 0.12 220);">Symbolic AI</div>
+          <ul>
+            <li>Intelligence is reason</li>
+            <li>Top-down: start with rules</li>
+            <li>Explicit knowledge representation</li>
+            <li>If-then logic trees</li>
+            <li>Brittle but interpretable</li>
+          </ul>
+          <div class="champ">Champion: Marvin Minsky</div>
+        </div>
+        <div class="fork-side">
+          <div class="side-tag" style="color: var(--accent);">Camp B</div>
+          <div class="side-head" style="color: var(--accent);">Neural Networks</div>
+          <ul>
+            <li>Intelligence is adaptation</li>
+            <li>Bottom-up: learn from examples</li>
+            <li>Pattern discovery in data</li>
+            <li>Weighted connections</li>
+            <li>Flexible but opaque</li>
+          </ul>
+          <div class="champ">Champion: Frank Rosenblatt</div>
+        </div>
+      </div>
+
+      <p style="color: var(--muted); font-size: var(--fs-meta); font-family: var(--font-mono); max-width: 60ch; line-height: 1.7;">
+        The question split the room on day one — and neither side would concede for a decade. Both camps would go on to build real systems, generate real hype, and hit real walls.
+      </p>
+    </div>
+
+    <hr />
+
+    <div class="chapter-nav">
+      <a href="01-turing.html">← Previous: 1939</a>
+      <span class="chapter-indicator">CHAPTER 02 · 1956</span>
+      <a href="03-split.html">Next: Rules vs Learning →</a>
+    </div>
+
+    <div style="text-align: center; padding-bottom: var(--gap-lg);">
+      <a href="../index.html" class="btn">← Back to index</a>
+    </div>
+
+  </div>
+</body>
+</html>
