@@ -17,13 +17,13 @@ const EXERCISES = {
   'typescript-type': {
     checkPath: '/api/check/typescript-type',
     coachPath: '/api/coach/typescript-type',
-    emptyMessage: 'Propose un type. L'idée n'est pas de briller, c'est de rendre ton hypothèse visible.',
+    emptyMessage: "Propose un type. L'idée n'est pas de briller, c'est de rendre ton hypothèse visible.",
     buildMessage: (answer) => `Pour compléter let score: ___ = 42 en TypeScript, je propose ${answer}. Vérifie avec le tool puis explique le contrat de type en langage simple.`,
   },
   'async-bug': {
     checkPath: '/api/check/async-bug',
     coachPath: '/api/coach/async-bug',
-    emptyMessage: 'Décris ce que tu penses être le bug avant d'appeler le coach.',
+    emptyMessage: "Décris ce que tu penses être le bug avant d'appeler le coach.",
     buildMessage: (answer) => `Dans la fonction fetchUser, voici mon diagnostic du bug : ${answer}. Vérifie avec le tool checkAsyncBug puis donne-moi un feedback de coach.`,
   },
 };
