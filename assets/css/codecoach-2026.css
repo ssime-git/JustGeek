@@ -387,6 +387,103 @@ body.dark-mode .compare-card.good .compare-label { color: #50fa7b; }
   }
 }
 
+/* JS cell — exécution interactive inline */
+.js-cell {
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.js-cell-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  background: rgba(143, 150, 206, 0.08);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.js-cell-badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  background: var(--link-color);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.js-cell-title {
+  font-size: 0.82rem;
+  opacity: 0.72;
+}
+
+.js-cell-code {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  background: var(--code-bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.js-cell-controls {
+  padding: 0.6rem 0.85rem;
+  border-top: 1px solid var(--border-color);
+  background: rgba(143, 150, 206, 0.04);
+}
+
+.js-cell-controls button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--link-color);
+  color: white;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.js-cell-controls button:hover { opacity: 0.88; }
+
+.js-cell-output {
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.87rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--code-bg);
+}
+
+.js-cell-output.running { opacity: 0.6; }
+
+.js-cell-output.error {
+  color: #ff5555;
+  background: rgba(255, 85, 85, 0.06);
+}
+
+.out-line {
+  display: block;
+  line-height: 1.7;
+}
+
+.out-line.muted { opacity: 0.65; }
+
+.out-line strong { color: #ff5555; }
+
+/* Question révélée après exécution */
+.js-cell-question {
+  margin-top: 1.25rem;
+}
+
+.js-cell-question-reveal {
+  animation: codecoachFadeUp 0.35s ease both;
+}
+
 /* Thinking panel — raisonnement interne du coach */
 .codecoach-thinking {
   margin: 0.75rem 0;

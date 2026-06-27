@@ -223,20 +223,36 @@ Tu vois le pattern ? On ne lit pas une explication sur TypeScript. On pose une h
 
 ## Exercice 4 — Identifier un bug async
 
-Ce code a un bug. Trouve-le.
+Ce code a un bug. **Exécute-le d'abord** — vois ce que ça produit, puis pose ton diagnostic.
 
-```js
+<div class="js-cell" data-cell="async-bug-demo">
+  <div class="js-cell-header">
+    <span class="js-cell-badge">JS</span>
+    <span class="js-cell-title">fetchUser — avec un bug</span>
+  </div>
+  <pre class="js-cell-code">// fetch est simulé pour retourner { name: "Alice", id: 1 }
+// mais le bug existe quand même — exécute et observe
+
 async function fetchUser(id) {
   const response = fetch(`/api/users/${id}`);
   const data = response.json();
   return data.name;
 }
-```
 
-Question : **pourquoi `data.name` est-il toujours `undefined` ?**
+const result = await fetchUser(1);
+console.log("data.name =", result);</pre>
+  <div class="js-cell-controls">
+    <button type="button" data-action="run-js">▶ Exécuter</button>
+  </div>
+  <div class="js-cell-output" aria-live="polite" style="display:none"></div>
+</div>
+
+<div class="js-cell-question" style="display:none">
+
+Question : **pourquoi `data.name` est-il `undefined` même avec un `fetch` qui fonctionne ?**
 
 <div class="codecoach-callout">
-<strong>Indice :</strong> lis le code ligne par ligne. Qu'est-ce qui manque avant chaque opération asynchrone ?
+<strong>Indice :</strong> regarde chaque ligne qui retourne une Promise. Est-ce que tu attends bien son résultat avant de passer à la ligne suivante ?
 </div>
 
 <div class="codecoach-exercise" data-exercise="async-bug">
@@ -247,10 +263,12 @@ Question : **pourquoi `data.name` est-il toujours `undefined` ?**
     <button type="button" data-action="ask-agent">Demander au coach</button>
   </div>
   <div class="codecoach-turnstile" style="display:none"></div>
-  <div class="codecoach-result" aria-live="polite">Identifie le bug avant d'appeler le coach. Le coach est là pour valider ton diagnostic, pas le faire à ta place.</div>
+  <div class="codecoach-result" aria-live="polite">Exécute le code, observe le résultat, puis pose ton diagnostic.</div>
 </div>
 
-Ce type de bug — un `await` oublié — est parmi les plus courants en JavaScript async. Il ne lève pas d'erreur. Il retourne juste `undefined`, silencieusement. C'est exactement le genre de cas où un agent qui te "corrige" sans explication ne t'aide pas : tu vas copier le fix sans comprendre ce qui s'est passé.
+</div>
+
+Ce type de bug — un `await` oublié — est parmi les plus courants en JavaScript async. Il ne lève pas d'erreur visible. Il retourne juste `undefined`, silencieusement. C'est exactement le genre de cas où un agent qui te "corrige" sans explication ne t'aide pas : tu vas copier le fix sans comprendre ce qui s'est passé.
 
 </section>
 

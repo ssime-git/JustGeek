@@ -257,4 +257,59 @@ function initCodeCoachExercises() {
 document.addEventListener('DOMContentLoaded', () => {
   initJourneyReveal();
   initCodeCoachExercises();
+  initJsCells();
 });
+
+function initJsCells() {
+  document.querySelectorAll('.js-cell').forEach((cell) => {
+    const btn = cell.querySelector('[data-action="run-js"]');
+    const output = cell.querySelector('.js-cell-output');
+    const pre = cell.querySelector('.js-cell-code');
+    if (!btn || !output || !pre) return;
+
+    btn.addEventListener('click', () => {
+      const code = pre.textContent || '';
+      output.style.display = 'block';
+      output.className = 'js-cell-output running';
+      output.textContent = '▶ Exécution…';
+
+      // Simulate fetch returning a real Response so the Promise chain is intact
+      // but WITHOUT await — the bug manifests exactly as in prod
+      const logs = [];
+      const fakeConsole = { log: (...args) => logs.push(args.map(String).join(' ')) };
+
+      const fakeFetch = (_url) =>
+        Promise.resolve(new Response(JSON.stringify({ name: 'Alice', id: 1 })));
+
+      // Wrap in AsyncFunction so top-level await works
+      const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+      const wrapped = new AsyncFunction('fetch', 'console', code);
+
+      wrapped(fakeFetch, fakeConsole)
+        .then((returnVal) => {
+          // The function returns data.name which will be undefined because of the bug
+          const lines = [...logs];
+          output.className = 'js-cell-output done';
+          output.innerHTML =
+            lines.map((l) => `<span class="out-line">${escapeHtml(l)}</span>`).join('') +
+            `<span class="out-line muted">→ valeur retournée : <strong>${escapeHtml(String(returnVal))}</strong></span>`;
+
+          // Reveal the question after execution
+          const question = cell.closest('section')?.querySelector('.js-cell-question');
+          if (question) {
+            question.style.display = 'block';
+            question.classList.add('js-cell-question-reveal');
+          }
+        })
+        .catch((err) => {
+          output.className = 'js-cell-output error';
+          output.textContent = `Erreur : ${err.message}`;
+          const question = cell.closest('section')?.querySelector('.js-cell-question');
+          if (question) {
+            question.style.display = 'block';
+            question.classList.add('js-cell-question-reveal');
+          }
+        });
+    });
+  });
+}
