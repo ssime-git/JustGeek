@@ -3,8 +3,7 @@ layout: post-interactive
 title: "Apprendre à coder en 2026 : arrête de demander la réponse, construis ton coach"
 date: 2026-06-27
 author: "Sébastien Sime"
-categories: [IA, Cloudflare, WebAssembly]
-tags: [agents, cloudflare-workers, cloudflare-think, wasm, apprentissage, code, rag, turnstile]
+categories: [IA, Apprentissage, Code]
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/codecoach-2026.css' | relative_url }}">
@@ -12,13 +11,13 @@ tags: [agents, cloudflare-workers, cloudflare-think, wasm, apprentissage, code, 
 <script src="{{ '/assets/js/codecoach-2026.js' | relative_url }}" defer></script>
 
 <div class="codecoach-hero">
-  <span class="codecoach-kicker">Article interactif · Worker réel · Agent réel</span>
-  <p><strong>Opinion un peu brutale :</strong> si tu apprends à coder en 2026 en demandant à une IA de te pondre la solution complète, tu n'apprends pas à coder. Tu apprends à être spectateur d'un autocomplete géant.</p>
+  <span class="codecoach-kicker">Article interactif · Lis moins passivement</span>
+  <p><strong>Opinion un peu brutale :</strong> si tu apprends à coder en 2026 en demandant à une IA de te pondre la solution complète, tu n'apprends pas à coder. Tu apprends à regarder un autocomplete faire du sport pendant que tu manges des chips.</p>
 </div>
 
 <div class="codecoach-journey">
 
-<section class="codecoach-step" markdown="1" data-next-label="Ok, montre-moi le piège →">
+<section class="codecoach-step" markdown="1" data-next-label="Ok, montre-moi pourquoi c'est un piège →">
 
 Tu connais la scène.
 
@@ -26,7 +25,9 @@ Tu bloques sur une fonction. Tu ouvres ton agent de code préféré. Tu écris :
 
 > "Corrige-moi ça."
 
-Il te sort 80 lignes propres, typées, probablement meilleures que les tiennes. Tu copies. Ça marche. Tu ressens une micro-dose de dopamine. Et cinq minutes plus tard, si je te demande **pourquoi** ça marche, ton cerveau affiche :
+Il te sort une solution propre. Tu copies. Ça marche. Tu ressens une micro-dose de dopamine.
+
+Et cinq minutes plus tard, si je te demande **pourquoi** ça marche, ton cerveau affiche :
 
 <div class="codecoach-meme">MOI DEVANT LE CODE GÉNÉRÉ
 
@@ -36,7 +37,7 @@ cerveau.exe has stopped working
 
 Le problème n'est pas l'IA. Le problème, c'est le contrat pédagogique qu'on signe avec elle.
 
-Un mauvais contrat :
+Mauvais contrat :
 
 ```text
 Moi : fais-le à ma place.
@@ -44,102 +45,60 @@ IA  : ok.
 Moi : je n'ai rien appris.
 ```
 
-Un bon contrat :
+Bon contrat :
 
 ```text
-Moi : aide-moi à raisonner.
-IA  : explique ton hypothèse, testons-la, puis corrigeons le modèle mental.
-Moi : je comprends.
+Moi : voici mon hypothèse.
+IA  : testons-la, puis réparons ton intuition.
+Moi : ah, maintenant je vois.
 ```
 
-C'est cette deuxième version que je veux explorer ici.
+Donc je te propose un pacte : dans cet article, tu ne vas pas juste lire. Tu vas répondre, te tromper peut-être, puis regarder un coach te donner du feedback.
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Je veux le prototype réel →">
+<section class="codecoach-step" markdown="1" data-next-label="Je suis prêt à jouer le jeu →">
 
-## La thèse
+## La vraie compétence en 2026
 
-En 2026, apprendre à coder devrait ressembler moins à :
+En 2026, le problème ne sera plus :
 
-> "regarder un tuto de 47 minutes en x1.5"
+> "Est-ce que je peux obtenir du code ?"
 
-et plus à :
+Bien sûr que oui. Le code va tomber du ciel comme la pluie à Brest.
 
-> "voyager dans un mini-lab où chaque hypothèse peut être testée, discutée, corrigée."
+Le vrai problème sera :
 
-Un article de blog ne devrait pas seulement être une page à lire. Il peut devenir un **environnement d'apprentissage**.
+> "Est-ce que je comprends assez pour piloter, vérifier et corriger ce code ?"
 
-Pas besoin de construire un clone de VS Code dans le navigateur pour commencer. Une bonne première version peut être très simple :
+Apprendre à coder avec des agents, ce n'est pas abandonner l'effort. C'est déplacer l'effort.
 
-<div class="codecoach-mini-list">
-  <div><strong>1. Un exercice court</strong><br>Le lecteur doit prédire, écrire ou corriger quelque chose.</div>
-  <div><strong>2. Une validation déterministe</strong><br>Une brique non-LLM vérifie la réponse. Aujourd'hui TypeScript, demain WebAssembly.</div>
-  <div><strong>3. Un coach IA</strong><br>L'agent ne juge pas seulement vrai/faux. Il explique l'intuition manquante.</div>
-  <div><strong>4. Une mémoire pédagogique</strong><br>Le système peut progressivement savoir ce que tu comprends déjà.</div>
-</div>
-
-L'idée n'est pas de remplacer l'effort. L'idée est de mieux placer l'effort.
-
-</section>
-
-<section class="codecoach-step" markdown="1" data-next-label="Montre-moi l'architecture →">
-
-## Le prototype
-
-Pour tester cette idée, j'ai construit un petit Worker Cloudflare réel :
+Avant, l'effort était souvent :
 
 ```text
-https://blog-codecoach-2026.seb-sime.workers.dev
+chercher la bonne syntaxe → copier → débugger au hasard
 ```
 
-Il expose trois routes :
+Maintenant, l'effort doit devenir :
 
 ```text
-GET  /health
-POST /api/check/closure
-POST /api/coach/closure
+formuler une hypothèse → tester → lire le feedback → ajuster son modèle mental
 ```
-
-La dernière route appelle un agent Cloudflare Think, qui appelle lui-même un tool de validation.
 
 <figure class="codecoach-figure">
   <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=80" alt="Code sur un écran dans une ambiance sombre">
-  <figcaption>Le but n'est pas d'avoir plus de code. Le but est d'avoir une meilleure boucle de feedback.</figcaption>
+  <figcaption>En 2026, la syntaxe est moins rare. Le raisonnement, lui, reste rare.</figcaption>
 </figure>
 
-<div class="codecoach-architecture">
-<pre><code>Lecteur / Article interactif
-  │
-  │ répond à un exercice
-  ▼
-Frontend du blog
-  │
-  │ fetch + Turnstile token
-  ▼
-Cloudflare Worker
-  │
-  ├─ Route directe : /api/check/closure
-  │    └─ validation déterministe
-  │
-  └─ CodeCoachAgent via Cloudflare Think
-       │
-       ├─ Workers AI
-       ├─ Prompt de coach
-       ├─ Tool checkClosureAnswer()
-       ├─ Mini-RAG local
-       └─ Durable Object SQLite</code></pre>
-</div>
-
-Et surtout : les appels qui consomment le modèle sont protégés par une whitelist d'origine + Cloudflare Turnstile. Parce que laisser un endpoint IA public sans protection, c'est littéralement poser une carte bancaire sur une table de cantine.
+Et maintenant, on teste ça sur toi.
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Je tente l'exercice →">
+<section class="codecoach-step" markdown="1" data-next-label="Je tente la première intuition →">
 
-## Mini-exercice : les closures
+## Exercice 1 : prédire avant de demander
 
-Voici le code. Ne scrolle pas mentalement vers la réponse. Joue le jeu.
+Voici du JavaScript. Ne cherche pas la réponse sur Google. Ne demande pas à ton copilote intérieur. Regarde le code et fais une prédiction.
 
 ```js
 function createCounter() {
@@ -159,254 +118,280 @@ counter();
 Question : **quelle valeur retourne le deuxième appel à `counter()` ?**
 
 <div class="codecoach-callout">
-<strong>Ne cherche pas à avoir raison.</strong> Cherche à voir ton intuition. C'est là que l'apprentissage commence.
+<strong>Règle du jeu :</strong> tu dois écrire ton intuition avant de voir le feedback. L'apprentissage commence au moment exact où ton intuition devient observable.
 </div>
 
 <div class="codecoach-exercise" data-exercise="closure-counter">
-  <label for="closure-answer">Ta réponse</label>
+  <label for="closure-answer">Ta prédiction</label>
   <input id="closure-answer" name="answer" type="text" inputmode="text" placeholder="Ex: 1, 2, undefined...">
   <div class="codecoach-actions">
     <button type="button" data-action="check">Vérifier sans IA</button>
     <button type="button" data-action="ask-agent">Demander au coach IA</button>
   </div>
   <div class="codecoach-turnstile" style="display:none"></div>
-  <div class="codecoach-result" aria-live="polite">Écris une réponse, puis vérifie. Le bouton "coach" appelle le vrai Worker Cloudflare.</div>
+  <div class="codecoach-result" aria-live="polite">Écris une réponse, puis vérifie. Le coach appelle un vrai Worker Cloudflare.</div>
 </div>
 
-</section>
-
-<section class="codecoach-step" markdown="1" data-next-label="Pourquoi WASM dans l'histoire ? →">
-
-## Ce qui vient de se passer
-
-Si tu as cliqué sur "Vérifier sans IA", tu as parlé à une fonction déterministe. Pas à un modèle. Pas à une boule de cristal. Une fonction.
-
-Si tu as cliqué sur "Demander au coach IA", le flow était différent :
-
-```text
-Ta réponse
-  ↓
-Cloudflare Worker
-  ↓
-CodeCoachAgent
-  ↓
-Tool checkClosureAnswer
-  ↓
-Réponse pédagogique
-```
-
-C'est important.
-
-Un modèle de langage est excellent pour expliquer, reformuler, analogiser. Il est moins fiable pour être l'arbitre ultime du vrai/faux. Donc on ne lui donne pas le sifflet. On lui donne le rôle de coach.
-
-<div class="codecoach-meme">RÉPARTITION DES RÔLES
-
-LLM       : expliquer, questionner, guider
-Tool      : vérifier, calculer, exécuter
-Humain    : prédire, se tromper, comprendre
-
-Si tu inverses les rôles, bienvenue dans le chaos.</div>
+Quand tu as joué le jeu, on passe de la prédiction à une micro-tâche de code.
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Ok, et WebAssembly ? →">
+<section class="codecoach-step" markdown="1" data-next-label="Ok, maintenant je code un truc minuscule →">
 
-## Pourquoi WebAssembly est intéressant ici
+## Exercice 2 : compléter une fonction
 
-Dans cette première version, la validation est encore en TypeScript. C'est volontaire : je voulais d'abord vérifier le produit pédagogique minimal.
+Prédire, c'est bien. Écrire, c'est mieux.
 
-Mais la prochaine étape logique, c'est WebAssembly.
+Complète mentalement cette fonction :
 
-Pourquoi ? Parce qu'un environnement d'apprentissage a souvent besoin d'une brique qui **exécute** ou **valide** du code de manière contrôlée.
-
-WebAssembly est intéressant parce qu'il donne une cible portable, rapide, relativement isolée, et compatible avec le navigateur comme avec certains runtimes serveur.
-
-Attention, phrase obligatoire pour éviter les takes LinkedIn éclatés :
-
-<div class="codecoach-callout">
-<strong>WASM n'est pas une sandbox magique.</strong> C'est une brique utile dans une stratégie d'isolation. Pas un bouclier divin contre toutes les mauvaises idées.
-</div>
-
-Dans ce prototype, WASM servira d'abord à remplacer le validateur TypeScript par un module minimal :
-
-```text
-answer: "2"
-  ↓
-WASM validator
-  ↓
-{ correct: true, hint: "..." }
-```
-
-Puis, plus tard, on pourra imaginer :
-
-- des tests unitaires embarqués ;
-- des mini-interpréteurs ;
-- des exercices Rust → WASM ;
-- des corrections déterministes ;
-- des environnements plus riches.
-
-</section>
-
-<section class="codecoach-step" markdown="1" data-next-label="Et le RAG alors ? →">
-
-## Où intervient le RAG ?
-
-Un coach générique, c'est utile. Un coach qui connaît **tes articles**, **tes analogies**, **tes exercices**, c'est beaucoup plus intéressant.
-
-Le mini-RAG actuel est volontairement simple : un petit corpus local avec quelques passages sur les closures, WASM et le rôle du coach.
-
-Mais la cible est claire : brancher l'agent à mes contenus existants.
-
-```text
-Mes articles WASM
-Mes explications
-Mes exemples
-Mes exercices
-Mes prompts pédagogiques
-      ↓
-RAG
-      ↓
-Coach IA qui répond avec mon contexte
-```
-
-C'est là que le blog devient autre chose qu'une archive. Il devient une base de connaissances interactive.
-
-<figure class="codecoach-figure">
-  <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80" alt="Personne travaillant sur un ordinateur portable">
-  <figcaption>Le rêve : chaque article devient un petit atelier, pas juste un PDF avec du CSS.</figcaption>
-</figure>
-
-</section>
-
-<section class="codecoach-step" markdown="1" data-next-label="Donne-moi les règles du jeu →">
-
-## Les règles pédagogiques que je veux imposer à l'agent
-
-Un agent de code utilisé n'importe comment devient vite un distributeur automatique de solutions.
-
-Donc le prompt système du coach impose quelques règles :
-
-```text
-- Ne donne pas la solution trop tôt.
-- Demande l'intuition de l'utilisateur.
-- Appelle un outil quand une réponse doit être vérifiée.
-- Si la réponse est fausse, donne un indice, pas une humiliation.
-- Si la réponse est correcte, renforce le modèle mental.
-- Ne prétends jamais avoir vérifié sans avoir appelé le tool.
-```
-
-Cette dernière règle est centrale.
-
-Un agent ne doit pas dire :
-
-> "J'ai vérifié."
-
-s'il a juste halluciné une vérification dans son salon intérieur.
-
-Il doit appeler un outil. Obtenir un résultat. Puis expliquer.
-
-C'est la différence entre :
-
-```text
-confiance esthétique : "ça a l'air vrai"
-```
-
-et :
-
-```text
-confiance instrumentée : "j'ai un résultat observable"
-```
-
-</section>
-
-<section class="codecoach-step" markdown="1" data-next-label="Et la sécurité ? →">
-
-## La partie pas sexy mais obligatoire : éviter de se faire spammer
-
-Dès qu'un article appelle un modèle en ligne, il y a un risque simple : quelqu'un peut essayer d'utiliser ton endpoint comme proxy gratuit.
-
-Donc le Worker est protégé par deux couches :
-
-1. **CORS whitelist** : seuls les navigateurs venant de mon blog peuvent lire la réponse.
-2. **Cloudflare Turnstile** : le navigateur doit fournir un token anti-bot.
-
-Concrètement, le blog récupère un token Turnstile invisible, puis l'envoie au Worker :
-
-```json
-{
-  "message": "Je pense que la réponse est 2...",
-  "turnstileToken": "..."
+```js
+function double(n) {
+  return ___;
 }
 ```
 
-Le Worker vérifie ce token côté serveur avant d'appeler l'agent.
+Objectif : la fonction doit retourner deux fois `n`.
 
-CORS seul ne suffit pas. CORS bloque surtout le navigateur. Un serveur ou un `curl` motivé s'en fiche. Turnstile sert donc de vraie barrière anti-abus pour les routes qui consomment Workers AI.
+Écris seulement l'expression qui remplace `___`.
+
+Exemples de format :
+
+```text
+n * 2
+2 * n
+n + n
+```
+
+<div class="codecoach-exercise" data-exercise="double-function">
+  <label for="double-answer">Ton expression</label>
+  <input id="double-answer" name="answer" type="text" inputmode="text" placeholder="Ex: n * 2">
+  <div class="codecoach-actions">
+    <button type="button" data-action="check">Tester l'expression</button>
+    <button type="button" data-action="ask-agent">Demander un feedback agentique</button>
+  </div>
+  <div class="codecoach-turnstile" style="display:none"></div>
+  <div class="codecoach-result" aria-live="polite">Ici, le feedback porte sur une mini-tâche de code, pas seulement une question de compréhension.</div>
+</div>
+
+Ce genre de tâche paraît ridicule. C'est voulu.
+
+Un bon environnement d'apprentissage ne commence pas par te jeter dans Kubernetes avec un bandeau sur les yeux. Il commence par créer des boucles courtes : hypothèse, test, feedback.
+
+</section>
+
+<section class="codecoach-step" markdown="1" data-next-label="Qu'est-ce que l'agent fait vraiment ? →">
+
+## Ce que tu viens d'utiliser
+
+Sans te balancer toute l'architecture dans la figure, voici l'idée.
+
+```text
+Toi
+ │
+ │ 1. tu proposes une réponse
+ ▼
+Un vérificateur déterministe
+ │
+ │ 2. il dit vrai/faux + indices observables
+ ▼
+Un agent coach
+ │
+ │ 3. il transforme le résultat en explication humaine
+ ▼
+Toi
+    4. tu ajustes ton intuition
+```
+
+<div class="codecoach-architecture">
+<pre><code>┌──────────────┐
+│   Lecteur    │
+└──────┬───────┘
+       │ hypothèse
+       ▼
+┌──────────────┐
+│   Checker    │  ← déterministe
+└──────┬───────┘
+       │ résultat observable
+       ▼
+┌──────────────┐
+│ Coach agent  │  ← explique, questionne, reformule
+└──────┬───────┘
+       │ feedback
+       ▼
+┌──────────────┐
+│ Modèle mental│
+└──────────────┘</code></pre>
+</div>
+
+Le point important : l'agent n'est pas là pour être un oracle. Il est là pour transformer une observation en apprentissage.
+
+C'est pour ça que l'interface affiche des étapes pendant l'attente : hypothèse reçue, vérification, tool appelé, feedback. Je ne veux pas que tu attendes une réponse magique dans le vide. Je veux que tu voies la boucle.
+
+</section>
+
+<section class="codecoach-step" markdown="1" data-next-label="Et pourquoi ça change l'apprentissage ? →">
+
+## La boucle qui compte
+
+La plupart des débutants ne manquent pas seulement de connaissances. Ils manquent de **feedback utile au bon moment**.
+
+Un cours classique te donne souvent :
+
+```text
+explication → exemple → exercice → correction plus tard
+```
+
+Un coach interactif peut faire :
+
+```text
+intuition → micro-test → feedback immédiat → nouvel essai
+```
+
+C'est beaucoup plus proche de la manière dont on apprend vraiment.
+
+On n'apprend pas les closures parce qu'on a lu trois définitions de "lexical environment". On les apprend quand on prédit `1`, que le programme répond `2`, et que quelqu'un nous aide à comprendre pourquoi notre modèle mental était décalé.
+
+<div class="codecoach-meme">LE VRAI PROF DE CODE
+
+pas celui qui récite la doc
+pas celui qui donne la solution
+
+celui qui dit :
+"Ok. Pourquoi tu pensais que ça ferait 1 ?"
+
+et là, le cerveau commence enfin à travailler.</div>
+
+</section>
+
+<section class="codecoach-step" markdown="1" data-next-label="Et le code généré par IA alors ? →">
+
+## Utiliser un agent sans devenir passif
+
+Je ne suis pas anti-agent de code. Au contraire. Je pense que les agents vont devenir des outils d'apprentissage incroyables.
+
+Mais seulement si on les utilise comme des coachs, pas comme des distributeurs automatiques de devoirs faits.
+
+La bonne question n'est pas :
+
+> "Est-ce que l'agent peut écrire cette fonction ?"
+
+La bonne question est :
+
+> "Est-ce que l'agent peut m'aider à comprendre le plus petit morceau que je ne comprends pas encore ?"
+
+Ça change tout.
+
+Demande mauvaise :
+
+```text
+Écris-moi toute l'API.
+```
+
+Demande meilleure :
+
+```text
+Je pense que cette fonction doit retourner n * 2.
+Teste mon raisonnement et explique-moi ce que j'oublie.
+```
+
+Une IA qui donne la solution te fait gagner cinq minutes.
+
+Une IA qui corrige ton intuition peut te faire gagner cinq ans.
+
+Oui, c'est dramatique. Mais c'est mon blog, je fais ce que je veux.
+
+</section>
+
+<section class="codecoach-step" markdown="1" data-next-label="Tu utilises quoi derrière ? →">
+
+## Sous le capot, sans vendre toute la recette
+
+Je ne vais pas transformer cet article en fiche d'architecture complète. Ce n'est pas le sujet. Le sujet, c'est apprendre.
+
+Mais pour que ce ne soit pas du vaporware : la démo tourne avec un Worker Cloudflare, un agent serveur, des outils de validation, et une protection anti-abus.
+
+```text
+Article interactif
+  │
+  ├─ mini-exercices
+  ├─ feedback déterministe
+  └─ feedback agentique
+```
+
+Les appels coûteux sont protégés. Le coach ne reçoit pas juste "réponds au hasard". Il reçoit une hypothèse, appelle un outil, puis explique.
+
+La prochaine évolution technique sera d'utiliser WebAssembly pour certaines validations. Pas parce que "WASM" sonne cool dans un titre. Parce qu'un environnement d'apprentissage a besoin de briques qui exécutent ou valident des choses de manière contrôlée.
+
+<div class="codecoach-callout">
+<strong>Important :</strong> WebAssembly n'est pas une sandbox magique. C'est une brique. Utile, portable, intéressante. Mais une brique quand même.
+</div>
 
 </section>
 
 <section class="codecoach-step" markdown="1" data-next-label="Conclusion →">
 
-## Ce que ça change pour apprendre à coder
+## Ce que j'aimerais voir plus souvent
 
-Apprendre à coder avec l'IA ne devrait pas devenir :
+Je veux moins de contenus qui disent :
 
-> "je demande, je copie, j'oublie."
+> "Voici comment j'ai généré une app complète avec un prompt."
 
-Ça devrait devenir :
+Et plus de contenus qui disent :
 
-> "je prédis, je teste, je discute, je corrige mon modèle mental."
+> "Voici comment j'ai construit une boucle qui rend l'apprenant moins bête après chaque erreur."
 
-C'est une nuance énorme.
+Apprendre à coder en 2026, pour moi, ce n'est pas apprendre seul contre la machine.
 
-Le code n'est pas seulement une production. C'est une conversation avec une machine très stricte. Si ton modèle mental est faux, le programme te le dit. Si ton coach est bien conçu, il transforme ce signal en apprentissage.
+Ce n'est pas non plus déléguer tout son cerveau à un agent.
 
-L'article interactif de 2026, dans ma tête, ressemble à ça :
+C'est apprendre dans une boucle :
 
 ```text
-Lire
+prédire
   ↓
-Prédire
+tester
   ↓
-Tester
+se tromper
   ↓
-Se tromper
+comprendre
   ↓
-Comprendre
-  ↓
-Recommencer
+réessayer
 ```
 
-Et oui, l'IA est là. Mais elle n'est pas là pour penser à ta place.
+Le coach IA n'est pas là pour supprimer cette boucle.
 
-Elle est là pour te forcer gentiment à penser mieux.
+Il est là pour la rendre plus rapide, plus claire, et franchement moins solitaire.
 
 </section>
 
 <section class="codecoach-step" markdown="1">
 
-## Si tu veux creuser
+## À toi de jouer
 
-Le prototype utilisé dans cet article repose sur :
-
-- Cloudflare Workers ;
-- Cloudflare Think ;
-- Workers AI ;
-- Durable Objects SQLite ;
-- un mini-RAG local ;
-- Cloudflare Turnstile ;
-- bientôt un validateur WebAssembly.
-
-La prochaine étape sera de remplacer le validateur TypeScript par un vrai module WASM minimal, puis de brancher le RAG existant sur mes anciens articles.
-
-Si tu as joué l'exercice jusqu'au bout, tu as déjà vu le point essentiel :
+Si tu veux retenir une seule chose :
 
 <div class="codecoach-callout">
-<strong>La valeur n'est pas dans la réponse.</strong><br>
-La valeur est dans la boucle qui t'oblige à formuler une hypothèse, à la tester, puis à ajuster ton intuition.
+<strong>Ne demande pas seulement à l'IA de coder.</strong><br>
+Demande-lui de vérifier ton intuition.
 </div>
 
-Bienvenue dans l'apprentissage du code version 2026.
+La prochaine fois que tu bloques, n'écris pas :
+
+```text
+Fais-moi la solution.
+```
+
+Écris plutôt :
+
+```text
+Voici ce que je pense.
+Voici le résultat que j'attends.
+Teste mon raisonnement et donne-moi un indice, pas la solution complète.
+```
+
+C'est moins confortable.
+
+Donc c'est probablement là que tu apprends.
 
 </section>
 
