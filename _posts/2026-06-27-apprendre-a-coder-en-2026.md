@@ -48,6 +48,17 @@ Si l'agent est ton stagiaire qui fait tout à ta place, tu deviens manager de co
 
 Si l'agent est ton coach, il te force à formuler une hypothèse, à la tester, puis à corriger ton intuition.
 
+<div class="codecoach-compare">
+  <div class="compare-card bad">
+    <span class="compare-label">Mode stagiaire</span>
+    <p>"Corrige-moi ça." L'agent code. Tu copies. Tu ne comprends pas pourquoi ça marche.</p>
+  </div>
+  <div class="compare-card good">
+    <span class="compare-label">Mode coach</span>
+    <p>"Je pense que c'est X." L'agent valide ton hypothèse. Tu corriges ton modèle mental.</p>
+  </div>
+</div>
+
 Dans cet article, on va essayer la deuxième version.
 
 </section>
@@ -62,22 +73,38 @@ Mais apprendre, ce n'est pas obtenir une réponse. C'est modifier ton modèle me
 
 Le format qui m'intéresse ressemble à ça :
 
-<div class="codecoach-architecture">
-<pre><code>┌──────────────┐
-│  Je prédis   │  ← je rends mon intuition visible
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│  Je teste    │  ← le monde réel répond
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ Feedback     │  ← contextualisé, pas juste "faux"
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ Je corrige   │  ← mon intuition devient meilleure
-└──────────────┘</code></pre>
+<div class="codecoach-flow">
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">1</span>
+    <div class="flow-content">
+      <span class="flow-label">Je prédis</span>
+      <span class="flow-desc">Je rends mon intuition visible avant de voir le résultat</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">2</span>
+    <div class="flow-content">
+      <span class="flow-label">Je teste</span>
+      <span class="flow-desc">Le monde réel répond</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">3</span>
+    <div class="flow-content">
+      <span class="flow-label">Feedback</span>
+      <span class="flow-desc">Contextualisé, pas juste "faux"</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">4</span>
+    <div class="flow-content">
+      <span class="flow-label">Je corrige</span>
+      <span class="flow-desc">Mon intuition devient meilleure</span>
+    </div>
+  </div>
 </div>
 
 Ça paraît simple. C'est exactement pour ça que c'est puissant.
@@ -206,28 +233,38 @@ Un mauvais assistant donne la solution.
 
 Un bon coach cherche la faille dans ton raisonnement.
 
-<div class="codecoach-architecture">
-<pre><code>┌──────────────────────┐
-│  Toi                 │
-│  "Je pense que..."   │
-└──────────┬───────────┘
-           ▼
-┌──────────────────────┐
-│  Le test             │
-│  "Voyons."           │
-└──────────┬───────────┘
-           ▼
-┌──────────────────────┐
-│  Le coach            │
-│  "Pourquoi tu pensais│
-│   que ça ferait 1 ?" │
-└──────────┬───────────┘
-           ▼
-┌──────────────────────┐
-│  Ton cerveau         │
-│  "Ah. J'avais oublié │
-│   la variable capturée."│
-└──────────────────────┘</code></pre>
+<div class="codecoach-flow">
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">T</span>
+    <div class="flow-content">
+      <span class="flow-label">Toi</span>
+      <span class="flow-desc">"Je pense que le deuxième appel retourne 1."</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">?</span>
+    <div class="flow-content">
+      <span class="flow-label">Le test</span>
+      <span class="flow-desc">"Voyons." — résultat : 2</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">C</span>
+    <div class="flow-content">
+      <span class="flow-label">Le coach</span>
+      <span class="flow-desc">"Pourquoi tu pensais que ça ferait 1 ?"</span>
+    </div>
+  </div>
+  <div class="codecoach-flow-arrow">▼</div>
+  <div class="codecoach-flow-step">
+    <span class="flow-badge">!</span>
+    <div class="flow-content">
+      <span class="flow-label">Ton cerveau</span>
+      <span class="flow-desc">"Ah. J'avais oublié que count est capturée par la closure."</span>
+    </div>
+  </div>
 </div>
 
 C'est ça, l'expérience d'apprentissage que je veux voir apparaître dans les articles, les cours, les docs, les notebooks.

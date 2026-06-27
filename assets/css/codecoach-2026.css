@@ -273,6 +273,105 @@ body.dark-mode .trace-line.done {
   background: rgba(143, 150, 206, 0.06);
 }
 
+.codecoach-flow {
+  display: flex;
+  flex-direction: column;
+  margin: 1.25rem 0;
+}
+
+.codecoach-flow-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(143, 150, 206, 0.09);
+}
+
+.flow-badge {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--link-color);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.flow-content {
+  flex: 1;
+}
+
+.flow-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.flow-desc {
+  display: block;
+  opacity: 0.72;
+  font-size: 0.87rem;
+  margin-top: 0.15rem;
+}
+
+.codecoach-flow-arrow {
+  margin: 0.2rem 0 0.2rem 1.1rem;
+  font-size: 1rem;
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.codecoach-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.compare-card {
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.compare-card.bad {
+  background: rgba(255, 85, 85, 0.06);
+  border-color: rgba(255, 85, 85, 0.3);
+}
+
+.compare-card.good {
+  background: rgba(80, 250, 123, 0.06);
+  border-color: rgba(80, 250, 123, 0.3);
+}
+
+.compare-label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.compare-card.bad .compare-label { color: #ff5555; }
+.compare-card.good .compare-label { color: #50fa7b; }
+
+body.dark-mode .compare-card.bad .compare-label { color: #ff7070; }
+body.dark-mode .compare-card.good .compare-label { color: #50fa7b; }
+
+.compare-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 @media (max-width: 640px) {
   .codecoach-hero,
   .codecoach-step {
@@ -281,5 +380,9 @@ body.dark-mode .trace-line.done {
 
   .codecoach-actions {
     display: grid;
+  }
+
+  .codecoach-compare {
+    grid-template-columns: 1fr;
   }
 }
