@@ -4,6 +4,7 @@ title: "Apprendre à coder en 2026 : arrête de demander la réponse, construis 
 date: 2026-06-27
 author: "Sébastien Sime"
 categories: [IA, Apprentissage, Code]
+permalink: /2026/06/27/apprendre-a-coder-en-2026/
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/codecoach-2026.css' | relative_url }}">
