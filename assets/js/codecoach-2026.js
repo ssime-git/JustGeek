@@ -14,6 +14,12 @@ const EXERCISES = {
     emptyMessage: 'Écris une expression pour remplacer le trou. Pas besoin d’être brillant : commence par une hypothèse.',
     buildMessage: (answer) => `Pour compléter function double(n), je propose ${answer}. Vérifie avec le tool puis donne-moi un feedback de coach, court et utile.`,
   },
+  'typescript-type': {
+    checkPath: '/api/check/typescript-type',
+    coachPath: '/api/coach/typescript-type',
+    emptyMessage: 'Propose un type. L’idée n’est pas de briller, c’est de rendre ton hypothèse visible.',
+    buildMessage: (answer) => `Pour compléter let score: ___ = 42 en TypeScript, je propose ${answer}. Vérifie avec le tool puis explique le contrat de type en langage simple.`,
+  },
 };
 
 function escapeHtml(value) {
