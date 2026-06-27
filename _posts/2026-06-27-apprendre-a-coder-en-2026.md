@@ -44,22 +44,23 @@ Et là :
 
 Le problème n'est pas l'IA. Le problème, c'est le rôle qu'on lui donne.
 
-Si l'agent est ton stagiaire qui fait tout à ta place, tu deviens manager de code que tu ne comprends pas.
-
-Si l'agent est ton coach, il te force à formuler une hypothèse, à la tester, puis à corriger ton intuition.
-
 <div class="codecoach-compare">
   <div class="compare-card bad">
     <span class="compare-label">Mode stagiaire</span>
-    <p>"Corrige-moi ça." L'agent code. Tu copies. Tu ne comprends pas pourquoi ça marche.</p>
+    <p>"Corrige-moi ça." L'agent code. Tu copies. Tu ne comprends pas pourquoi ça marche. Dans 24h, tu as oublié.</p>
   </div>
   <div class="compare-card good">
     <span class="compare-label">Mode coach</span>
-    <p>"Je pense que c'est X." L'agent valide ton hypothèse. Tu corriges ton modèle mental.</p>
+    <p>"Je pense que c'est X." L'agent valide ton hypothèse. Tu corriges ton modèle mental. Dans 6 mois, tu t'en souviens.</p>
   </div>
 </div>
 
-Dans cet article, on va essayer la deuxième version.
+<figure class="codecoach-figure">
+  <img src="https://images.unsplash.com/photo-1571019614860-d780g7d0f3?w=900&q=80&auto=format&fit=crop" alt="Entraînement avec un coach — la répétition avec feedback" loading="lazy">
+  <figcaption>Apprendre à coder, c'est comme l'entraînement sportif : le coach ne fait pas les pompes à ta place.</figcaption>
+</figure>
+
+Dans cet article, on va essayer la deuxième version. Concrètement, avec des exercices et un agent qui joue le rôle du coach.
 
 </section>
 
@@ -71,45 +72,39 @@ Le piège des agents de code, c'est qu'ils rendent la réponse trop facile.
 
 Mais apprendre, ce n'est pas obtenir une réponse. C'est modifier ton modèle mental.
 
-Le format qui m'intéresse ressemble à ça :
+Il y a une boucle simple qui fonctionne depuis toujours en pédagogie :
 
-<div class="codecoach-flow">
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">1</span>
-    <div class="flow-content">
-      <span class="flow-label">Je prédis</span>
-      <span class="flow-desc">Je rends mon intuition visible avant de voir le résultat</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">2</span>
-    <div class="flow-content">
-      <span class="flow-label">Je teste</span>
-      <span class="flow-desc">Le monde réel répond</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">3</span>
-    <div class="flow-content">
-      <span class="flow-label">Feedback</span>
-      <span class="flow-desc">Contextualisé, pas juste "faux"</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">4</span>
-    <div class="flow-content">
-      <span class="flow-label">Je corrige</span>
-      <span class="flow-desc">Mon intuition devient meilleure</span>
-    </div>
-  </div>
-</div>
+<div class="ascii-art"><code>┌──────────────────────────────────┐
+│          Je prédis               │
+│  Rendre l'intuition visible      │
+│  AVANT de voir le résultat       │
+└──────────────┬───────────────────┘
+               │
+               ▼
+┌──────────────────────────────────┐
+│          Je teste                │
+│  Le monde réel — ou le tool —    │
+│  répond objectivement            │
+└──────────────┬───────────────────┘
+               │
+               ▼
+┌──────────────────────────────────┐
+│          Feedback                │
+│  Contextualisé sur MON           │
+│  raisonnement, pas juste "faux"  │
+└──────────────┬───────────────────┘
+               │
+               ▼
+┌──────────────────────────────────┐
+│         Je corrige               │
+│  Mon modèle mental s'améliore.   │
+│  La prochaine prédiction sera    │
+│  meilleure.                      │
+└──────────────────────────────────┘</code></div>
 
-Ça paraît simple. C'est exactement pour ça que c'est puissant.
+Ça paraît simple. C'est exactement pour ça que c'est puissant — et exactement pour ça que presque personne ne le fait avec un agent IA.
 
-On commence par une prédiction.
+On commence maintenant. Première prédiction.
 
 </section>
 
@@ -137,7 +132,7 @@ counter();
 Question : **quelle valeur retourne le deuxième appel à `counter()` ?**
 
 <div class="codecoach-callout">
-<strong>Le but n'est pas d'avoir raison.</strong> Le but est de voir ton intuition avant qu'elle soit corrigée.
+<strong>Le but n'est pas d'avoir raison.</strong> Le but est de voir ton intuition avant qu'elle soit corrigée. Si tu te trompes, c'est là que l'apprentissage commence.
 </div>
 
 <div class="codecoach-exercise" data-exercise="closure-counter">
@@ -151,9 +146,7 @@ Question : **quelle valeur retourne le deuxième appel à `counter()` ?**
   <div class="codecoach-result" aria-live="polite">Écris une réponse, puis vérifie. Le feedback agentique arrive après ton hypothèse, pas avant.</div>
 </div>
 
-Si tu as répondu `1`, ce n'est pas grave. C'est même intéressant : ton cerveau pensait probablement que `count` était recréé à chaque appel.
-
-C'est précisément ce genre de décalage qu'un coach doit détecter.
+Si tu as répondu `1`, ce n'est pas grave. C'est même le cas le plus intéressant : ton cerveau pensait probablement que `count` était recréé à chaque appel. Ce modèle mental — faux mais très courant — est exactement ce qu'un coach doit détecter et corriger. Passons à l'exercice suivant pour voir si ça se confirme.
 
 </section>
 
@@ -186,13 +179,16 @@ Objectif : retourner deux fois `n`.
   <div class="codecoach-result" aria-live="polite">Ici, tu n'expliques pas seulement : tu proposes du code, puis tu reçois un feedback.</div>
 </div>
 
-Ce n'est pas spectaculaire. Justement.
+Ce n'est pas spectaculaire. Justement. Quand on commence à coder, le plus utile n'est pas un grand discours sur "devenir 10x developer" — c'est un feedback contextualisé sur une petite décision : pourquoi cette expression marche, pourquoi celle-là ne marche pas, quel modèle mental ajuster. L'exercice suivant monte d'un cran.
 
-Quand on commence à coder, le plus utile n'est pas un grand discours sur "devenir 10x developer". C'est un feedback contextualisé sur une petite décision : pourquoi cette expression marche, pourquoi celle-là ne marche pas, quel modèle mental il faut ajuster.
+<figure class="codecoach-figure">
+  <img src="https://images.unsplash.com/photo-1555099962-b8d955d851be?w=900&q=80&auto=format&fit=crop" alt="Concentration sur un problème de code" loading="lazy">
+  <figcaption>La difficulté productive : juste assez inconfortable pour que le cerveau s'adapte.</figcaption>
+</figure>
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Un peu de TypeScript →">
+<section class="codecoach-step" markdown="1" data-next-label="Un bug à trouver →">
 
 ## Exercice 3 — Comprendre un contrat de type
 
@@ -219,63 +215,96 @@ Quel type TypeScript mettrais-tu à la place de `___` ?
   <div class="codecoach-result" aria-live="polite">Le coach doit t'aider à comprendre le contrat, pas juste dire "correct".</div>
 </div>
 
-Tu vois le pattern ?
-
-On ne lit pas seulement une explication sur TypeScript. On pose une hypothèse, on la vérifie, on reçoit un feedback contextualisé.
+Tu vois le pattern ? On ne lit pas une explication sur TypeScript. On pose une hypothèse, on la vérifie, on reçoit un feedback contextualisé sur notre raisonnement. L'exercice suivant te met face à quelque chose de plus vicieux : un bug silencieux.
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Montre-moi le rôle du coach →">
+<section class="codecoach-step" markdown="1" data-next-label="Le rôle du coach →">
 
-## Le vrai prof de code, version schéma
+## Exercice 4 — Identifier un bug async
 
-Un mauvais assistant donne la solution.
+Ce code a un bug. Trouve-le.
 
-Un bon coach cherche la faille dans ton raisonnement.
+```js
+async function fetchUser(id) {
+  const response = fetch(`/api/users/${id}`);
+  const data = response.json();
+  return data.name;
+}
+```
 
-<div class="codecoach-flow">
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">T</span>
-    <div class="flow-content">
-      <span class="flow-label">Toi</span>
-      <span class="flow-desc">"Je pense que le deuxième appel retourne 1."</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">?</span>
-    <div class="flow-content">
-      <span class="flow-label">Le test</span>
-      <span class="flow-desc">"Voyons." — résultat : 2</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">C</span>
-    <div class="flow-content">
-      <span class="flow-label">Le coach</span>
-      <span class="flow-desc">"Pourquoi tu pensais que ça ferait 1 ?"</span>
-    </div>
-  </div>
-  <div class="codecoach-flow-arrow">▼</div>
-  <div class="codecoach-flow-step">
-    <span class="flow-badge">!</span>
-    <div class="flow-content">
-      <span class="flow-label">Ton cerveau</span>
-      <span class="flow-desc">"Ah. J'avais oublié que count est capturée par la closure."</span>
-    </div>
-  </div>
+Question : **pourquoi `data.name` est-il toujours `undefined` ?**
+
+<div class="codecoach-callout">
+<strong>Indice :</strong> lis le code ligne par ligne. Qu'est-ce qui manque avant chaque opération asynchrone ?
 </div>
 
-C'est ça, l'expérience d'apprentissage que je veux voir apparaître dans les articles, les cours, les docs, les notebooks.
+<div class="codecoach-exercise" data-exercise="async-bug">
+  <label for="async-answer">Ta réponse</label>
+  <input id="async-answer" name="answer" type="text" inputmode="text" placeholder="Ex: il manque await avant fetch">
+  <div class="codecoach-actions">
+    <button type="button" data-action="check">Vérifier</button>
+    <button type="button" data-action="ask-agent">Demander au coach</button>
+  </div>
+  <div class="codecoach-turnstile" style="display:none"></div>
+  <div class="codecoach-result" aria-live="polite">Identifie le bug avant d'appeler le coach. Le coach est là pour valider ton diagnostic, pas le faire à ta place.</div>
+</div>
 
-Pas une IA qui remplace l'exercice.
-
-Une IA qui rend l'exercice plus intelligent.
+Ce type de bug — un `await` oublié — est parmi les plus courants en JavaScript async. Il ne lève pas d'erreur. Il retourne juste `undefined`, silencieusement. C'est exactement le genre de cas où un agent qui te "corrige" sans explication ne t'aide pas : tu vas copier le fix sans comprendre ce qui s'est passé.
 
 </section>
 
 <section class="codecoach-step" markdown="1" data-next-label="Et les agents de code ? →">
+
+## Le vrai rôle du coach — version schéma
+
+Un mauvais assistant donne la solution. Un bon coach cherche la faille dans ton raisonnement.
+
+<div class="ascii-art"><code>Toi ──────────────────────────────────────────────────────▶
+"Je pense que le deuxième appel retourne 1."
+              │
+              ▼
+         [ Test ]  résultat : 2
+              │
+              ▼
+        Le coach ◀──────────────────────────────────────────
+"Pourquoi tu pensais que ça ferait 1 ?"
+              │
+              ▼
+    Ton cerveau ──────────────────────────────────────────▶
+"Ah. J'avais oublié que count est capturée par la closure."
+              │
+              ▼
+       Modèle mental mis à jour. Mémorisé.</code></div>
+
+Et voilà comment ça marche techniquement quand tu cliques sur "Demander au coach" dans cet article :
+
+<div class="ascii-art"><code>navigateur (toi)
+      │
+      │  POST /api/coach/closure
+      │  { answer: "1", turnstileToken: "..." }
+      ▼
+┌─────────────────────────────────────────────┐
+│           Cloudflare Worker (edge)          │
+│                                             │
+│  1. Turnstile verify ──── anti-bot check    │
+│  2. checkClosureAnswer() ─ déterministe     │
+│  3. CodeCoach (Think + Kimi K2)             │
+│         │                                   │
+│         └── tool: checkClosureAnswer()      │
+│              ↓ résultat objectif            │
+│         feedback Socratique généré          │
+└─────────────────────┬───────────────────────┘
+                      │
+                      ▼
+             "Pourquoi tu pensais
+              que ça ferait 1 ?"</code></div>
+
+C'est ça, l'expérience que je veux voir apparaître dans les articles, les cours, les docs. Pas une IA qui remplace l'exercice. Une IA qui rend l'exercice plus intelligent.
+
+</section>
+
+<section class="codecoach-step" markdown="1" data-next-label="Conclusion →">
 
 ## Utiliser un agent pour approfondir ses compétences
 
@@ -311,37 +340,39 @@ L'agent devient intéressant quand il augmente ta capacité à raisonner, pas qu
 
 </section>
 
-<section class="codecoach-step" markdown="1" data-next-label="Conclusion →">
+<section class="codecoach-step" markdown="1" data-next-label="À toi de jouer →">
 
 ## Ce que j'aimerais voir plus souvent
 
-Moins de contenus qui disent :
+En 2026, les timelines sont pleines de gens qui montrent des apps générées en 30 secondes avec un prompt.
 
-> "Regarde, j'ai généré une app complète avec un prompt."
+Personne ne montre la boucle.
 
-Plus de contenus qui disent :
+Personne ne montre le moment où une prédiction fausse devient une compréhension durable. Personne ne montre comment un feedback contextualisé sur une petite décision — pourquoi ce `await` manque, pourquoi cette closure retient `count` — finit par construire un développeur.
 
-> "Regarde, j'ai construit une boucle qui rend chaque erreur exploitable."
+C'est pourtant là que tout se joue.
 
-Apprendre à coder en 2026, ce n'est pas apprendre sans IA.
+<figure class="codecoach-figure">
+  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=80&auto=format&fit=crop" alt="Développeur concentré devant son code" loading="lazy">
+  <figcaption>La compréhension durable se construit dans les petites décisions, pas dans les grandes démos.</figcaption>
+</figure>
 
-Ce n'est pas non plus abandonner son cerveau à un agent.
+Apprendre à coder en 2026, ce n'est pas apprendre sans IA. Ce n'est pas non plus abandonner son cerveau à un agent.
 
 C'est apprendre dans une boucle :
 
-```text
-hypothèse
-  ↓
-feedback
-  ↓
-correction
-  ↓
-nouvelle hypothèse
-```
+<div class="ascii-art"><code>hypothèse
+    │
+    ▼
+feedback (sur le raisonnement, pas juste la réponse)
+    │
+    ▼
+correction du modèle mental
+    │
+    ▼
+nouvelle hypothèse — meilleure</code></div>
 
-L'IA n'est pas là pour supprimer la boucle.
-
-Elle est là pour la rendre plus rapide, plus claire, plus personnelle.
+L'IA n'est pas là pour supprimer la boucle. Elle est là pour la rendre plus rapide, plus claire, plus personnelle.
 
 </section>
 
