@@ -1,0 +1,238 @@
+/* CodeCoach 2026 article styles */
+.codecoach-hero {
+  margin: 2rem 0 2.5rem;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(143, 150, 206, 0.14), rgba(80, 250, 123, 0.08));
+}
+
+.codecoach-kicker {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: var(--link-color);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.codecoach-hero p {
+  margin-bottom: 0;
+}
+
+.codecoach-progress {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: 1rem 0 2rem;
+  padding: 0.6rem 0;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.codecoach-progress-track {
+  height: 8px;
+  overflow: hidden;
+  background: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+}
+
+.codecoach-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--link-color), #50fa7b);
+  transition: width 0.35s ease;
+}
+
+.codecoach-progress-label {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.75;
+}
+
+.codecoach-step {
+  margin: 2.5rem 0;
+  padding: 1.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: rgba(143, 150, 206, 0.045);
+}
+
+.codecoach-step.is-hidden {
+  display: none;
+}
+
+.codecoach-step.is-visible {
+  animation: codecoachFadeUp 0.35s ease both;
+}
+
+@keyframes codecoachFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.codecoach-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--link-color);
+  color: white;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.codecoach-next:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.codecoach-callout,
+.codecoach-meme,
+.codecoach-architecture,
+.codecoach-exercise {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--code-bg);
+}
+
+.codecoach-callout strong,
+.codecoach-meme strong {
+  color: var(--link-color);
+}
+
+.codecoach-meme {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.codecoach-figure {
+  margin: 2rem 0;
+}
+
+.codecoach-figure img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.codecoach-figure figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+  opacity: 0.72;
+  text-align: center;
+}
+
+.codecoach-architecture pre,
+.codecoach-code pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+body.dark-mode .codecoach-architecture pre,
+body.dark-mode .codecoach-code pre {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.codecoach-exercise label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.codecoach-exercise input {
+  width: 100%;
+  margin: 0.35rem 0 0.8rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font: inherit;
+}
+
+.codecoach-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.codecoach-actions button {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.codecoach-actions button[data-action="ask-agent"] {
+  background: var(--link-color);
+  color: white;
+  border-color: var(--link-color);
+  font-weight: 700;
+}
+
+.codecoach-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.codecoach-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: rgba(80, 250, 123, 0.08);
+}
+
+.codecoach-result.error {
+  background: rgba(255, 85, 85, 0.1);
+}
+
+.codecoach-result.loading {
+  background: rgba(143, 150, 206, 0.12);
+}
+
+.codecoach-mini-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.codecoach-mini-list > div {
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(143, 150, 206, 0.06);
+}
+
+@media (max-width: 640px) {
+  .codecoach-hero,
+  .codecoach-step {
+    padding: 1rem;
+  }
+
+  .codecoach-actions {
+    display: grid;
+  }
+}
