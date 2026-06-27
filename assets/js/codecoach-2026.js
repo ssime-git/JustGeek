@@ -206,6 +206,12 @@ function initCodeCoachExercises() {
 
       const payload = data.result;
       const tools = payload.toolCalls?.map((tool) => `<li><code>${escapeHtml(tool.toolName)}</code></li>`).join('') || '';
+      const thinkingBlock = payload.reasoning
+        ? `<details class="codecoach-thinking">
+            <summary>💭 Raisonnement interne du coach</summary>
+            <div class="codecoach-thinking-body">${formatCoachText(payload.reasoning)}</div>
+          </details>`
+        : '';
       renderResult(
         result,
         `<div class="codecoach-agent-trace compact">
@@ -213,6 +219,7 @@ function initCodeCoachExercises() {
           <div class="trace-line done">✓ Tool appelé</div>
           <div class="trace-line done">✓ Feedback généré</div>
         </div>
+        ${thinkingBlock}
         <strong>Coach IA</strong>
         <p>${formatCoachText(payload.text || 'Pas de réponse textuelle.')}</p>
         ${tools ? `<details><summary>Outil appelé</summary><ul>${tools}</ul></details>` : ''}`

@@ -386,3 +386,42 @@ body.dark-mode .compare-card.good .compare-label { color: #50fa7b; }
     grid-template-columns: 1fr;
   }
 }
+
+/* Thinking panel — raisonnement interne du coach */
+.codecoach-thinking {
+  margin: 0.75rem 0;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.codecoach-thinking summary {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.82rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-color);
+  opacity: 0.65;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: rgba(143, 150, 206, 0.06);
+}
+
+.codecoach-thinking summary::-webkit-details-marker { display: none; }
+
+.codecoach-thinking[open] summary {
+  opacity: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.codecoach-thinking-body {
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.6;
+  white-space: pre-wrap;
+  max-height: 260px;
+  overflow-y: auto;
+}

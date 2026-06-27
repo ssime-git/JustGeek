@@ -56,7 +56,7 @@ Le problème n'est pas l'IA. Le problème, c'est le rôle qu'on lui donne.
 </div>
 
 <figure class="codecoach-figure">
-  <img src="https://images.unsplash.com/photo-1571019614860-d780g7d0f3?w=900&q=80&auto=format&fit=crop" alt="Entraînement avec un coach — la répétition avec feedback" loading="lazy">
+  <img src="https://picsum.photos/seed/coach2026/900/400" alt="Entraînement avec un coach — la répétition avec feedback" loading="lazy">
   <figcaption>Apprendre à coder, c'est comme l'entraînement sportif : le coach ne fait pas les pompes à ta place.</figcaption>
 </figure>
 
@@ -182,7 +182,7 @@ Objectif : retourner deux fois `n`.
 Ce n'est pas spectaculaire. Justement. Quand on commence à coder, le plus utile n'est pas un grand discours sur "devenir 10x developer" — c'est un feedback contextualisé sur une petite décision : pourquoi cette expression marche, pourquoi celle-là ne marche pas, quel modèle mental ajuster. L'exercice suivant monte d'un cran.
 
 <figure class="codecoach-figure">
-  <img src="https://images.unsplash.com/photo-1555099962-b8d955d851be?w=900&q=80&auto=format&fit=crop" alt="Concentration sur un problème de code" loading="lazy">
+  <img src="https://picsum.photos/seed/focus2026/900/400" alt="Concentration sur un problème de code" loading="lazy">
   <figcaption>La difficulté productive : juste assez inconfortable pour que le cerveau s'adapte.</figcaption>
 </figure>
 
@@ -353,7 +353,7 @@ Personne ne montre le moment où une prédiction fausse devient une compréhensi
 C'est pourtant là que tout se joue.
 
 <figure class="codecoach-figure">
-  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=80&auto=format&fit=crop" alt="Développeur concentré devant son code" loading="lazy">
+  <img src="https://picsum.photos/seed/dev2026/900/400" alt="Développeur concentré devant son code" loading="lazy">
   <figcaption>La compréhension durable se construit dans les petites décisions, pas dans les grandes démos.</figcaption>
 </figure>
 
