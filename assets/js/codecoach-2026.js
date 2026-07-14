@@ -328,6 +328,9 @@ function initCodeCoachExercises() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Warmup: pre-instantiate the coach DO to avoid cold start on first click
+  fetch(`${CODECOACH_WORKER_URL}/api/warmup`).catch(() => {});
+
   initJourneyReveal();
   initCodeCoachExercises();
   initJsCells();
