@@ -1,0 +1,60 @@
+---
+layout: default
+title: Blog
+description: Deep dives, tutorials, and updates from JustGeek.
+---
+
+<div class="jg-kicker">page 02 — index</div>
+
+<div class="jg-prompt"><span class="p-green">$</span> ls ~/blog <span>— {{ site.posts.size }} articles</span></div>
+
+<h1 style="font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 1.6rem;">Le journal</h1>
+
+<div class="jg-filters" id="jg-filters">
+  <button class="jg-filter active" data-filter="*">tous</button>
+  {% assign sorted_cats = site.categories | sort %}
+  {% for category in sorted_cats %}
+  <button class="jg-filter" data-filter="{{ category[0] | slugify }}">#{{ category[0] | slugify }}</button>
+  {% endfor %}
+</div>
+
+{% assign featured = site.posts | first %}
+<a href="{{ featured.url | relative_url }}" class="jg-featured">
+  <svg class="featured-dots" viewBox="0 0 96 68" aria-hidden="true">
+    <g fill="var(--accent)">
+      <circle cx="6" cy="6" r="2.4" opacity=".5"/><circle cx="24" cy="6" r="2.4" opacity=".38"/><circle cx="42" cy="6" r="2.4" opacity=".26"/><circle cx="60" cy="6" r="2.4" opacity=".18"/><circle cx="78" cy="6" r="2.4" opacity=".12"/>
+      <circle cx="6" cy="24" r="2.4" opacity=".38"/><circle cx="24" cy="24" r="2.4" opacity=".5"/><circle cx="42" cy="24" r="2.4" opacity=".34"/><circle cx="60" cy="24" r="2.4" opacity=".22"/><circle cx="78" cy="24" r="2.4" opacity=".14"/>
+      <circle cx="6" cy="42" r="2.4" opacity=".22"/><circle cx="24" cy="42" r="2.4" opacity=".34"/><circle cx="42" cy="42" r="2.4" opacity=".5"/><circle cx="60" cy="42" r="2.4" opacity=".3"/><circle cx="78" cy="42" r="2.4" opacity=".18"/>
+      <circle cx="6" cy="60" r="2.4" opacity=".12"/><circle cx="24" cy="60" r="2.4" opacity=".2"/><circle cx="42" cy="60" r="2.4" opacity=".3"/><circle cx="60" cy="60" r="2.4" opacity=".5"/><circle cx="78" cy="60" r="2.4" opacity=".34"/>
+    </g>
+  </svg>
+  <span class="featured-label">◆ à la une</span>
+  <h2>{{ featured.title }}</h2>
+  <p>{{ featured.description | default: featured.excerpt | strip_html | truncate: 180 }}</p>
+  <span class="featured-meta">{{ featured.date | date: "%Y-%m-%d" }} · {{ featured.categories | join: " · " }}</span>
+</a>
+
+<div class="jg-index" id="jg-index">
+  {% for post in site.posts offset: 1 %}
+  <a href="{{ post.url | relative_url }}" class="jg-row" data-cats="{% for c in post.categories %}{{ c | slugify }} {% endfor %}">
+    <span class="row-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    <span class="row-title">{{ post.title }}</span>
+    <span class="row-cats">{{ post.categories | join: " · " }} →</span>
+  </a>
+  {% endfor %}
+</div>
+
+<script>
+  (function () {
+    const filters = document.querySelectorAll('#jg-filters .jg-filter');
+    const rows = document.querySelectorAll('#jg-index .jg-row');
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      rows.forEach(row => {
+        row.style.display = (f === '*' || row.dataset.cats.split(' ').includes(f)) ? '' : 'none';
+      });
+    }));
+  })();
+</script>

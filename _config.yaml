@@ -22,9 +22,9 @@ email: "sebastien.s@datascientest.com"
 
 # Navigation (optional - add if you want menu items)
 header_pages:
-  - about.md
+  - about.html
   - archive.md
-  - blog/index.md
+  - blog/index.html
   - presentations.md
 
 # Social links (optional)
