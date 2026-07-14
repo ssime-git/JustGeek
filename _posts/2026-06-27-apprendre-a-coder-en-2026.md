@@ -234,7 +234,7 @@ Ce code a un bug. **Exécute-le d'abord** — vois ce que ça produit, puis pose
 // mais le bug existe quand même — exécute et observe
 
 async function fetchUser(id) {
-  const response = fetch(`/api/users/${id}`);
+  const response = await fetch(`/api/users/${id}`);
   const data = response.json();
   return data.name;
 }
@@ -249,7 +249,7 @@ console.log("data.name =", result);</pre>
 
 <div class="js-cell-question" style="display:none">
 
-Question : **pourquoi `data.name` est-il `undefined` même avec un `fetch` qui fonctionne ?**
+Question : <strong>pourquoi <code>data.name</code> est-il <code>undefined</code> même avec un <code>fetch</code> qui fonctionne ?</strong>
 
 <div class="codecoach-callout">
 <strong>Indice :</strong> regarde chaque ligne qui retourne une Promise. Est-ce que tu attends bien son résultat avant de passer à la ligne suivante ?
@@ -257,7 +257,7 @@ Question : **pourquoi `data.name` est-il `undefined` même avec un `fetch` qui f
 
 <div class="codecoach-exercise" data-exercise="async-bug">
   <label for="async-answer">Ta réponse</label>
-  <input id="async-answer" name="answer" type="text" inputmode="text" placeholder="Ex: il manque await avant fetch">
+  <input id="async-answer" name="answer" type="text" inputmode="text" placeholder="Ex: il manque await avant response.json()">
   <div class="codecoach-actions">
     <button type="button" data-action="check">Vérifier</button>
     <button type="button" data-action="ask-agent">Demander au coach</button>
