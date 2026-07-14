@@ -79,21 +79,22 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
-  padding: 0.7rem 1rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--link-color);
-  color: white;
+  padding: 0.6rem 1.2rem;
+  border: 1.5px solid var(--text-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-color);
   font: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  letter-spacing: -0.01em;
 }
 
 .codecoach-next:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
+  background: var(--text-color);
+  color: var(--bg-color);
 }
 
 .codecoach-callout,
@@ -175,26 +176,38 @@ body.dark-mode .codecoach-code pre {
 }
 
 .codecoach-actions button {
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 6px;
   background: var(--bg-color);
   color: var(--text-color);
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 500;
   cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  letter-spacing: -0.01em;
+}
+
+.codecoach-actions button:hover {
+  border-color: var(--text-color);
 }
 
 .codecoach-actions button[data-action="ask-agent"] {
-  background: var(--link-color);
-  color: white;
-  border-color: var(--link-color);
-  font-weight: 700;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+  font-weight: 600;
+}
+
+.codecoach-actions button[data-action="ask-agent"]:hover {
+  background: transparent;
+  color: var(--text-color);
 }
 
 .codecoach-actions button:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .codecoach-result {
@@ -437,19 +450,28 @@ body.dark-mode .compare-card.good .compare-label { color: #50fa7b; }
 }
 
 .js-cell-controls button {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  background: var(--link-color);
-  color: white;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid var(--text-color);
+  border-radius: 6px;
+  background: var(--text-color);
+  color: var(--bg-color);
   font: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: background 0.2s ease, color 0.2s ease;
+  letter-spacing: -0.01em;
 }
 
-.js-cell-controls button:hover { opacity: 0.88; }
+.js-cell-controls button:hover {
+  background: transparent;
+  color: var(--text-color);
+}
+
+.js-cell-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 
 .js-cell-output {
   padding: 0.75rem 1rem;
@@ -484,41 +506,84 @@ body.dark-mode .compare-card.good .compare-label { color: #50fa7b; }
   animation: codecoachFadeUp 0.35s ease both;
 }
 
-/* Thinking panel — raisonnement interne du coach */
-.codecoach-thinking {
-  margin: 0.75rem 0;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
+/* Thinking stream — animated thought process that collapses to answer */
+.codecoach-thinking-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.25rem 0;
+}
+
+.thinking-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.88rem;
+  opacity: 0.7;
+}
+
+.thinking-label {
+  transition: color 0.3s ease;
+}
+
+.dot-pulse {
+  animation: dotPulse 1.2s steps(4, end) infinite;
+}
+
+@keyframes dotPulse {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+.thinking-reasoning {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  opacity: 0.55;
+  white-space: pre-wrap;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 0.4rem 0;
+  border-left: 2px solid var(--border-color);
+  padding-left: 0.65rem;
+  margin: 0.3rem 0;
+  animation: reasoningReveal 0.25s ease both;
+}
+
+@keyframes reasoningReveal {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 0.55; max-height: 160px; }
+}
+
+.thinking-bar {
+  height: 2px;
+  background: var(--border-color);
+  border-radius: 2px;
   overflow: hidden;
 }
 
-.codecoach-thinking summary {
-  padding: 0.55rem 0.85rem;
-  font-size: 0.82rem;
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--text-color);
-  opacity: 0.65;
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-  background: rgba(143, 150, 206, 0.06);
+.thinking-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--text-color);
+  animation: thinkingProgress 0.8s ease-out forwards;
 }
 
-.codecoach-thinking summary::-webkit-details-marker { display: none; }
-
-.codecoach-thinking[open] summary {
-  opacity: 1;
-  border-bottom: 1px solid var(--border-color);
+@keyframes thinkingProgress {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
-.codecoach-thinking-body {
-  padding: 0.75rem 1rem;
-  font-size: 0.82rem;
-  font-family: 'JetBrains Mono', monospace;
-  line-height: 1.6;
-  color: var(--text-color);
-  opacity: 0.6;
-  white-space: pre-wrap;
-  max-height: 260px;
-  overflow-y: auto;
+.thinking-done {
+  animation: thinkingCollapse 0.35s ease forwards;
+}
+
+@keyframes thinkingCollapse {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+    max-height: 0;
+    overflow: hidden;
+  }
 }

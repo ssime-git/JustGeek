@@ -5,13 +5,13 @@ const EXERCISES = {
   'closure-counter': {
     checkPath: '/api/check/closure',
     coachPath: '/api/coach/closure',
-    emptyMessage: 'Écris d’abord ton intuition. Même si elle est fausse. Surtout si elle est fausse.',
+    emptyMessage: "Écris d'abord ton intuition. Même si elle est fausse. Surtout si elle est fausse.",
     buildMessage: (answer) => `Je pense que la réponse de l'exercice closure-counter est ${answer}. Vérifie ma réponse avec le tool, puis explique-moi sans me noyer.`,
   },
   'double-function': {
     checkPath: '/api/check/double',
     coachPath: '/api/coach/double',
-    emptyMessage: 'Écris une expression pour remplacer le trou. Pas besoin d’être brillant : commence par une hypothèse.',
+    emptyMessage: "Écris une expression pour remplacer le trou. Pas besoin d'être brillant : commence par une hypothèse.",
     buildMessage: (answer) => `Pour compléter function double(n), je propose ${answer}. Vérifie avec le tool puis donne-moi un feedback de coach, court et utile.`,
   },
   'typescript-type': {
@@ -97,7 +97,7 @@ function initJourneyReveal() {
 
 async function getTurnstileToken(container) {
   if (typeof turnstile === 'undefined') {
-    throw new Error('Turnstile n’est pas encore chargé. Recharge la page ou réessaie dans une seconde.');
+    throw new Error("Turnstile n'est pas encore chargé. Recharge la page ou réessaie dans une seconde.");
   }
 
   return new Promise((resolve, reject) => {
@@ -131,20 +131,6 @@ async function postJson(url, body) {
 function renderResult(target, html, kind = 'ok') {
   target.className = `codecoach-result ${kind === 'error' ? 'error' : kind === 'loading' ? 'loading' : ''}`.trim();
   target.innerHTML = html;
-}
-
-function renderAgentTrace(target, activeLabel = 'Le coach prépare son feedback…') {
-  renderResult(
-    target,
-    `<div class="codecoach-agent-trace">
-      <div class="trace-line done">✓ Hypothèse reçue</div>
-      <div class="trace-line done">✓ Vérification anti-bot</div>
-      <div class="trace-line active">↻ Appel du tool déterministe</div>
-      <div class="trace-line muted">… Feedback du coach</div>
-    </div>
-    <p class="codecoach-muted">${escapeHtml(activeLabel)}</p>`,
-    'loading'
-  );
 }
 
 function renderCheckPayload(payload) {
@@ -185,48 +171,135 @@ function initCodeCoachExercises() {
     async function askAgent() {
       const answer = input.value.trim();
       if (!answer) {
-        renderResult(result, 'Donne une réponse avant d’appeler le coach. Le coach n’apprend rien si tu ne risques rien.', 'error');
+        renderResult(result, "Donne une réponse avant d'appeler le coach. Le coach n'apprend rien si tu ne risques rien.", 'error');
         return;
       }
 
-      renderAgentTrace(result);
+      // Show initial thinking state with streaming UI
+      const thinkingId = `thinking-${Date.now()}`;
+      let reasoningText = '';
+      let responseText = '';
+      const toolsUsed = [];
+
+      renderResult(
+        result,
+        `<div class="codecoach-thinking-stream" id="${thinkingId}">
+          <div class="thinking-dots">
+            <span class="thinking-label">Le coach réfléchit</span>
+            <span class="dot-pulse">...</span>
+          </div>
+          <div class="thinking-reasoning" style="display:none"></div>
+          <div class="thinking-bar"><div class="thinking-bar-fill"></div></div>
+        </div>`,
+        'loading'
+      );
+
+      const thinkingEl = () => document.getElementById(thinkingId);
+      const reasoningEl = () => thinkingEl()?.querySelector('.thinking-reasoning');
+      const labelEl = () => thinkingEl()?.querySelector('.thinking-label');
 
       let turnstileToken = null;
       if (tokenContainer) {
-        turnstileToken = await getTurnstileToken(tokenContainer);
+        try {
+          turnstileToken = await getTurnstileToken(tokenContainer);
+        } catch (e) {
+          renderResult(result, escapeHtml(e.message), 'error');
+          return;
+        }
       }
 
-      renderAgentTrace(result, 'Le tool a répondu. Le coach transforme ça en explication humaine…');
+      // Update label
+      const label = labelEl();
+      if (label) label.textContent = 'Le coach analyse ton hypothèse';
 
-      const data = await postJson(`${CODECOACH_WORKER_URL}${config.coachPath}`, {
-        name: `blog-reader-${exerciseId}-${Date.now()}`,
-        message: config.buildMessage(answer),
-        turnstileToken,
-      });
+      try {
+        const response = await fetch(`${CODECOACH_WORKER_URL}${config.coachPath}`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            name: `blog-reader-${exerciseId}-${Date.now()}`,
+            message: config.buildMessage(answer),
+            turnstileToken,
+          }),
+        });
 
-      const payload = data.result;
-      const tools = payload.toolCalls?.map((tool) => `<li><code>${escapeHtml(tool.toolName)}</code></li>`).join('') || '';
-      const thinkingBlock = payload.reasoning
-        ? `<details class="codecoach-thinking">
-            <summary>💭 Raisonnement interne du coach</summary>
-            <div class="codecoach-thinking-body">${formatCoachText(payload.reasoning)}</div>
-          </details>`
-        : '';
-      renderResult(
-        result,
-        `<div class="codecoach-agent-trace compact">
-          <div class="trace-line done">✓ Hypothèse reçue</div>
-          <div class="trace-line done">✓ Tool appelé</div>
-          <div class="trace-line done">✓ Feedback généré</div>
-        </div>
-        ${thinkingBlock}
-        <strong>Coach IA</strong>
-        <p>${formatCoachText(payload.text || 'Pas de réponse textuelle.')}</p>
-        ${tools ? `<details><summary>Outil appelé</summary><ul>${tools}</ul></details>` : ''}`
-      );
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({ error: `HTTP ${response.status}` }));
+          throw new Error(err.error || `HTTP ${response.status}`);
+        }
 
-      if (typeof turnstile !== 'undefined') {
-        turnstile.reset();
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let reasoningStarted = false;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          let eventType = '';
+          for (const line of lines) {
+            if (line.startsWith('event: ')) {
+              eventType = line.slice(7).trim();
+            } else if (line.startsWith('data: ') && eventType) {
+              const data = line.slice(6);
+              try {
+                const parsed = JSON.parse(data);
+
+                if (eventType === 'reasoning' && parsed.text) {
+                  if (!reasoningStarted) {
+                    reasoningStarted = true;
+                    const rel = reasoningEl();
+                    if (rel) {
+                      rel.style.display = 'block';
+                      const lbl = labelEl();
+                      if (lbl) lbl.textContent = 'Pensée du coach';
+                    }
+                  }
+                  reasoningText += parsed.text;
+                  const rel = reasoningEl();
+                  if (rel) rel.textContent = reasoningText;
+                } else if (eventType === 'text' && parsed.text) {
+                  // First text chunk: collapse the thinking panel
+                  if (reasoningStarted) {
+                    const tel = thinkingEl();
+                    if (tel) tel.classList.add('thinking-done');
+                  }
+                  responseText += parsed.text;
+                } else if (eventType === 'tool' && parsed.toolName) {
+                  toolsUsed.push(parsed);
+                }
+              } catch {
+                // skip malformed chunks
+              }
+              eventType = '';
+            }
+          }
+        }
+
+        // Stream complete — show final answer after collapse animation
+        setTimeout(() => {
+          const tools = toolsUsed.length
+            ? `<details><summary>Outils appelés (${toolsUsed.length})</summary><ul>${toolsUsed.map(t => `<li><code>${escapeHtml(t.toolName)}</code></li>`).join('')}</ul></details>`
+            : '';
+          renderResult(
+            result,
+            `<strong>Coach</strong>
+            <p>${formatCoachText(responseText || 'Pas de réponse.')}</p>
+            ${tools}`
+          );
+        }, 400);
+
+      } catch (error) {
+        renderResult(result, escapeHtml(error.message), 'error');
+      } finally {
+        if (typeof turnstile !== 'undefined') {
+          turnstile.reset();
+        }
       }
     }
 

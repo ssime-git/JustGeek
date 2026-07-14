@@ -13,7 +13,7 @@ permalink: /2026/06/27/apprendre-a-coder-en-2026/
 
 <div class="codecoach-hero">
   <span class="codecoach-kicker">Article interactif · Feedback réel · Pas un thread de guru</span>
-  <p><strong>Opinion un peu brutale :</strong> demander à une IA de coder à ta place, ce n'est pas apprendre à coder. C'est regarder quelqu'un faire des pompes en espérant gagner des abdos.</p>
+  <p><strong>Opinion un peu brutale :</strong> demander à une IA de coder à ta place, c'est regarder quelqu'un faire des pompes en espérant gagner des abdos. Tu ne progresses pas. Tu regardes.</p>
 </div>
 
 <div class="codecoach-journey">
@@ -66,11 +66,11 @@ Dans cet article, on va essayer la deuxième version. Concrètement, avec des ex
 
 <section class="codecoach-step" markdown="1" data-next-label="Première hypothèse →">
 
-## Apprendre en 2026, ce n'est pas consommer plus vite
+## Arrête de consommer plus vite
 
 Le piège des agents de code, c'est qu'ils rendent la réponse trop facile.
 
-Mais apprendre, ce n'est pas obtenir une réponse. C'est modifier ton modèle mental.
+Apprendre, c'est modifier ton modèle mental. Pas obtenir une réponse.
 
 Il y a une boucle simple qui fonctionne depuis toujours en pédagogie :
 
@@ -102,7 +102,7 @@ Il y a une boucle simple qui fonctionne depuis toujours en pédagogie :
 │  meilleure.                      │
 └──────────────────────────────────┘</code></div>
 
-Ça paraît simple. C'est exactement pour ça que c'est puissant — et exactement pour ça que presque personne ne le fait avec un agent IA.
+Simple et puissant. C'est justement pour ça que presque personne ne le fait avec un agent IA.
 
 On commence maintenant. Première prédiction.
 
@@ -179,7 +179,7 @@ Objectif : retourner deux fois `n`.
   <div class="codecoach-result" aria-live="polite">Ici, tu n'expliques pas seulement : tu proposes du code, puis tu reçois un feedback.</div>
 </div>
 
-Ce n'est pas spectaculaire. Justement. Quand on commence à coder, le plus utile n'est pas un grand discours sur "devenir 10x developer" — c'est un feedback contextualisé sur une petite décision : pourquoi cette expression marche, pourquoi celle-là ne marche pas, quel modèle mental ajuster. L'exercice suivant monte d'un cran.
+Rien de spectaculaire. Et justement. Quand on commence à coder, le plus utile n'est pas un grand discours sur "devenir 10x developer" — c'est un feedback contextualisé sur une petite décision : pourquoi cette expression marche, pourquoi celle-là ne marche pas, quel modèle mental ajuster.
 
 <figure class="codecoach-figure">
   <img src="https://picsum.photos/seed/focus2026/900/400" alt="Concentration sur un problème de code" loading="lazy">
@@ -375,9 +375,9 @@ C'est pourtant là que tout se joue.
   <figcaption>La compréhension durable se construit dans les petites décisions, pas dans les grandes démos.</figcaption>
 </figure>
 
-Apprendre à coder en 2026, ce n'est pas apprendre sans IA. Ce n'est pas non plus abandonner son cerveau à un agent.
+Apprendre à coder en 2026 : pas sans IA, pas en abandonnant son cerveau à un agent.
 
-C'est apprendre dans une boucle :
+C'est une boucle :
 
 <div class="ascii-art"><code>hypothèse
     │
@@ -390,7 +390,7 @@ correction du modèle mental
     ▼
 nouvelle hypothèse — meilleure</code></div>
 
-L'IA n'est pas là pour supprimer la boucle. Elle est là pour la rendre plus rapide, plus claire, plus personnelle.
+L'IA ne supprime pas la boucle. Elle la rend plus rapide, plus claire, plus personnelle.
 
 </section>
 
