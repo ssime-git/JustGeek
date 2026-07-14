@@ -2,6 +2,8 @@
 <html lang="fr">
 {% include head.html %}
 <body>
+  <div class="jg-progress-track"><div id="jg-progress"></div></div>
+
   {% include nav.html %}
 
   <main class="main-content">
@@ -15,19 +17,25 @@
   <script>
     // Dark mode toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
+    const toggleLabel = document.querySelector('[data-toggle-label]');
     const body = document.body;
     const themeColorMeta = document.getElementById('theme-color-meta');
 
     // Theme colors for browser toolbar
     const THEME_COLORS = {
-      light: '#FFFFF6',
-      dark: '#1a1a2e'
+      light: '#FBFAF4',
+      dark: '#141519'
     };
 
-    // Update browser theme-color meta tag
     function updateThemeColor(theme) {
       if (themeColorMeta) {
         themeColorMeta.setAttribute('content', THEME_COLORS[theme]);
+      }
+    }
+
+    function updateToggleLabel(theme) {
+      if (toggleLabel) {
+        toggleLabel.textContent = theme === 'dark' ? 'sun · light' : 'moon · dark';
       }
     }
 
@@ -35,27 +43,35 @@
     const currentTheme = localStorage.getItem('theme') || 'light';
     if (currentTheme === 'dark') {
       body.classList.add('dark-mode');
-      if (themeToggle) themeToggle.textContent = '☀️ Light';
     }
     updateThemeColor(currentTheme);
+    updateToggleLabel(currentTheme);
 
-    // Theme toggle click handler
     if (themeToggle) {
       themeToggle.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
-
-        let theme = 'light';
-        if (body.classList.contains('dark-mode')) {
-          theme = 'dark';
-          themeToggle.textContent = '☀️ Light';
-        } else {
-          themeToggle.textContent = '🌙 Dark';
-        }
+        const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('theme', theme);
         updateThemeColor(theme);
+        updateToggleLabel(theme);
       });
     }
+
+    // Reading progress bar
+    (function () {
+      const bar = document.getElementById('jg-progress');
+      if (!bar) return;
+      const onScroll = () => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        const p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+        bar.style.width = (p * 100).toFixed(2) + '%';
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
   </script>
   <script src="{{ '/assets/js/pyodide-runner.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/monaco-readonly.js' | relative_url }}" defer></script>
 </body>
 </html>

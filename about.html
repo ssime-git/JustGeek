@@ -1,0 +1,65 @@
+---
+layout: default
+title: About
+permalink: /about/
+---
+
+<div class="jg-kicker">page 03 — à propos</div>
+
+<div class="jg-prompt"><span class="p-green">$</span> whoami<span class="jg-cursor">_</span></div>
+
+<h1 style="font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 .8rem;line-height:1.05;">L'état d'esprit ingénieur, appliqué à l'IA</h1>
+
+<p class="jg-lede">Rigueur, pragmatisme, et un faible pour les systèmes qui durent.</p>
+
+<div class="jg-terminal">
+  <div class="term-bar"><span>seb@justgeek: ~</span></div>
+  <pre><code><span style="color:var(--green);">→</span> cat profile.log
+<span style="color:var(--c);"># pipeline: design → build → test → ship</span>
+role       = <span style="color:var(--s);">"ML engineer"</span>
+origin     = <span style="color:var(--s);">"simulation mécanique"</span>
+now        = <span style="color:var(--s);">"orchestration de modèles en prod"</span>
+red_thread = [<span style="color:var(--s);">"reduce surprises"</span>, <span style="color:var(--s);">"log what matters"</span>, <span style="color:var(--s);">"automate the rest"</span>]
+status     = <span style="color:var(--green);">reliable ✓</span></code></pre>
+</div>
+
+<p style="font-family:var(--font-serif);font-size:1.24rem;line-height:1.78;margin:2.4rem 0;">Je suis passé de la simulation mécanique à l'orchestration de modèles en production, mais le fil rouge n'a jamais changé — réduire les surprises, tracer ce qui compte, automatiser le reste. Si la fiabilité est ton langage de l'amour, on est sur la même longueur d'onde.</p>
+
+<div class="jg-section-label">// ce qui guide le blog</div>
+
+<div class="jg-cards">
+  <div class="jg-card">
+    <div class="card-num"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="var(--accent)" stroke-width="1.6"/></svg>01</div>
+    <div class="card-title">Fiabilité &gt; hype</div>
+    <div class="card-text">Des choix d'architecture qui tiennent en environnement réel.</div>
+  </div>
+  <div class="jg-card">
+    <div class="card-num"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3.5" width="9" height="9" fill="none" stroke="var(--accent)" stroke-width="1.6" transform="rotate(45 8 8)"/></svg>02</div>
+    <div class="card-title">Traçabilité par design</div>
+    <div class="card-text">Observabilité, contrats de données, gouvernance pratique.</div>
+  </div>
+  <div class="jg-card">
+    <div class="card-num"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="3" width="10" height="10" rx="1.5" fill="none" stroke="var(--accent)" stroke-width="1.6"/></svg>03</div>
+    <div class="card-title">Automatisation avec goût</div>
+    <div class="card-text">CI/CD pour le ML, pipelines de features, garde-fous qui scalent.</div>
+  </div>
+</div>
+
+<div class="jg-section-label">// stack</div>
+
+<div class="jg-stack">
+  <span>Python</span>
+  <span>PyTorch</span>
+  <span>MLflow</span>
+  <span>Docker</span>
+  <span>Kubernetes</span>
+  <span>Airflow</span>
+  <span>FastAPI</span>
+</div>
+
+<div class="jg-social">
+  <a href="https://github.com/ssime-git" target="_blank" rel="noopener"><span class="s-prefix">gh</span>/ssime-git</a>
+  {% if site.linkedin_username %}
+  <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener"><span class="s-prefix">in</span>/{{ site.linkedin_username }}</a>
+  {% endif %}
+</div>

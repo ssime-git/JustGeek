@@ -1,0 +1,42 @@
+---
+layout: default
+title: Welcome to JustGeek
+---
+
+<div class="jg-kicker">~/justgeek — home</div>
+
+<div class="jg-prompt"><span class="p-green">$</span> echo "pipelines over buzzwords"<span class="jg-cursor">_</span></div>
+
+<h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:0 0 1.1rem;line-height:1.08;">Welcome to JustGeek</h1>
+
+<p class="jg-lede">Je suis l'ingénieur qui a troqué les maillages éléments finis contre les réseaux de neurones — même combat, autre toolchain : décomposer, comprendre, optimiser. Ici on parle MLOps, Data Engineering et IA pragmatique, avec une obsession : des systèmes fiables qui encaissent.</p>
+
+<div class="jg-terminal">
+  <div class="term-bar"><span>seb@justgeek: ~</span></div>
+  <pre><code><span style="color:var(--green);">→</span> cat manifest.log
+<span style="color:var(--c);"># ce que tu trouveras ici</span>
+mlops       = <span style="color:var(--s);">"infra patterns, deployment hygiene, uptime sacré"</span>
+data_eng    = <span style="color:var(--s);">"orchestration, stockage, pipelines sains à l'échelle"</span>
+applied_ai  = <span style="color:var(--s);">"de la recherche aux systèmes qu'on ship vraiment"</span>
+war_stories = <span style="color:var(--s);">"post-mortems, playbooks, monitoring qui ne gaslighte pas"</span></code></pre>
+</div>
+
+<div class="jg-section-label">// derniers articles</div>
+
+<div class="jg-index">
+  {% for post in site.posts limit: 5 %}
+  <a href="{{ post.url | relative_url }}" class="jg-row">
+    <span class="row-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    <span class="row-title">{{ post.title }}</span>
+    <span class="row-cats">{{ post.categories | join: " · " }} →</span>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="jg-section-label">// explorer</div>
+
+<div class="jg-stack">
+  <span><a href="{{ "/blog/" | relative_url }}">le journal →</a></span>
+  <span><a href="{{ "/archive" | relative_url }}">l'archive →</a></span>
+  <span><a href="{{ "/about" | relative_url }}">à propos →</a></span>
+</div>
